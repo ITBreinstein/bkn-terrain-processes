@@ -1,0 +1,59 @@
+# Integration-only configuration. The diagnostic async-echo process is not
+# part of the public API and must never be used as product acceptance evidence.
+server:
+    bind:
+        host: 0.0.0.0
+        port: 80
+    url: ${PYGEOAPI_SERVER_URL:-http://localhost:5001}
+    mimetype: application/json; charset=UTF-8
+    encoding: utf-8
+    gzip: false
+    language: en-US
+    cors: true
+    pretty_print: true
+    admin: false
+    limits:
+        default_items: 10
+        max_items: 50
+    map:
+        url: https://tile.openstreetmap.org/{z}/{x}/{y}.png
+        attribution: '&copy; OpenStreetMap contributors'
+    ogc_schemas_location: /schemas.opengis.net
+    manager:
+        name: TinyDB
+        connection: /tmp/pygeoapi-process-manager.db
+        output_dir: /tmp/
+
+logging:
+    level: INFO
+
+metadata:
+    identification:
+        title: BKN Terrain Processes integration-test API
+        description: >-
+            Local integration environment. It includes a diagnostic process
+            that is deliberately absent from the public service.
+        keywords:
+            - OGC API Processes
+            - integration testing
+        keywords_type: theme
+        terms_of_service: ${PYGEOAPI_TERMS_OF_SERVICE:-https://opensource.org/license/mit}
+        url: ${PYGEOAPI_SERVER_URL:-http://localhost:5001}
+    license:
+        name: MIT
+        url: https://opensource.org/license/mit
+    provider:
+        name: Breinstein Informatiemanagement B.V.
+    contact:
+        name: BKN Terrain Processes delivery team
+        role: pointOfContact
+
+resources:
+    bgt-land-cover-summary:
+        type: process
+        processor:
+            name: bkn_terrain_processes.process.BgtLandCoverSummaryProcessor
+    async-echo:
+        type: process
+        processor:
+            name: test_processes.async_echo.AsyncEchoProcessor

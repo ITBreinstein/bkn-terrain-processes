@@ -1,0 +1,54 @@
+server:
+    bind:
+        host: 0.0.0.0
+        port: 80
+    url: ${PYGEOAPI_SERVER_URL:-http://localhost:5001}
+    mimetype: application/json; charset=UTF-8
+    encoding: utf-8
+    gzip: false
+    language: en-US
+    cors: true
+    pretty_print: true
+    admin: false
+    limits:
+        default_items: 10
+        max_items: 50
+    map:
+        url: https://tile.openstreetmap.org/{z}/{x}/{y}.png
+        attribution: '&copy; OpenStreetMap contributors'
+    ogc_schemas_location: /schemas.opengis.net
+
+logging:
+    level: INFO
+
+metadata:
+    identification:
+        title: BKN-oriented BGT Land-cover Summary API
+        description: >-
+            Development service for calculating BKN-oriented land-cover
+            proxies from PDOK BGT data. Results are not an official
+            Basiskwaliteit Natuur assessment.
+        keywords:
+            - Basiskwaliteit Natuur
+            - BKN
+            - BGT
+            - PDOK
+            - land cover
+            - OGC API Processes
+        keywords_type: theme
+        terms_of_service: ${PYGEOAPI_TERMS_OF_SERVICE:-https://opensource.org/license/mit}
+        url: ${PYGEOAPI_SERVER_URL:-http://localhost:5001}
+    license:
+        name: MIT
+        url: https://opensource.org/license/mit
+    provider:
+        name: Breinstein Informatiemanagement B.V.
+    contact:
+        name: BKN Terrain Processes delivery team
+        role: pointOfContact
+
+resources:
+    bgt-land-cover-summary:
+        type: process
+        processor:
+            name: bkn_terrain_processes.process.BgtLandCoverSummaryProcessor
