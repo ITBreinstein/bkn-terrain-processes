@@ -5,7 +5,6 @@ build/
 dist/
 
 .venv/
-.python-version
 .env
 
 .pytest_cache/
