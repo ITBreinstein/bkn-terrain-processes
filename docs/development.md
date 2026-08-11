@@ -22,6 +22,17 @@ development container. Restart the API after Python or configuration changes:
 docker compose restart api
 ```
 
+Check that the running container exposes the expected discovery resources and
+the `bgt-land-cover-summary` process:
+
+```bash
+python3 scripts/smoke_discovery.py --base-url http://localhost:5001
+```
+
+This smoke test checks container startup and the landing page, conformance
+declaration, generated OpenAPI document, process list and process description.
+It does not execute the process or contact PDOK.
+
 ## Start the integration configuration
 
 ```bash

@@ -4,6 +4,7 @@ services:
       context: .
       dockerfile: docker/Dockerfile
     image: bkn-terrain-processes-dev:0.23.4
+    pull_policy: build
     ports:
       - "${API_PORT:-5001}:80"
     environment:
