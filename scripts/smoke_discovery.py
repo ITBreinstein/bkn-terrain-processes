@@ -6,7 +6,6 @@ import argparse
 import json
 import sys
 import time
-import urllib.error
 import urllib.parse
 import urllib.request
 from typing import Any
@@ -41,7 +40,7 @@ def _get_json(base_url: str, path: str) -> dict[str, Any]:
             if "json" not in content_type:
                 raise SmokeTestError(f"GET {path} returned unexpected Content-Type {content_type!r}")
             document = json.load(response)
-    except (urllib.error.URLError, TimeoutError, json.JSONDecodeError) as error:
+    except (OSError, json.JSONDecodeError) as error:
         raise SmokeTestError(f"GET {path} failed: {error}") from error
 
     if not isinstance(document, dict):
