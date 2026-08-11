@@ -39,5 +39,29 @@ jobs:
       - name: Security lint
         run: uv run bandit -r src scripts -c pyproject.toml
 
+      - name: Validate development API definition
+        run: |
+          uv run pygeoapi config validate \
+            --config config/pygeoapi.development.yml
+          uv run pygeoapi openapi generate \
+            --format yaml \
+            --output-file /tmp/development-openapi.yml \
+            config/pygeoapi.development.yml
+          uv run pygeoapi openapi validate \
+            /tmp/development-openapi.yml
+
+      - name: Validate integration API definition
+        env:
+          PYTHONPATH: ${{ github.workspace }}/tests/fixtures
+        run: |
+          uv run pygeoapi config validate \
+            --config config/pygeoapi.integration.yml
+          uv run pygeoapi openapi generate \
+            --format yaml \
+            --output-file /tmp/integration-openapi.yml \
+            config/pygeoapi.integration.yml
+          uv run pygeoapi openapi validate \
+            /tmp/integration-openapi.yml
+
       - name: Test with coverage
         run: uv run pytest --cov=bkn_terrain_processes --cov-report=term-missing --cov-fail-under=30
