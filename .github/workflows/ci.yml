@@ -5,6 +5,7 @@ on:
     branches: [main]
   pull_request:
     branches: [main]
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -90,3 +91,35 @@ jobs:
       - name: Stop API
         if: always()
         run: docker compose down --volumes --remove-orphans
+
+  live-point-baseline:
+    if: github.event_name == 'pull_request' || github.event_name == 'workflow_dispatch'
+    needs: quality
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Install uv and Python
+        uses: astral-sh/setup-uv@v7
+        with:
+          enable-cache: true
+          python-version: "3.12"
+
+      - name: Install locked dependencies
+        run: uv sync --locked --all-groups
+
+      - name: Compare calculations with the live point baseline
+        run: |
+          status=0
+          uv run python scripts/check_live_point_baseline.py || status=$?
+
+          if [ "$status" -eq 2 ]; then
+            echo "PDOK data was unavailable; retrying once after 15 seconds."
+            sleep 15
+            status=0
+            uv run python scripts/check_live_point_baseline.py || status=$?
+          fi
+
+          exit "$status"
