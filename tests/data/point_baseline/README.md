@@ -11,6 +11,12 @@ The cases use two evidence levels:
 - `historical_baseline`: the other six expected summaries were produced by
   the current application against live PDOK on 13 August 2026.
 
+The six historical summaries were refreshed when retrieval changed from
+repeated spatial tiling over complete BGT version history to cursor pagination
+with an explicit current-state `datetime`. The previous values intentionally
+remain available in Git history. The two manual water assertions were not
+generated or changed during that refresh.
+
 Historical baselines protect the refactor from widespread accidental changes,
 but they are not independently verified ground truth. An isolated difference
 may mean that PDOK changed locally or that the application changed. The checker
