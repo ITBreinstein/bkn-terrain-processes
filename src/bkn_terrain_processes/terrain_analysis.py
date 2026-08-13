@@ -24,6 +24,85 @@ ALGORITHM_VERSION = "0.2.0"
 SOURCE_NAME = "PDOK BGT OGC API Features"
 
 
+def _next_page_url(document: dict) -> str | None:
+    """Return the opaque PDOK cursor link without interpreting the cursor."""
+    links = document.get("links", [])
+    if not isinstance(links, list):
+        raise ValueError("PDOK response field 'links' must be a list")
+
+    for link in links:
+        if not isinstance(link, dict):
+            raise ValueError("PDOK response links must be objects")
+        if link.get("rel") == "next":
+            href = link.get("href")
+            if not isinstance(href, str) or not href:
+                raise ValueError("PDOK next-page link must contain a non-empty href")
+            return href
+    return None
+
+
+def fetch_features_paginated(
+    url: str,
+    bounds: tuple[float, float, float, float],
+    limit: int,
+    retrieval_time: datetime,
+    session: requests.Session | None = None,
+) -> tuple[list[dict], int]:
+    """Retrieve every PDOK page for one collection at one point in time."""
+    minx, miny, maxx, maxy = bounds
+    request_url = url
+    request_params = {
+        "bbox": f"{minx},{miny},{maxx},{maxy}",
+        "datetime": retrieval_time.isoformat().replace("+00:00", "Z"),
+        "f": "json",
+        "limit": limit,
+    }
+    requested_urls = set()
+    seen_ids = set()
+    features = []
+    page_count = 0
+    requester = session or requests
+
+    while request_url is not None:
+        if request_url in requested_urls:
+            raise ValueError("PDOK pagination returned a repeated next-page link")
+
+        for attempt in range(2):
+            try:
+                response = requester.get(request_url, params=request_params, timeout=30)
+                response.raise_for_status()
+                break
+            except RequestException:
+                if attempt == 1:
+                    raise
+                logger.warning("PDOK page request failed; retrying once: %s", request_url)
+
+        requested_urls.add(request_url)
+        document = response.json()
+        if not isinstance(document, dict):
+            raise ValueError("PDOK response must be a JSON object")
+
+        page_features = document.get("features")
+        if not isinstance(page_features, list):
+            raise ValueError("PDOK response field 'features' must be a list")
+        page_count += 1
+
+        for feature in page_features:
+            if not isinstance(feature, dict):
+                raise ValueError("PDOK features must be objects")
+            feature_id = feature.get("id")
+            if not isinstance(feature_id, str) or not feature_id:
+                raise ValueError("PDOK feature must contain a non-empty string id")
+            if feature_id not in seen_ids:
+                seen_ids.add(feature_id)
+                features.append(feature)
+
+        request_url = _next_page_url(document)
+        request_params = None
+
+    return features, page_count
+
+
 def get_terrain_analysis_nl(
     lat: float,
     lon: float,
@@ -130,37 +209,6 @@ def get_terrain_analysis_nl(
         },
     }
 
-    def fetch_features_tiled(url, minx, miny, maxx, maxy, limit, tiles):
-        dx = (maxx - minx) / tiles
-        dy = (maxy - miny) / tiles
-        seen_ids = set()
-        all_features = []
-        any_tile_hit_limit = False
-
-        for i in range(tiles):
-            for j in range(tiles):
-                params = {
-                    "bbox": f"{minx + dx * i},{miny + dy * j},{minx + dx * (i + 1)},{miny + dy * (j + 1)}",
-                    "f": "json",
-                    "limit": limit,
-                }
-                resp = requests.get(url, params=params, timeout=30)
-                resp.raise_for_status()
-                data = resp.json()
-                features_in_tile = data.get("features", [])
-
-                for feature in features_in_tile:
-                    fid = feature.get("id")
-                    if fid not in seen_ids:
-                        seen_ids.add(fid)
-                        all_features.append(feature)
-
-                if len(features_in_tile) == limit:
-                    any_tile_hit_limit = True
-                    return all_features, any_tile_hit_limit
-
-        return all_features, any_tile_hit_limit
-
     def get_category(type_value, category_map):
         for category, types in category_map.items():
             if type_value in types:
@@ -199,38 +247,35 @@ def get_terrain_analysis_nl(
 
     features_dict = {}
     source_timings_seconds = {}
-    tiles_dict = {key: 1 for key in config["API_URLS"]}
+    source_page_counts = {}
 
     fetch_failures = {}
 
-    for key, url in config["API_URLS"].items():
-        source_started = perf_counter()
-        current_tiles = tiles_dict[key]
-        hit_limit = True
-        features_dict[key] = []
+    with requests.Session() as session:
+        for key, url in config["API_URLS"].items():
+            source_started = perf_counter()
+            features_dict[key] = []
 
-        while hit_limit:
-            hit_limit = False
             try:
-                features, tile_hit_limit = fetch_features_tiled(url, bminx, bminy, bmaxx, bmaxy, limit, current_tiles)
+                features, page_count = fetch_features_paginated(
+                    url,
+                    (bminx, bminy, bmaxx, bmaxy),
+                    limit,
+                    started_at,
+                    session,
+                )
                 features_dict[key] = features
-
-                if tile_hit_limit:
-                    hit_limit = True
-                    current_tiles += 1
-                    tiles_dict[key] = current_tiles
+                source_page_counts[key] = page_count
 
             except RequestException as e:
                 logger.warning("HTTP error while fetching %s features: %s", key, e)
                 fetch_failures[key] = f"http_error: {e}"
-                break
 
             except ValueError as e:
                 logger.warning("JSON/parse error while fetching %s features: %s", key, e)
                 fetch_failures[key] = f"parse_error: {e}"
-                break
 
-        source_timings_seconds[key] = round(perf_counter() - source_started, 3)
+            source_timings_seconds[key] = round(perf_counter() - source_started, 3)
 
     feature_count = sum(len(features) for features in features_dict.values())
     if feature_count == 0:
@@ -498,6 +543,7 @@ def get_terrain_analysis_nl(
             "retrieved_at": started_at.isoformat(),
             "collections": config["API_URLS"],
             "feature_counts": {key: len(value) for key, value in features_dict.items()},
+            "page_counts": source_page_counts,
         },
         "input": {
             "latitude": lat,

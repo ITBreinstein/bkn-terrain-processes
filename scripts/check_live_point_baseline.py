@@ -122,6 +122,21 @@ def main() -> int:
                 print("SUMMARY Live PDOK data was incomplete")
                 return EXIT_SOURCE_UNAVAILABLE
 
+            print(
+                f"DETAIL {case_id}: total={current['timing_seconds']['total']}s, "
+                f"pages={sum(current['source']['page_counts'].values())}, "
+                f"features={sum(current['source']['feature_counts'].values())}"
+            )
+            collection_details = ", ".join(
+                (
+                    f"{name}={current['source']['page_counts'][name]}p/"
+                    f"{current['source']['feature_counts'][name]}f/"
+                    f"{current['timing_seconds']['by_collection'][name]}s"
+                )
+                for name in current["source"]["page_counts"]
+            )
+            print(f"DETAIL {case_id} collections: {collection_details}")
+
             differences = compare_expected(
                 expectations[case_id],
                 stable_result(current),
