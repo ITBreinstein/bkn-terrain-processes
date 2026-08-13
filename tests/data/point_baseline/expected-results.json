@@ -1,0 +1,274 @@
+{
+  "captured_at": "2026-08-13",
+  "source": "Live PDOK BGT queried by bkn-terrain-processes 0.2.0",
+  "results": {
+    "wadden-sea-east-of-oosterend": {
+      "is_partial": false,
+      "fetch_failures": {},
+      "within_inner_radius": {
+        "bkn_indicators": {
+          "water_surface_pct": 100.0,
+          "low_vegetation_proxy_pct": 0,
+          "medium_vegetation_proxy_pct": 0,
+          "high_vegetation_proxy_pct": 0
+        },
+        "supporting_land_cover": {
+          "unknown_vegetation_pct": 0,
+          "road_pct": 0,
+          "built_pct": 0,
+          "bgt_explicitly_unpaved_pct": 0
+        }
+      },
+      "within_outer_radius": {
+        "bkn_indicators": {
+          "water_surface_pct": 100.0,
+          "low_vegetation_proxy_pct": 0,
+          "medium_vegetation_proxy_pct": 0,
+          "high_vegetation_proxy_pct": 0
+        },
+        "supporting_land_cover": {
+          "unknown_vegetation_pct": 0,
+          "road_pct": 0,
+          "built_pct": 0,
+          "bgt_explicitly_unpaved_pct": 0
+        }
+      }
+    },
+    "gouwzee-near-monnickergat": {
+      "is_partial": false,
+      "fetch_failures": {},
+      "within_inner_radius": {
+        "bkn_indicators": {
+          "water_surface_pct": 100.0,
+          "low_vegetation_proxy_pct": 0,
+          "medium_vegetation_proxy_pct": 0,
+          "high_vegetation_proxy_pct": 0
+        },
+        "supporting_land_cover": {
+          "unknown_vegetation_pct": 0,
+          "road_pct": 0,
+          "built_pct": 0,
+          "bgt_explicitly_unpaved_pct": 0
+        }
+      },
+      "within_outer_radius": {
+        "bkn_indicators": {
+          "water_surface_pct": 100.0,
+          "low_vegetation_proxy_pct": 0,
+          "medium_vegetation_proxy_pct": 0,
+          "high_vegetation_proxy_pct": 0
+        },
+        "supporting_land_cover": {
+          "unknown_vegetation_pct": 0,
+          "road_pct": 0,
+          "built_pct": 0,
+          "bgt_explicitly_unpaved_pct": 0
+        }
+      }
+    },
+    "sloterplas-centre": {
+      "is_partial": false,
+      "fetch_failures": {},
+      "within_inner_radius": {
+        "bkn_indicators": {
+          "high_vegetation_proxy_pct": 8.08,
+          "low_vegetation_proxy_pct": 0.09,
+          "medium_vegetation_proxy_pct": 4.07,
+          "unpaved_surface_proxy_pct": 99.08,
+          "water_surface_pct": 86.93
+        },
+        "supporting_land_cover": {
+          "bgt_explicitly_unpaved_pct": 0,
+          "built_pct": 0.01,
+          "road_pct": 0.9,
+          "unknown_vegetation_pct": 0
+        }
+      },
+      "within_outer_radius": {
+        "bkn_indicators": {
+          "high_vegetation_proxy_pct": 12.04,
+          "low_vegetation_proxy_pct": 0.15,
+          "medium_vegetation_proxy_pct": 21.78,
+          "unpaved_surface_proxy_pct": 92.81,
+          "water_surface_pct": 57.8
+        },
+        "supporting_land_cover": {
+          "bgt_explicitly_unpaved_pct": 1.22,
+          "built_pct": 1.75,
+          "road_pct": 5.32,
+          "unknown_vegetation_pct": 0
+        }
+      }
+    },
+    "alkmaar-houttil": {
+      "is_partial": false,
+      "fetch_failures": {},
+      "within_inner_radius": {
+        "bkn_indicators": {
+          "high_vegetation_proxy_pct": 0.24,
+          "low_vegetation_proxy_pct": 1.1,
+          "medium_vegetation_proxy_pct": 0.0,
+          "unpaved_surface_proxy_pct": 12.79,
+          "water_surface_pct": 11.45
+        },
+        "supporting_land_cover": {
+          "bgt_explicitly_unpaved_pct": 0,
+          "built_pct": 58.56,
+          "road_pct": 28.16,
+          "unknown_vegetation_pct": 0
+        }
+      },
+      "within_outer_radius": {
+        "bkn_indicators": {
+          "high_vegetation_proxy_pct": 0.75,
+          "low_vegetation_proxy_pct": 2.89,
+          "medium_vegetation_proxy_pct": 0.04,
+          "unpaved_surface_proxy_pct": 15.08,
+          "water_surface_pct": 11.38
+        },
+        "supporting_land_cover": {
+          "bgt_explicitly_unpaved_pct": 0.02,
+          "built_pct": 56.09,
+          "road_pct": 28.32,
+          "unknown_vegetation_pct": 0
+        }
+      }
+    },
+    "alkmaar-westerweg": {
+      "is_partial": false,
+      "fetch_failures": {},
+      "within_inner_radius": {
+        "bkn_indicators": {
+          "high_vegetation_proxy_pct": 1.87,
+          "low_vegetation_proxy_pct": 10.07,
+          "medium_vegetation_proxy_pct": 0.0,
+          "unpaved_surface_proxy_pct": 18.46,
+          "water_surface_pct": 6.55
+        },
+        "supporting_land_cover": {
+          "bgt_explicitly_unpaved_pct": 0.01,
+          "built_pct": 54.93,
+          "road_pct": 26.42,
+          "unknown_vegetation_pct": 0
+        }
+      },
+      "within_outer_radius": {
+        "bkn_indicators": {
+          "high_vegetation_proxy_pct": 3.34,
+          "low_vegetation_proxy_pct": 6.61,
+          "medium_vegetation_proxy_pct": 1.42,
+          "unpaved_surface_proxy_pct": 17.79,
+          "water_surface_pct": 6.37
+        },
+        "supporting_land_cover": {
+          "bgt_explicitly_unpaved_pct": 0.15,
+          "built_pct": 54.46,
+          "road_pct": 27.03,
+          "unknown_vegetation_pct": 0
+        }
+      }
+    },
+    "hoorn-postiljon": {
+      "is_partial": false,
+      "fetch_failures": {},
+      "within_inner_radius": {
+        "bkn_indicators": {
+          "high_vegetation_proxy_pct": 0,
+          "low_vegetation_proxy_pct": 0,
+          "medium_vegetation_proxy_pct": 27.57,
+          "unpaved_surface_proxy_pct": 33.0,
+          "water_surface_pct": 5.44
+        },
+        "supporting_land_cover": {
+          "bgt_explicitly_unpaved_pct": 0.0,
+          "built_pct": 30.93,
+          "road_pct": 26.02,
+          "unknown_vegetation_pct": 0
+        }
+      },
+      "within_outer_radius": {
+        "bkn_indicators": {
+          "high_vegetation_proxy_pct": 0,
+          "low_vegetation_proxy_pct": 0,
+          "medium_vegetation_proxy_pct": 21.85,
+          "unpaved_surface_proxy_pct": 27.59,
+          "water_surface_pct": 5.73
+        },
+        "supporting_land_cover": {
+          "bgt_explicitly_unpaved_pct": 0.01,
+          "built_pct": 38.47,
+          "road_pct": 25.22,
+          "unknown_vegetation_pct": 0
+        }
+      }
+    },
+    "amsterdam-rembrandtpark-roundabout": {
+      "is_partial": false,
+      "fetch_failures": {},
+      "within_inner_radius": {
+        "bkn_indicators": {
+          "high_vegetation_proxy_pct": 12.69,
+          "low_vegetation_proxy_pct": 0.27,
+          "medium_vegetation_proxy_pct": 34.19,
+          "unpaved_surface_proxy_pct": 55.3,
+          "water_surface_pct": 7.11
+        },
+        "supporting_land_cover": {
+          "bgt_explicitly_unpaved_pct": 1.04,
+          "built_pct": 11.9,
+          "road_pct": 30.56,
+          "unknown_vegetation_pct": 0
+        }
+      },
+      "within_outer_radius": {
+        "bkn_indicators": {
+          "high_vegetation_proxy_pct": 10.23,
+          "low_vegetation_proxy_pct": 0.48,
+          "medium_vegetation_proxy_pct": 28.56,
+          "unpaved_surface_proxy_pct": 47.48,
+          "water_surface_pct": 7.6
+        },
+        "supporting_land_cover": {
+          "bgt_explicitly_unpaved_pct": 0.6,
+          "built_pct": 20.7,
+          "road_pct": 30.22,
+          "unknown_vegetation_pct": 0
+        }
+      }
+    },
+    "valkenburg-halderpark-edge": {
+      "is_partial": false,
+      "fetch_failures": {},
+      "within_inner_radius": {
+        "bkn_indicators": {
+          "high_vegetation_proxy_pct": 5.85,
+          "low_vegetation_proxy_pct": 6.86,
+          "medium_vegetation_proxy_pct": 0.09,
+          "unpaved_surface_proxy_pct": 16.04,
+          "water_surface_pct": 3.26
+        },
+        "supporting_land_cover": {
+          "bgt_explicitly_unpaved_pct": 0.0,
+          "built_pct": 58.05,
+          "road_pct": 24.08,
+          "unknown_vegetation_pct": 0
+        }
+      },
+      "within_outer_radius": {
+        "bkn_indicators": {
+          "high_vegetation_proxy_pct": 9.81,
+          "low_vegetation_proxy_pct": 12.15,
+          "medium_vegetation_proxy_pct": 0.08,
+          "unpaved_surface_proxy_pct": 24.18,
+          "water_surface_pct": 2.14
+        },
+        "supporting_land_cover": {
+          "bgt_explicitly_unpaved_pct": 0.02,
+          "built_pct": 50.67,
+          "road_pct": 23.7,
+          "unknown_vegetation_pct": 0.01
+        }
+      }
+    }
+  }
+}
