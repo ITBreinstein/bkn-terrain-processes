@@ -6,12 +6,16 @@ The [CI workflow](../.github/workflows/ci.yml) runs for pull requests targeting
 `main` and for pushes to `main`. Developers do not need to install or configure
 GitHub Actions locally.
 
-CI runs two jobs:
+CI runs three jobs:
 
 - `quality` checks formatting, linting, common security mistakes, tests,
   coverage, pygeoapi configuration and generated OpenAPI documents;
 - `container-smoke` builds and starts the development container and checks that
-  it publishes the expected discovery resources and BGT process.
+  it publishes the expected discovery resources and BGT process, then compares
+  Geonovum checker findings with the reviewed diagnostic baseline; and
+- `live-point-baseline` checks one manually asserted water case and one varied
+  urban case against live PDOK on pull requests. A manually started workflow
+  checks all eight recorded locations.
 
 Running the same checks locally is optional but recommended. It gives faster
 feedback before a push; GitHub remains the shared result used when reviewing a
@@ -80,6 +84,33 @@ uv run ruff format src tests scripts
 The 30% coverage threshold protects the existing baseline from decreasing. It
 is not the final test-coverage target. Feature branches should add tests for
 the behaviour they introduce.
+
+## Check live PDOK results
+
+Run the same two cases used as the pull-request canary:
+
+```bash
+uv run python scripts/check_live_point_baseline.py \
+  --case gouwzee-near-monnickergat \
+  --case amsterdam-rembrandtpark-roundabout \
+  --strict-historical
+```
+
+Strict mode makes any difference in the selected historical urban case fail
+the pull-request check. Without it, the complete eight-case run tolerates up to
+three isolated historical differences so local PDOK changes can be reviewed
+without automatically being treated as an application-wide regression.
+
+Run all eight recorded cases before a release, demonstration, or investigation:
+
+```bash
+uv run python scripts/check_live_point_baseline.py
+```
+
+GitHub's **Run workflow** action also runs the complete eight-case check. Live
+PDOK checks are slower and can be affected by the upstream service, so they are
+separate from deterministic unit tests and do not contribute to Python
+coverage.
 
 ## Validate configuration and OpenAPI
 

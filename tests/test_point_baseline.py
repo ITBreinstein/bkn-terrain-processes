@@ -87,3 +87,50 @@ def test_checker_returns_distinct_exit_codes(monkeypatch, error, expected_exit_c
     monkeypatch.setattr(sys, "argv", ["check_live_point_baseline.py"])
 
     assert point_baseline.main() == expected_exit_code
+
+
+@pytest.mark.parametrize(
+    ("strict_argument", "expected_exit_code"),
+    [
+        ([], 0),
+        (["--strict-historical"], point_baseline.EXIT_BASELINE_MISMATCH),
+    ],
+)
+def test_strict_mode_turns_an_isolated_historical_difference_into_a_failure(
+    monkeypatch,
+    strict_argument,
+    expected_exit_code,
+):
+    catalogue = {
+        "default_inner_radius_m": 300,
+        "default_outer_radius_m": 500,
+        "default_tolerance_percentage_points": 0.05,
+        "historical_failure_threshold": 4,
+        "cases": [
+            {
+                "id": "example",
+                "label": "Example",
+                "latitude": 52.0,
+                "longitude": 5.0,
+                "evidence": "historical_baseline",
+            }
+        ],
+    }
+    current = {
+        "is_partial": False,
+        "fetch_failures": {},
+        "within_inner_radius": {"water_surface_pct": 20.0},
+        "within_outer_radius": {},
+        "timing_seconds": {"total": 0.01, "by_collection": {}},
+        "source": {"page_counts": {}, "feature_counts": {}},
+    }
+
+    monkeypatch.setattr(
+        point_baseline,
+        "load_data",
+        lambda: (catalogue, {"example": {"within_inner_radius": {"water_surface_pct": 10.0}}}),
+    )
+    monkeypatch.setattr(point_baseline, "get_terrain_analysis_nl", lambda *args, **kwargs: current)
+    monkeypatch.setattr(sys, "argv", ["check_live_point_baseline.py", *strict_argument])
+
+    assert point_baseline.main() == expected_exit_code

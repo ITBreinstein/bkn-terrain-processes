@@ -84,6 +84,11 @@ def main() -> int:
         default=catalogue["default_tolerance_percentage_points"],
         help="Allowed numeric difference in percentage points",
     )
+    parser.add_argument(
+        "--strict-historical",
+        action="store_true",
+        help="Fail when any selected historical result differs",
+    )
     args = parser.parse_args()
 
     selected = [case for case in catalogue["cases"] if not args.case_ids or case["id"] in args.case_ids]
@@ -161,7 +166,8 @@ def main() -> int:
     widespread_change = historical_problem_count >= catalogue["historical_failure_threshold"]
 
     print(f"SUMMARY domain failures={len(domain_failures)}, historical differences={len(historical_differences)}")
-    if domain_failures or widespread_change:
+    strict_historical_failure = args.strict_historical and bool(historical_differences)
+    if domain_failures or widespread_change or strict_historical_failure:
         print("FAIL Live point baseline requires investigation")
         return EXIT_BASELINE_MISMATCH
     if historical_differences:

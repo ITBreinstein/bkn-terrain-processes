@@ -131,15 +131,24 @@ jobs:
         run: uv sync --locked --all-groups
 
       - name: Compare calculations with the live point baseline
+        env:
+          EVENT_NAME: ${{ github.event_name }}
         run: |
+          case_args=()
+          if [ "$EVENT_NAME" = "pull_request" ]; then
+            case_args+=(--case gouwzee-near-monnickergat)
+            case_args+=(--case amsterdam-rembrandtpark-roundabout)
+            case_args+=(--strict-historical)
+          fi
+
           status=0
-          uv run python scripts/check_live_point_baseline.py || status=$?
+          uv run python scripts/check_live_point_baseline.py "${case_args[@]}" || status=$?
 
           if [ "$status" -eq 2 ]; then
             echo "PDOK data was unavailable; retrying once after 15 seconds."
             sleep 15
             status=0
-            uv run python scripts/check_live_point_baseline.py || status=$?
+            uv run python scripts/check_live_point_baseline.py "${case_args[@]}" || status=$?
           fi
 
           exit "$status"

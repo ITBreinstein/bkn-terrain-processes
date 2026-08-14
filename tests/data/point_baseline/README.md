@@ -34,9 +34,23 @@ uv run python scripts/check_live_point_baseline.py
 Use `--case CASE_ID` to check one location. The default numeric tolerance is
 0.05 percentage point and can be overridden with `--tolerance`.
 
+Pull requests run two representative canaries:
+
+- `gouwzee-near-monnickergat`, a manually asserted 100% water case; and
+- `amsterdam-rembrandtpark-roundabout`, a varied historical urban case.
+
+The pull-request canary uses `--strict-historical`, so a difference in the
+selected urban result fails instead of remaining an isolated warning. A
+manually started GitHub Actions workflow runs all eight cases with the normal
+four-of-six historical threshold. Run the full set before releases and
+demonstrations and when investigating calculation or PDOK changes. This keeps
+pull-request feedback proportionate without removing the broader regression
+evidence.
+
 The command uses separate exit codes so CI output identifies the cause:
 
-- `1`: a manual water assertion or at least four historical results differ;
+- `1`: a manual water assertion differs, at least four historical results
+  differ, or any selected historical result differs in strict mode;
 - `2`: live PDOK data is unavailable or incomplete;
 - `3`: the application raised an unexpected calculation error.
 
