@@ -5,6 +5,7 @@ physical appearances, not an official BGT or OGC classification standard.
 """
 
 import logging
+from collections.abc import Callable
 from datetime import UTC, datetime
 from time import perf_counter
 
@@ -22,6 +23,39 @@ to_wgs = pyproj.Transformer.from_crs("EPSG:28992", "EPSG:4326", always_xy=True).
 
 ALGORITHM_VERSION = "0.2.0"
 SOURCE_NAME = "PDOK BGT OGC API Features"
+
+# Progress is reported as a percentage of the whole calculation. It stops
+# below 95 because the caller still has to store the result: pygeoapi's job
+# manager uses 95 for "writing job output" and 100 for "job complete".
+PROGRESS_FETCH_START = 10
+PROGRESS_FETCH_COMPLETE = 65
+PROGRESS_CLASSIFIED = 75
+PROGRESS_MERGED = 85
+PROGRESS_SUMMARISED = 92
+
+ProgressCallback = Callable[[int, str], None]
+
+
+def _report_progress(on_progress: ProgressCallback | None, percent: int, message: str) -> None:
+    """
+    Report calculation progress, if the caller asked for it.
+
+    A caller's callback typically writes to shared job state, so it can fail
+    for reasons that have nothing to do with the calculation. Such a failure
+    must never lose work that has already been done.
+
+    :param on_progress: optional caller-supplied progress callback
+    :param percent: percentage of the whole calculation completed
+    :param message: human-readable description of the current phase
+    """
+
+    if on_progress is None:
+        return
+
+    try:
+        on_progress(percent, message)
+    except Exception:
+        logger.warning("Progress callback failed at %s%%; continuing calculation", percent, exc_info=True)
 
 
 def _next_page_url(document: dict) -> str | None:
@@ -109,6 +143,7 @@ def get_terrain_analysis_nl(
     inner_radius_m: int = 300,
     outer_radius_m: int = 500,
     limit: int = 1000,
+    on_progress: ProgressCallback | None = None,
 ):
     """
     Fetch and analyze terrain data around a given lat/lon point.
@@ -119,6 +154,10 @@ def get_terrain_analysis_nl(
         inner_radius_m: Inner analysis radius in metres
         outer_radius_m: Outer analysis radius in metres
         limit: Maximum number of features to fetch per API request
+        on_progress: Optional callback receiving (percent, message) as the
+            calculation advances. Synchronous callers can ignore it;
+            asynchronous execution uses it to publish job progress. It is
+            called from the calling thread and must return quickly.
 
     Returns:
         Dictionary with terrain percentages and counts
@@ -251,8 +290,12 @@ def get_terrain_analysis_nl(
 
     fetch_failures = {}
 
+    collection_count = len(config["API_URLS"])
+    fetch_progress_span = PROGRESS_FETCH_COMPLETE - PROGRESS_FETCH_START
+    _report_progress(on_progress, PROGRESS_FETCH_START, f"retrieving {collection_count} BGT collections")
+
     with requests.Session() as session:
-        for key, url in config["API_URLS"].items():
+        for collections_done, (key, url) in enumerate(config["API_URLS"].items(), start=1):
             source_started = perf_counter()
             features_dict[key] = []
 
@@ -276,6 +319,11 @@ def get_terrain_analysis_nl(
                 fetch_failures[key] = f"parse_error: {e}"
 
             source_timings_seconds[key] = round(perf_counter() - source_started, 3)
+            _report_progress(
+                on_progress,
+                PROGRESS_FETCH_START + round(fetch_progress_span * collections_done / collection_count),
+                f"retrieved BGT collection {key} ({collections_done}/{collection_count})",
+            )
 
     feature_count = sum(len(features) for features in features_dict.values())
     if feature_count == 0:
@@ -396,6 +444,8 @@ def get_terrain_analysis_nl(
             except Exception as e:
                 log_limited_warning(f"{api_key}_process", f"Failed to process {api_key} feature: {e}")
 
+    _report_progress(on_progress, PROGRESS_CLASSIFIED, "classified BGT features")
+
     # Merge geometries
     category_merged_geoms_500m = {}
     category_merged_geoms_300m = {}
@@ -413,6 +463,8 @@ def get_terrain_analysis_nl(
             category_merged_geoms_300m[category] = None if merged_geom.is_empty else merged_geom
         else:
             category_merged_geoms_300m[category] = None
+
+    _report_progress(on_progress, PROGRESS_MERGED, "merged category geometries")
 
     # Priority masking
     priority_order = ["pand", "weg", "bebouwd gebied", "hoge vegetatie", "middelhoge vegetatie"]
@@ -530,6 +582,8 @@ def get_terrain_analysis_nl(
                 "bgt_explicitly_unpaved_pct": round(percentages.get("onverhard", 0), 2),
             },
         }
+
+    _report_progress(on_progress, PROGRESS_SUMMARISED, "summarising land-cover percentages")
 
     completed_at = datetime.now(UTC)
 
