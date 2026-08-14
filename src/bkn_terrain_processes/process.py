@@ -82,7 +82,7 @@ SUMMARY_SCHEMA = {
         },
         "source": {
             "type": "object",
-            "required": ["name", "retrieved_at", "collections", "feature_counts"],
+            "required": ["name", "retrieved_at", "collections", "feature_counts", "page_counts"],
             "properties": {
                 "name": {"type": "string"},
                 "retrieved_at": {"type": "string", "format": "date-time"},
@@ -93,6 +93,10 @@ SUMMARY_SCHEMA = {
                 "feature_counts": {
                     "type": "object",
                     "additionalProperties": {"type": "integer", "minimum": 0},
+                },
+                "page_counts": {
+                    "type": "object",
+                    "additionalProperties": {"type": "integer", "minimum": 1},
                 },
             },
             "additionalProperties": False,

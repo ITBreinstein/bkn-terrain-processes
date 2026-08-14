@@ -37,7 +37,7 @@ def test_rejects_inner_radius_larger_than_outer_radius():
 
 def test_reports_no_pdok_coverage_instead_of_zero_percentages(monkeypatch):
     monkeypatch.setattr(
-        "bkn_terrain_processes.terrain_analysis.requests.get",
+        "bkn_terrain_processes.terrain_analysis.requests.Session.get",
         lambda *args, **kwargs: EmptyFeatureResponse(),
     )
 
