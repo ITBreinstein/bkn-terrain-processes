@@ -55,11 +55,9 @@ The echo identifier is exact: `async-echo`, not `asynch-echo`. The fixture is
 available only through `compose.integration.yml` and is not part of the public
 service.
 
-The initial version of the fixture does not yet fulfil every CITE echo-process
-precondition. In particular, the suite requires a plain string input and uses
-an input named `pause` for one job-result test. Until the fixture meets that
-contract, related failures and skips are setup limitations rather than a valid
-assessment of the product process.
+The fixture exposes the plain string input/output pair used by CITE and the
+optional `pause` input used by its results-not-ready test. It performs no
+terrain calculation and does not contact PDOK.
 
 After a valid run, copy the session directory from the container. Replace
 `s0001` with the session identifier shown by TEAM Engine:

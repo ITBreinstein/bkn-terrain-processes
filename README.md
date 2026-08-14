@@ -87,9 +87,11 @@ override:
 docker compose -f compose.yml -f compose.integration.yml up --build -d
 ```
 
-This adds `async-echo`, a diagnostic fixture under `tests/fixtures`. Its result
-is not product or conformance evidence, and it must not be enabled in public
-deployments.
+This adds `async-echo`, a predictable CITE-compatible process under
+`tests/fixtures`. It tests synchronous and asynchronous OGC API execution
+without terrain-specific inputs or live PDOK data. Its output is not evidence
+that the terrain calculation is correct, and the fixture must not be enabled
+in public deployments.
 
 ## Documentation
 

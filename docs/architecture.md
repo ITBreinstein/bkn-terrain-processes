@@ -20,8 +20,9 @@ The normal development configuration exposes only
 original point/two-radius inputs.
 
 An integration-only configuration adds a predictable `async-echo` fixture and
-TinyDB manager. That fixture verifies framework wiring only; it is not part of
-the public API or the target architecture.
+TinyDB manager. The fixture gives OGC CITE a controlled process for testing
+synchronous and asynchronous API execution without terrain-specific inputs or
+live PDOK data. It is not part of the public API or the target architecture.
 
 ## Target delivery architecture
 
