@@ -1,0 +1,2053 @@
+<rdf:RDF
+    xmlns:dct="http://purl.org/dc/terms/"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:http="http://www.w3.org/2011/http#"
+    xmlns:cnt="http://www.w3.org/2011/content#"
+    xmlns:earl="http://www.w3.org/ns/earl#"
+    xmlns:cite="http://cite.opengeospatial.org/">
+  <earl:Assertion rdf:about="assert-5">
+    <earl:mode rdf:resource="http://www.w3.org/ns/earl#automatic"/>
+    <earl:assertedBy>
+      <earl:Assertor rdf:about="https://github.com/opengeospatial/teamengine">
+        <dct:title xml:lang="en">OGC TEAM Engine</dct:title>
+        <dct:description xml:lang="en">Official test harness of the OGC conformance testing program (CITE).</dct:description>
+      </earl:Assertor>
+    </earl:assertedBy>
+    <earl:subject>
+      <earl:TestSubject rdf:about="http://api/"/>
+    </earl:subject>
+    <earl:result>
+      <earl:TestResult rdf:about="result-5">
+        <dct:date rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime"
+        >2026-08-14T10:55:10.159Z</dct:date>
+        <dct:description>java.lang.AssertionError: expected [true] but found [false]</dct:description>
+        <earl:outcome rdf:resource="http://www.w3.org/ns/earl#failed"/>
+        <cite:message>
+          <http:Request>
+            <http:resp>
+              <http:Response>
+                <http:body>
+                  <cnt:ContentAsXML>
+                    <cnt:rest>{
+  "id" : "debug_log",
+  "value" : [ "received request", "sleeping for 5s", "woke up", "building result" ]
+}</cnt:rest>      </cnt:ContentAsXML>
+                </http:body>
+              </http:Response>
+            </http:resp>
+            <http:body>
+              <cnt:ContentAsXML>
+                <cnt:rest>&lt;!-- non XML body --&gt;
+{
+  "inputs" : { },
+  "outputs" : { },
+  "response" : "raw"
+}</cnt:rest>  </cnt:ContentAsXML>
+            </http:body>
+            <http:requestURI>POST http://api//processes/async-echo/execution HTTP/1.1%POSTURL-SEPARATOR%&lt;!-- non XML body --&gt;
+{
+  "inputs" : { },
+  "outputs" : { },
+  "response" : "raw"
+}</http:requestURI>
+            <http:methodName>POST</http:methodName>
+          </http:Request>
+        </cite:message>
+      </earl:TestResult>
+    </earl:result>
+    <earl:test>
+      <earl:TestCase rdf:about="org/opengis/cite/ogcapiprocesses10/jobs/Jobs#testJobCreationSyncRawValueOne">
+        <dct:title>test Job Creation Sync Raw Value One </dct:title>
+        <dct:description>Implements Requirement /req/core/job-creation-sync-raw-value-one </dct:description>
+      </earl:TestCase>
+    </earl:test>
+  </earl:Assertion>
+  <earl:Assertion rdf:about="assert-21">
+    <earl:mode rdf:resource="http://www.w3.org/ns/earl#automatic"/>
+    <earl:assertedBy rdf:resource="https://github.com/opengeospatial/teamengine"/>
+    <earl:subject rdf:resource="http://api/"/>
+    <earl:result>
+      <earl:TestResult rdf:about="result-21">
+        <dct:date rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime"
+        >2026-08-14T10:55:10.17Z</dct:date>
+        <dct:description>java.lang.AssertionError: No supported input found. Only plain string input is supported.</dct:description>
+        <earl:outcome rdf:resource="http://www.w3.org/ns/earl#failed"/>
+        <cite:message>
+          <http:Request>
+            <http:resp>
+              <http:Response>
+                <http:body>
+                  <cnt:ContentAsXML>
+                    <cnt:rest>{
+  "code" : "InvalidParameterValue",
+  "type" : "InvalidParameterValue",
+  "description" : "invalid-job-726aca67-9450-4ecf-a966-5842df8a27c5"
+}</cnt:rest>      </cnt:ContentAsXML>
+                </http:body>
+              </http:Response>
+            </http:resp>
+            <http:requestURI>GET http://api//jobs/invalid-job-726aca67-9450-4ecf-a966-5842df8a27c5 HTTP/1.1</http:requestURI>
+            <http:methodName>GET</http:methodName>
+          </http:Request>
+        </cite:message>
+      </earl:TestResult>
+    </earl:result>
+    <earl:test>
+      <earl:TestCase rdf:about="org/opengis/cite/ogcapiprocesses10/jobs/Jobs#testJobOp">
+        <dct:title>test Job Op </dct:title>
+        <dct:description>Implements Requirement /req/core/job </dct:description>
+      </earl:TestCase>
+    </earl:test>
+  </earl:Assertion>
+  <earl:Assertion rdf:about="assert-45">
+    <earl:mode rdf:resource="http://www.w3.org/ns/earl#automatic"/>
+    <earl:assertedBy rdf:resource="https://github.com/opengeospatial/teamengine"/>
+    <earl:subject rdf:resource="http://api/"/>
+    <earl:result>
+      <earl:TestResult rdf:about="result-45">
+        <dct:date rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime"
+        >2026-08-14T10:54:55.045Z</dct:date>
+        <earl:outcome rdf:resource="http://www.w3.org/ns/earl#passed"/>
+      </earl:TestResult>
+    </earl:result>
+    <earl:test>
+      <earl:TestCase rdf:about="org/opengis/cite/ogcapiprocesses10/jobs/Jobs#testJobCreationInputInlineMixed">
+        <dct:title>test Job Creation Input Inline Mixed </dct:title>
+        <dct:description>Implements Requirement /req/core/job-creation-input-inline-mixed </dct:description>
+      </earl:TestCase>
+    </earl:test>
+  </earl:Assertion>
+  <earl:Assertion rdf:about="assert-33">
+    <earl:mode rdf:resource="http://www.w3.org/ns/earl#automatic"/>
+    <earl:assertedBy rdf:resource="https://github.com/opengeospatial/teamengine"/>
+    <earl:subject rdf:resource="http://api/"/>
+    <earl:result>
+      <earl:TestResult rdf:about="result-33">
+        <dct:date rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime"
+        >2026-08-14T10:54:44.913Z</dct:date>
+        <earl:outcome rdf:resource="http://www.w3.org/ns/earl#passed"/>
+      </earl:TestResult>
+    </earl:result>
+    <earl:test>
+      <earl:TestCase rdf:about="org/opengis/cite/ogcapiprocesses10/conformance/Conformance#testValidateConformanceOperationAndResponse">
+        <dct:title>test Validate Conformance Operation And Response </dct:title>
+        <dct:description>Implements /conf/core/conformance-success (partial)</dct:description>
+      </earl:TestCase>
+    </earl:test>
+  </earl:Assertion>
+  <earl:Assertion rdf:about="assert-6">
+    <earl:mode rdf:resource="http://www.w3.org/ns/earl#automatic"/>
+    <earl:assertedBy rdf:resource="https://github.com/opengeospatial/teamengine"/>
+    <earl:subject rdf:resource="http://api/"/>
+    <earl:result>
+      <earl:TestResult rdf:about="result-6">
+        <dct:date rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime"
+        >2026-08-14T10:55:15.378Z</dct:date>
+        <dct:description>java.lang.AssertionError: No supported input found. Only plain string input is supported.</dct:description>
+        <earl:outcome rdf:resource="http://www.w3.org/ns/earl#failed"/>
+        <cite:message>
+          <http:Request>
+            <http:resp>
+              <http:Response>
+                <http:body>
+                  <cnt:ContentAsXML>
+                    <cnt:rest>{
+  "code" : "NoSuchJob",
+  "type" : "NoSuchJob",
+  "description" : "invalid-job-861cfe33-4450-4192-b4b1-61bc916d0991"
+}</cnt:rest>      </cnt:ContentAsXML>
+                </http:body>
+              </http:Response>
+            </http:resp>
+            <http:requestURI>GET http://api//jobs/invalid-job-861cfe33-4450-4192-b4b1-61bc916d0991/results HTTP/1.1</http:requestURI>
+            <http:methodName>GET</http:methodName>
+          </http:Request>
+        </cite:message>
+      </earl:TestResult>
+    </earl:result>
+    <earl:test>
+      <earl:TestCase rdf:about="org/opengis/cite/ogcapiprocesses10/jobs/Jobs#testJobSuccess">
+        <dct:title>test Job Success </dct:title>
+        <dct:description>Implements Requirement /req/core/job-success </dct:description>
+      </earl:TestCase>
+    </earl:test>
+  </earl:Assertion>
+  <earl:Assertion rdf:about="assert-10">
+    <earl:mode rdf:resource="http://www.w3.org/ns/earl#automatic"/>
+    <earl:assertedBy rdf:resource="https://github.com/opengeospatial/teamengine"/>
+    <earl:subject rdf:resource="http://api/"/>
+    <earl:result>
+      <earl:TestResult rdf:about="result-10">
+        <dct:date rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime"
+        >2026-08-14T10:55:15.369Z</dct:date>
+        <dct:description>java.lang.AssertionError: No supported input found. Only plain string input is supported.</dct:description>
+        <earl:outcome rdf:resource="http://www.w3.org/ns/earl#failed"/>
+        <cite:message>
+          <http:Request>
+            <http:resp>
+              <http:Response>
+                <http:body>
+                  <cnt:ContentAsXML>
+                    <cnt:rest>{
+  "code" : "NoSuchJob",
+  "type" : "NoSuchJob",
+  "description" : "invalid-job-861cfe33-4450-4192-b4b1-61bc916d0991"
+}</cnt:rest>      </cnt:ContentAsXML>
+                </http:body>
+              </http:Response>
+            </http:resp>
+            <http:requestURI>GET http://api//jobs/invalid-job-861cfe33-4450-4192-b4b1-61bc916d0991/results HTTP/1.1</http:requestURI>
+            <http:methodName>GET</http:methodName>
+          </http:Request>
+        </cite:message>
+      </earl:TestResult>
+    </earl:result>
+    <earl:test>
+      <earl:TestCase rdf:about="org/opengis/cite/ogcapiprocesses10/jobs/Jobs#testJobResultsSync">
+        <dct:title>test Job Results Sync </dct:title>
+        <dct:description>Implements Requirement /req/core/job-results-sync </dct:description>
+      </earl:TestCase>
+    </earl:test>
+  </earl:Assertion>
+  <earl:Assertion rdf:about="assert-34">
+    <earl:mode rdf:resource="http://www.w3.org/ns/earl#automatic"/>
+    <earl:assertedBy rdf:resource="https://github.com/opengeospatial/teamengine"/>
+    <earl:subject rdf:resource="http://api/"/>
+    <earl:result>
+      <earl:TestResult rdf:about="result-34">
+        <dct:date rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime"
+        >2026-08-14T10:55:15.367Z</dct:date>
+        <earl:outcome rdf:resource="http://www.w3.org/ns/earl#passed"/>
+      </earl:TestResult>
+    </earl:result>
+    <earl:test>
+      <earl:TestCase rdf:about="org/opengis/cite/ogcapiprocesses10/jobs/Jobs#testJobResultsNoSuchJob">
+        <dct:title>test Job Results No Such Job </dct:title>
+        <dct:description>Implements Requirement /req/core/job-results-exception-no-such-job </dct:description>
+      </earl:TestCase>
+    </earl:test>
+  </earl:Assertion>
+  <earl:Assertion rdf:about="assert-22">
+    <earl:mode rdf:resource="http://www.w3.org/ns/earl#automatic"/>
+    <earl:assertedBy rdf:resource="https://github.com/opengeospatial/teamengine"/>
+    <earl:subject rdf:resource="http://api/"/>
+    <earl:result>
+      <earl:TestResult rdf:about="result-22">
+        <dct:date rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime"
+        >2026-08-14T10:55:10.209Z</dct:date>
+        <dct:description>java.lang.AssertionError: body.finished: Null value is not allowed. (code: 1021)
+From: body.finished.&lt;nullable&gt;
+ expected [true] but found [false]</dct:description>
+        <earl:outcome rdf:resource="http://www.w3.org/ns/earl#failed"/>
+        <cite:message>
+          <http:Request>
+            <http:resp>
+              <http:Response>
+                <http:body>
+                  <cnt:ContentAsXML>
+                    <cnt:rest>{
+  "type" : "process",
+  "processID" : "async-echo",
+  "jobID" : "9e693fa6-97ce-11f1-a5ff-6b5b48ee3ef1",
+  "status" : "accepted",
+  "message" : "Job accepted and ready for execution",
+  "progress" : 5,
+  "parameters" : null,
+  "created" : "2026-08-14T10:55:10.195701Z",
+  "started" : "2026-08-14T10:55:10.195728Z",
+  "finished" : null,
+  "updated" : "2026-08-14T10:55:10.195732Z",
+  "links" : [ {
+    "href" : "http://api/jobs/9e693fa6-97ce-11f1-a5ff-6b5b48ee3ef1/results?f=html",
+    "rel" : "http://www.opengis.net/def/rel/ogc/1.0/results",
+    "type" : "text/html",
+    "title" : "Results of job as HTML"
+  }, {
+    "href" : "http://api/jobs/9e693fa6-97ce-11f1-a5ff-6b5b48ee3ef1/results?f=json",
+    "rel" : "http://www.opengis.net/def/rel/ogc/1.0/results",
+    "type" : "application/json",
+    "title" : "Results of job as JSON"
+  }, {
+    "href" : "http://api/jobs/9e693fa6-97ce-11f1-a5ff-6b5b48ee3ef1/results",
+    "rel" : "http://www.opengis.net/def/rel/ogc/1.0/results",
+    "type" : "application/octet-stream",
+    "title" : "Results of job 9e693fa6-97ce-11f1-a5ff-6b5b48ee3ef1 as application/octet-stream"
+  } ]
+}</cnt:rest>      </cnt:ContentAsXML>
+                </http:body>
+              </http:Response>
+            </http:resp>
+            <http:requestURI>GET http://api/jobs/9e693fa6-97ce-11f1-a5ff-6b5b48ee3ef1 HTTP/1.1</http:requestURI>
+            <http:methodName>GET</http:methodName>
+          </http:Request>
+        </cite:message>
+      </earl:TestResult>
+    </earl:result>
+    <earl:test>
+      <earl:TestCase rdf:about="org/opengis/cite/ogcapiprocesses10/jobs/Jobs#testJobResultsAsyncRawMixedMulti">
+        <dct:title>test Job Results Async Raw Mixed Multi </dct:title>
+        <dct:description>Implements Requirement /req/core/job-results-async-raw-mixed-multi </dct:description>
+      </earl:TestCase>
+    </earl:test>
+  </earl:Assertion>
+  <earl:Assertion rdf:about="assert-46">
+    <earl:mode rdf:resource="http://www.w3.org/ns/earl#automatic"/>
+    <earl:assertedBy rdf:resource="https://github.com/opengeospatial/teamengine"/>
+    <earl:subject rdf:resource="http://api/"/>
+    <earl:result>
+      <earl:TestResult rdf:about="result-46">
+        <dct:date rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime"
+        >2026-08-14T10:55:15.597Z</dct:date>
+        <dct:description>org.testng.SkipException: No output definition of 'async-echo' process identifies a mixed type output</dct:description>
+        <earl:outcome rdf:resource="http://www.w3.org/ns/earl#untested"/>
+      </earl:TestResult>
+    </earl:result>
+    <earl:test>
+      <earl:TestCase rdf:about="org/opengis/cite/ogcapiprocesses10/ogcprocessdescription/OGCProcessDescription#testOGCProcessDescriptionOutputDefinitionOfMixedType">
+        <dct:title>test O G C Process Description Output Definition Of Mixed Type </dct:title>
+        <dct:description>Implements Requirement /req/ogc-process-description/output-mixed-type</dct:description>
+      </earl:TestCase>
+    </earl:test>
+  </earl:Assertion>
+  <earl:Assertion rdf:about="assert-3">
+    <earl:mode rdf:resource="http://www.w3.org/ns/earl#automatic"/>
+    <earl:assertedBy rdf:resource="https://github.com/opengeospatial/teamengine"/>
+    <earl:subject rdf:resource="http://api/"/>
+    <earl:result>
+      <earl:TestResult rdf:about="result-3">
+        <dct:date rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime"
+        >2026-08-14T10:55:05.131Z</dct:date>
+        <dct:description>java.lang.AssertionError: No supported input found. Only plain string input is supported.</dct:description>
+        <earl:outcome rdf:resource="http://www.w3.org/ns/earl#failed"/>
+        <cite:message>
+          <http:Request>
+            <http:resp>
+              <http:Response>
+                <http:body>
+                  <cnt:ContentAsXML>
+                    <cnt:rest>{
+  "id" : "debug_log",
+  "value" : [ "received request", "sleeping for 5s", "woke up", "building result" ]
+}</cnt:rest>      </cnt:ContentAsXML>
+                </http:body>
+              </http:Response>
+            </http:resp>
+            <http:body>
+              <cnt:ContentAsXML>
+                <cnt:rest>&lt;!-- non XML body --&gt;
+{
+  "inputs" : { },
+  "outputs" : {
+    "result" : {
+      "transmissionMode" : "value"
+    },
+    "debug_log" : {
+      "transmissionMode" : "value"
+    }
+  }
+}</cnt:rest>  </cnt:ContentAsXML>
+            </http:body>
+            <http:requestURI>POST http://api//processes/async-echo/execution HTTP/1.1%POSTURL-SEPARATOR%&lt;!-- non XML body --&gt;
+{
+  "inputs" : { },
+  "outputs" : {
+    "result" : {
+      "transmissionMode" : "value"
+    },
+    "debug_log" : {
+      "transmissionMode" : "value"
+    }
+  }
+}</http:requestURI>
+            <http:methodName>POST</http:methodName>
+          </http:Request>
+        </cite:message>
+      </earl:TestResult>
+    </earl:result>
+    <earl:test>
+      <earl:TestCase rdf:about="org/opengis/cite/ogcapiprocesses10/jobs/Jobs#testJobCreationSyncRawRef">
+        <dct:title>test Job Creation Sync Raw Ref </dct:title>
+        <dct:description>Implements Requirement /req/core/job-creation-sync-raw-ref </dct:description>
+      </earl:TestCase>
+    </earl:test>
+  </earl:Assertion>
+  <earl:Assertion rdf:about="assert-23">
+    <earl:mode rdf:resource="http://www.w3.org/ns/earl#automatic"/>
+    <earl:assertedBy rdf:resource="https://github.com/opengeospatial/teamengine"/>
+    <earl:subject rdf:resource="http://api/"/>
+    <earl:result>
+      <earl:TestResult rdf:about="result-23">
+        <dct:date rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime"
+        >2026-08-14T10:55:10.323Z</dct:date>
+        <dct:description>java.lang.AssertionError: Response does not contain teststring
+&lt;!doctype html&gt;
+&lt;html lang="en" dir="ltr" &gt;
+
+
+
+
+
+
+
+
+
+  &lt;head&gt;
+    &lt;meta charset="utf-8"&gt;
+    &lt;title&gt; Exception &lt;/title&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;
+    &lt;meta name="language" content="en-US"&gt;
+    &lt;meta name="description" content="BKN Terrain Processes integration-test API"&gt;
+    &lt;meta name="keywords" content="OGC API Processes,integration testing"&gt;
+    &lt;link rel="shortcut icon" href="http://api/static/img/favicon.ico" type="image/x-icon"&gt;
+    &lt;link rel="stylesheet" href="https://unpkg.com/bootstrap@5.1.3/dist/css/bootstrap.min.css"&gt;
+    &lt;link rel="stylesheet" href="http://api/static/css/default.css"&gt;
+    &lt;!--[if lt IE 9]&gt;
+      &lt;script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"&gt;&lt;/script&gt;
+    &lt;![endif]--&gt;
+    &lt;meta name="twitter:image:src"   content="http://api/static/img/logo.png" /&gt;
+    &lt;meta property="og:image"        content="http://api/static/img/logo.png" /&gt;
+    &lt;meta name="twitter:site"        content="BKN Terrain Processes integration-test API" /&gt;
+    &lt;meta property="og:site_name"    content="BKN Terrain Processes integration-test API" /&gt;    
+    &lt;meta name="twitter:card"        content="summary_large_image" /&gt;
+    &lt;meta name="twitter:title"       content=" Exception " /&gt;
+    &lt;meta property="og:title"        content=" Exception " /&gt;
+    &lt;meta name="twitter:description" content="Local integration environment. It includes a diagnostic process that is deliberately absent from the public service." /&gt;
+    &lt;meta property="og:description"  content="Local integration environment. It includes a diagnostic process that is deliberately absent from the public service." /&gt;
+
+    &lt;meta property="og:type" content="website" /&gt;
+    
+    
+    
+  &lt;/head&gt;
+  &lt;body&gt;
+  &lt;div class="bg-light sticky-top border-bottom"&gt;
+    &lt;div class="container"&gt;
+      &lt;header class="d-flex flex-wrap align-items-center py-3 justify-content-between"&gt;
+        &lt;a href="http://api"
+          class="d-flex align-items-center mb-3 mb-md-0 text-dark text-decoration-none"&gt;
+          &lt;img src="http://api/static/img/logo.png"
+            title="BKN Terrain Processes integration-test API" style="height:40px;vertical-align: middle;" /&gt;&lt;/a&gt;
+        &lt;ul class="nav nav-pills"&gt;
+          &lt;li class="nav-item"&gt;
+            &lt;a href="mailto:" class="nav-link" aria-current="page"&gt;Contact&lt;/a&gt;
+          &lt;/li&gt;
+          
+          &lt;!--
+            Add additional menu items here
+            &lt;a href="https://pygeoapi.io" class="nav-link"&gt;About&lt;/a&gt;
+          --&gt;
+        &lt;/ul&gt;
+      &lt;/header&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="crumbs"&gt;
+    &lt;div class="container"&gt;
+      &lt;div class="row"&gt;
+        &lt;div class="col-sm-12"&gt;
+        
+        &lt;a href="http://api"&gt;Home&lt;/a&gt;
+        
+        &lt;span style="float: inline-end"&gt;
+          
+
+          
+
+          
+          &lt;a href="?f=json"&gt;json&lt;/a&gt;
+          
+          
+          &lt;a href="?f=jsonld"&gt;json-ld&lt;/a&gt;
+          
+
+        &lt;/span&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;main&gt;
+    &lt;div class="container"&gt;
+      &lt;div class="row"&gt;
+        &lt;div class="col-sm-12"&gt;
+          &lt;br/&gt;
+          
+    &lt;section id="exception"&gt;
+      &lt;h2&gt;Exception&lt;/h2&gt;
+      &lt;p&gt;job accepted but not yet running&lt;/p&gt;
+    &lt;/section&gt;
+
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;/main&gt;
+    &lt;footer class="sticky-bottom bg-light d-flex justify-content-center align-items-center py-3 px-3 border-top"&gt;
+      &lt;div class="text-center w-100"&gt;
+        Powered by 
+        &lt;a title="pygeoapi" href="https://pygeoapi.io"&gt;&lt;img src="http://api/static/img/pygeoapi.png" class="mx-1" title="pygeoapi logo" style="height:24px;vertical-align: middle;" /&gt;&lt;/a&gt;
+        0.23.4
+      &lt;/div&gt;
+    &lt;/footer&gt; 
+    
+    
+    &lt;script&gt;
+      // Requests and embeds JSON-LD representation of current page
+      var xhr = new XMLHttpRequest();
+      var path = window.location.protocol + "//" + window.location.host + window.location.pathname + "?f=jsonld";
+      xhr.open('GET', path);
+      xhr.onload = function() {
+        if (xhr.status === 200) {
+          var head = document.getElementsByTagName('head')[0];
+          var jsonld_datablock = document.createElement('script');
+          jsonld_datablock.type = "application/ld+json";
+          //remove full context path, because search engines don't expect it here, pyld requires it.
+          jsonld_datablock.textContent = xhr.responseText.replace('docs/jsonldcontext.jsonld','');
+          head.appendChild(jsonld_datablock);
+        }
+      };
+      xhr.send();
+    &lt;/script&gt;
+  &lt;/body&gt;
+&lt;/html&gt; expected [true] but found [false]</dct:description>
+        <earl:outcome rdf:resource="http://www.w3.org/ns/earl#failed"/>
+        <cite:message>
+          <http:Request>
+            <http:resp>
+              <http:Response>
+                <http:body>
+                  <cnt:ContentAsXML>
+                    <cnt:rest></cnt:rest>
+                  </cnt:ContentAsXML>
+                </http:body>
+              </http:Response>
+            </http:resp>
+            <http:requestURI>GET http://api/jobs/9e744306-97ce-11f1-ad86-6b5b48ee3ef1 HTTP/1.1</http:requestURI>
+            <http:methodName>GET</http:methodName>
+          </http:Request>
+        </cite:message>
+      </earl:TestResult>
+    </earl:result>
+    <earl:test>
+      <earl:TestCase rdf:about="org/opengis/cite/ogcapiprocesses10/jobs/Jobs#testJobResultsAsyncRawValueOne">
+        <dct:title>test Job Results Async Raw Value One </dct:title>
+        <dct:description>Implements Requirement /req/core/job-results-async-raw-value-one </dct:description>
+      </earl:TestCase>
+    </earl:test>
+  </earl:Assertion>
+  <earl:Assertion rdf:about="assert-11">
+    <earl:mode rdf:resource="http://www.w3.org/ns/earl#automatic"/>
+    <earl:assertedBy rdf:resource="https://github.com/opengeospatial/teamengine"/>
+    <earl:subject rdf:resource="http://api/"/>
+    <earl:result>
+      <earl:TestResult rdf:about="result-11">
+        <dct:date rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime"
+        >2026-08-14T10:55:10.184Z</dct:date>
+        <dct:description>java.lang.AssertionError: No supported input found. Only plain string input is supported.</dct:description>
+        <earl:outcome rdf:resource="http://www.w3.org/ns/earl#failed"/>
+        <cite:message>
+          <http:Request>
+            <http:resp>
+              <http:Response>
+                <http:body>
+                  <cnt:ContentAsXML>
+                    <cnt:rest>{
+  "code" : "InvalidParameterValue",
+  "type" : "InvalidParameterValue",
+  "description" : "invalid-job-726aca67-9450-4ecf-a966-5842df8a27c5"
+}</cnt:rest>      </cnt:ContentAsXML>
+                </http:body>
+              </http:Response>
+            </http:resp>
+            <http:requestURI>GET http://api//jobs/invalid-job-726aca67-9450-4ecf-a966-5842df8a27c5 HTTP/1.1</http:requestURI>
+            <http:methodName>GET</http:methodName>
+          </http:Request>
+        </cite:message>
+      </earl:TestResult>
+    </earl:result>
+    <earl:test>
+      <earl:TestCase rdf:about="org/opengis/cite/ogcapiprocesses10/jobs/Jobs#testJobResultsAsyncDocument">
+        <dct:title>test Job Results Async Document </dct:title>
+        <dct:description>Implements Requirement /req/core/job-results-async-document </dct:description>
+      </earl:TestCase>
+    </earl:test>
+  </earl:Assertion>
+  <earl:Assertion rdf:about="assert-47">
+    <earl:mode rdf:resource="http://www.w3.org/ns/earl#automatic"/>
+    <earl:assertedBy rdf:resource="https://github.com/opengeospatial/teamengine"/>
+    <earl:subject rdf:resource="http://api/"/>
+    <earl:result>
+      <earl:TestResult rdf:about="result-47">
+        <dct:date rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime"
+        >2026-08-14T10:55:15.5Z</dct:date>
+        <dct:description>org.testng.SkipException: No input definition of 'async-echo' process identifies a mixed type input</dct:description>
+        <earl:outcome rdf:resource="http://www.w3.org/ns/earl#untested"/>
+      </earl:TestResult>
+    </earl:result>
+    <earl:test>
+      <earl:TestCase rdf:about="org/opengis/cite/ogcapiprocesses10/ogcprocessdescription/OGCProcessDescription#testOGCProcessDescriptionInputDefinitionOfMixedType">
+        <dct:title>test O G C Process Description Input Definition Of Mixed Type </dct:title>
+        <dct:description>Implements Requirement /req/ogc-process-description/input-mixed-type</dct:description>
+      </earl:TestCase>
+    </earl:test>
+  </earl:Assertion>
+  <earl:Assertion rdf:about="assert-35">
+    <earl:mode rdf:resource="http://www.w3.org/ns/earl#automatic"/>
+    <earl:assertedBy rdf:resource="https://github.com/opengeospatial/teamengine"/>
+    <earl:subject rdf:resource="http://api/"/>
+    <earl:result>
+      <earl:TestResult rdf:about="result-35">
+        <dct:date rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime"
+        >2026-08-14T10:54:44.289Z</dct:date>
+        <earl:outcome rdf:resource="http://www.w3.org/ns/earl#passed"/>
+      </earl:TestResult>
+    </earl:result>
+    <earl:test>
+      <earl:TestCase rdf:about="org/opengis/cite/ogcapiprocesses10/landingpage/LandingPage#testLandingPageValidation">
+        <dct:title>test Landing Page Validation </dct:title>
+        <dct:description>Implements Abstract Test 2: /conf/core/landingpage-success</dct:description>
+      </earl:TestCase>
+    </earl:test>
+  </earl:Assertion>
+  <earl:Assertion rdf:about="assert-4">
+    <earl:mode rdf:resource="http://www.w3.org/ns/earl#automatic"/>
+    <earl:assertedBy rdf:resource="https://github.com/opengeospatial/teamengine"/>
+    <earl:subject rdf:resource="http://api/"/>
+    <earl:result>
+      <earl:TestResult rdf:about="result-4">
+        <dct:date rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime"
+        >2026-08-14T10:55:05.127Z</dct:date>
+        <dct:description>java.lang.AssertionError: No supported input found. Only plain string input is supported.</dct:description>
+        <earl:outcome rdf:resource="http://www.w3.org/ns/earl#failed"/>
+        <cite:message>
+          <http:Request>
+            <http:resp>
+              <http:Response>
+                <http:body>
+                  <cnt:ContentAsXML>
+                    <cnt:rest>{
+  "id" : "debug_log",
+  "value" : [ "received request", "sleeping for 5s", "woke up", "building result" ]
+}</cnt:rest>      </cnt:ContentAsXML>
+                </http:body>
+              </http:Response>
+            </http:resp>
+            <http:body>
+              <cnt:ContentAsXML>
+                <cnt:rest>&lt;!-- non XML body --&gt;
+{
+  "inputs" : { },
+  "outputs" : {
+    "result" : {
+      "transmissionMode" : "value"
+    },
+    "debug_log" : {
+      "transmissionMode" : "value"
+    }
+  }
+}</cnt:rest>  </cnt:ContentAsXML>
+            </http:body>
+            <http:requestURI>POST http://api//processes/async-echo/execution HTTP/1.1%POSTURL-SEPARATOR%&lt;!-- non XML body --&gt;
+{
+  "inputs" : { },
+  "outputs" : {
+    "result" : {
+      "transmissionMode" : "value"
+    },
+    "debug_log" : {
+      "transmissionMode" : "value"
+    }
+  }
+}</http:requestURI>
+            <http:methodName>POST</http:methodName>
+          </http:Request>
+        </cite:message>
+      </earl:TestResult>
+    </earl:result>
+    <earl:test>
+      <earl:TestCase rdf:about="org/opengis/cite/ogcapiprocesses10/jobs/Jobs#testJobCreationSyncDocument">
+        <dct:title>test Job Creation Sync Document </dct:title>
+        <dct:description>Implements Requirement /req/core/job-creation-sync-document </dct:description>
+      </earl:TestCase>
+    </earl:test>
+  </earl:Assertion>
+  <earl:Assertion rdf:about="assert-12">
+    <earl:mode rdf:resource="http://www.w3.org/ns/earl#automatic"/>
+    <earl:assertedBy rdf:resource="https://github.com/opengeospatial/teamengine"/>
+    <earl:subject rdf:resource="http://api/"/>
+    <earl:result>
+      <earl:TestResult rdf:about="result-12">
+        <dct:date rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime"
+        >2026-08-14T10:55:05.092Z</dct:date>
+        <dct:description>java.lang.AssertionError: body: More than 1 schema is valid. (code: 1023)
+From: body.&lt;oneOf&gt;
+ expected [true] but found [false]</dct:description>
+        <earl:outcome rdf:resource="http://www.w3.org/ns/earl#failed"/>
+        <cite:message>
+          <http:Request>
+            <http:resp>
+              <http:Response>
+                <http:body>
+                  <cnt:ContentAsXML>
+                    <cnt:rest>{
+  "id" : "debug_log",
+  "value" : [ "received request", "sleeping for 5s", "woke up", "building result" ]
+}</cnt:rest>      </cnt:ContentAsXML>
+                </http:body>
+              </http:Response>
+            </http:resp>
+            <http:body>
+              <cnt:ContentAsXML>
+                <cnt:rest>&lt;!-- non XML body --&gt;
+{
+  "inputs" : { },
+  "outputs" : {
+    "result" : {
+      "transmissionMode" : "value"
+    },
+    "debug_log" : {
+      "transmissionMode" : "value"
+    }
+  }
+}</cnt:rest>  </cnt:ContentAsXML>
+            </http:body>
+            <http:requestURI>POST http://api//processes/async-echo/execution HTTP/1.1%POSTURL-SEPARATOR%&lt;!-- non XML body --&gt;
+{
+  "inputs" : { },
+  "outputs" : {
+    "result" : {
+      "transmissionMode" : "value"
+    },
+    "debug_log" : {
+      "transmissionMode" : "value"
+    }
+  }
+}</http:requestURI>
+            <http:methodName>POST</http:methodName>
+          </http:Request>
+        </cite:message>
+      </earl:TestResult>
+    </earl:result>
+    <earl:test>
+      <earl:TestCase rdf:about="org/opengis/cite/ogcapiprocesses10/jobs/Jobs#testJobCreationInputRef">
+        <dct:title>test Job Creation Input Ref </dct:title>
+        <dct:description>Implements Requirement /req/core/job-creation-input-ref </dct:description>
+      </earl:TestCase>
+    </earl:test>
+  </earl:Assertion>
+  <earl:Assertion rdf:about="assert-36">
+    <earl:mode rdf:resource="http://www.w3.org/ns/earl#automatic"/>
+    <earl:assertedBy rdf:resource="https://github.com/opengeospatial/teamengine"/>
+    <earl:subject rdf:resource="http://api/"/>
+    <earl:result>
+      <earl:TestResult rdf:about="result-36">
+        <dct:date rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime"
+        >2026-08-14T10:54:44.821Z</dct:date>
+        <earl:outcome rdf:resource="http://www.w3.org/ns/earl#passed"/>
+      </earl:TestResult>
+    </earl:result>
+    <earl:test>
+      <earl:TestCase rdf:about="org/opengis/cite/ogcapiprocesses10/process/Process#testProcessExceptionNoSuchProcess">
+        <dct:title>test Process Exception No Such Process </dct:title>
+        <dct:description>Implements Requirement /req/core/process-exception-no-such-process </dct:description>
+      </earl:TestCase>
+    </earl:test>
+  </earl:Assertion>
+  <earl:Assertion rdf:about="assert-24">
+    <earl:mode rdf:resource="http://www.w3.org/ns/earl#automatic"/>
+    <earl:assertedBy rdf:resource="https://github.com/opengeospatial/teamengine"/>
+    <earl:subject rdf:resource="http://api/"/>
+    <earl:result>
+      <earl:TestResult rdf:about="result-24">
+        <dct:date rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime"
+        >2026-08-14T10:55:05.104Z</dct:date>
+        <dct:description>java.lang.AssertionError: No supported input found. Only plain string input is supported.</dct:description>
+        <earl:outcome rdf:resource="http://www.w3.org/ns/earl#failed"/>
+        <cite:message>
+          <http:Request>
+            <http:resp>
+              <http:Response>
+                <http:body>
+                  <cnt:ContentAsXML>
+                    <cnt:rest>{
+  "id" : "debug_log",
+  "value" : [ "received request", "sleeping for 5s", "woke up", "building result" ]
+}</cnt:rest>      </cnt:ContentAsXML>
+                </http:body>
+              </http:Response>
+            </http:resp>
+            <http:body>
+              <cnt:ContentAsXML>
+                <cnt:rest>&lt;!-- non XML body --&gt;
+{
+  "inputs" : { },
+  "outputs" : {
+    "result" : {
+      "transmissionMode" : "value"
+    },
+    "debug_log" : {
+      "transmissionMode" : "value"
+    }
+  }
+}</cnt:rest>  </cnt:ContentAsXML>
+            </http:body>
+            <http:requestURI>POST http://api//processes/async-echo/execution HTTP/1.1%POSTURL-SEPARATOR%&lt;!-- non XML body --&gt;
+{
+  "inputs" : { },
+  "outputs" : {
+    "result" : {
+      "transmissionMode" : "value"
+    },
+    "debug_log" : {
+      "transmissionMode" : "value"
+    }
+  }
+}</http:requestURI>
+            <http:methodName>POST</http:methodName>
+          </http:Request>
+        </cite:message>
+      </earl:TestResult>
+    </earl:result>
+    <earl:test>
+      <earl:TestCase rdf:about="org/opengis/cite/ogcapiprocesses10/jobs/Jobs#testJobCreationInputValidation">
+        <dct:title>test Job Creation Input Validation </dct:title>
+        <dct:description>Implements Requirement /req/core/job-creation-input-validation </dct:description>
+      </earl:TestCase>
+    </earl:test>
+  </earl:Assertion>
+  <earl:Assertion rdf:about="assert-48">
+    <earl:mode rdf:resource="http://www.w3.org/ns/earl#automatic"/>
+    <earl:assertedBy rdf:resource="https://github.com/opengeospatial/teamengine"/>
+    <earl:subject rdf:resource="http://api/"/>
+    <earl:result>
+      <earl:TestResult rdf:about="result-48">
+        <dct:date rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime"
+        >2026-08-14T10:55:15.565Z</dct:date>
+        <earl:outcome rdf:resource="http://www.w3.org/ns/earl#passed"/>
+      </earl:TestResult>
+    </earl:result>
+    <earl:test>
+      <earl:TestCase rdf:about="org/opengis/cite/ogcapiprocesses10/ogcprocessdescription/OGCProcessDescription#testOGCProcessDescriptionOutputDef">
+        <dct:title>test O G C Process Description Output Def </dct:title>
+        <dct:description>Implements Requirement /req/ogc-process-description/output-def </dct:description>
+      </earl:TestCase>
+    </earl:test>
+  </earl:Assertion>
+  <earl:Assertion rdf:about="assert-41">
+    <earl:mode rdf:resource="http://www.w3.org/ns/earl#automatic"/>
+    <earl:assertedBy rdf:resource="https://github.com/opengeospatial/teamengine"/>
+    <earl:subject rdf:resource="http://api/"/>
+    <earl:result>
+      <earl:TestResult rdf:about="result-41">
+        <dct:date rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime"
+        >2026-08-14T10:54:44.502Z</dct:date>
+        <earl:outcome rdf:resource="http://www.w3.org/ns/earl#passed"/>
+      </earl:TestResult>
+    </earl:result>
+    <earl:test>
+      <earl:TestCase rdf:about="org/opengis/cite/ogcapiprocesses10/processlist/ProcessList#testProcessList">
+        <dct:title>test Process List </dct:title>
+        <dct:description>Implements Requirement /req/core/process-list </dct:description>
+      </earl:TestCase>
+    </earl:test>
+  </earl:Assertion>
+  <earl:Assertion rdf:about="assert-53">
+    <earl:mode rdf:resource="http://www.w3.org/ns/earl#automatic"/>
+    <earl:assertedBy rdf:resource="https://github.com/opengeospatial/teamengine"/>
+    <earl:subject rdf:resource="http://api/"/>
+    <earl:result>
+      <earl:TestResult rdf:about="result-53">
+        <dct:date rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime"
+        >2026-08-14T10:55:15.648Z</dct:date>
+        <earl:outcome rdf:resource="http://www.w3.org/ns/earl#passed"/>
+      </earl:TestResult>
+    </earl:result>
+    <earl:test>
+      <earl:TestCase rdf:about="org/opengis/cite/ogcapiprocesses10/joblist/JobList#testJobList">
+        <dct:title>test Job List </dct:title>
+        <dct:description>Implements Requirement /req/job-list/job-list-op </dct:description>
+      </earl:TestCase>
+    </earl:test>
+  </earl:Assertion>
+  <earl:Assertion rdf:about="assert-9">
+    <earl:mode rdf:resource="http://www.w3.org/ns/earl#automatic"/>
+    <earl:assertedBy rdf:resource="https://github.com/opengeospatial/teamengine"/>
+    <earl:subject rdf:resource="http://api/"/>
+    <earl:result>
+      <earl:TestResult rdf:about="result-9">
+        <dct:date rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime"
+        >2026-08-14T10:55:15.353Z</dct:date>
+        <dct:description>java.lang.AssertionError: Got unexpected status code: 200 expected [true] but found [false]</dct:description>
+        <earl:outcome rdf:resource="http://www.w3.org/ns/earl#failed"/>
+        <cite:message>
+          <http:Request>
+            <http:resp>
+              <http:Response>
+                <http:body>
+                  <cnt:ContentAsXML>
+                    <cnt:rest></cnt:rest>
+                  </cnt:ContentAsXML>
+                </http:body>
+              </http:Response>
+            </http:resp>
+            <http:body>
+              <cnt:ContentAsXML>
+                <cnt:rest>&lt;!-- non XML body --&gt;
+{
+  "invalid-execute-request" : "true)"
+}</cnt:rest>  </cnt:ContentAsXML>
+            </http:body>
+            <http:requestURI>POST http://api//processes/async-echo/execution HTTP/1.1%POSTURL-SEPARATOR%&lt;!-- non XML body --&gt;
+{
+  "invalid-execute-request" : "true)"
+}</http:requestURI>
+            <http:methodName>POST</http:methodName>
+          </http:Request>
+        </cite:message>
+      </earl:TestResult>
+    </earl:result>
+    <earl:test>
+      <earl:TestCase rdf:about="org/opengis/cite/ogcapiprocesses10/jobs/Jobs#testJobResultsFailed">
+        <dct:title>test Job Results Failed </dct:title>
+        <dct:description>Implements Requirement /req/core/job-results-failed </dct:description>
+      </earl:TestCase>
+    </earl:test>
+  </earl:Assertion>
+  <earl:Assertion rdf:about="assert-30">
+    <earl:mode rdf:resource="http://www.w3.org/ns/earl#automatic"/>
+    <earl:assertedBy rdf:resource="https://github.com/opengeospatial/teamengine"/>
+    <earl:subject rdf:resource="http://api/"/>
+    <earl:result>
+      <earl:TestResult rdf:about="result-30">
+        <dct:date rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime"
+        >2026-08-14T10:54:50.018Z</dct:date>
+        <earl:outcome rdf:resource="http://www.w3.org/ns/earl#passed"/>
+      </earl:TestResult>
+    </earl:result>
+    <earl:test>
+      <earl:TestCase rdf:about="org/opengis/cite/ogcapiprocesses10/jobs/Jobs#testJobCreationDefaultOutputs">
+        <dct:title>test Job Creation Default Outputs </dct:title>
+        <dct:description>Implements Requirement /req/core/job-creation-op </dct:description>
+      </earl:TestCase>
+    </earl:test>
+  </earl:Assertion>
+  <earl:Assertion rdf:about="assert-54">
+    <earl:mode rdf:resource="http://www.w3.org/ns/earl#automatic"/>
+    <earl:assertedBy rdf:resource="https://github.com/opengeospatial/teamengine"/>
+    <earl:subject rdf:resource="http://api/"/>
+    <earl:result>
+      <earl:TestResult rdf:about="result-54">
+        <dct:date rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime"
+        >2026-08-14T10:55:15.876Z</dct:date>
+        <earl:outcome rdf:resource="http://www.w3.org/ns/earl#passed"/>
+      </earl:TestResult>
+    </earl:result>
+    <earl:test>
+      <earl:TestCase rdf:about="org/opengis/cite/ogcapiprocesses10/joblist/JobList#testJobListSuccess">
+        <dct:title>test Job List Success </dct:title>
+        <dct:description>Implements Requirement /req/job-list/job-list-success </dct:description>
+      </earl:TestCase>
+    </earl:test>
+  </earl:Assertion>
+  <earl:Assertion rdf:about="assert-42">
+    <earl:mode rdf:resource="http://www.w3.org/ns/earl#automatic"/>
+    <earl:assertedBy rdf:resource="https://github.com/opengeospatial/teamengine"/>
+    <earl:subject rdf:resource="http://api/"/>
+    <earl:result>
+      <earl:TestResult rdf:about="result-42">
+        <dct:date rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime"
+        >2026-08-14T10:54:44.831Z</dct:date>
+        <earl:outcome rdf:resource="http://www.w3.org/ns/earl#passed"/>
+      </earl:TestResult>
+    </earl:result>
+    <earl:test>
+      <earl:TestCase rdf:about="org/opengis/cite/ogcapiprocesses10/process/Process#testProcessSuccess">
+        <dct:title>test Process Success </dct:title>
+        <dct:description>Implements Requirement /req/core/process-success </dct:description>
+      </earl:TestCase>
+    </earl:test>
+  </earl:Assertion>
+  <earl:Assertion rdf:about="assert-7">
+    <earl:mode rdf:resource="http://www.w3.org/ns/earl#automatic"/>
+    <earl:assertedBy rdf:resource="https://github.com/opengeospatial/teamengine"/>
+    <earl:subject rdf:resource="http://api/"/>
+    <earl:result>
+      <earl:TestResult rdf:about="result-7">
+        <dct:date rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime"
+        >2026-08-14T10:54:44.959Z</dct:date>
+        <dct:description>java.lang.AssertionError: No supported input found. Only plain string input is supported.</dct:description>
+        <earl:outcome rdf:resource="http://www.w3.org/ns/earl#failed"/>
+        <cite:message>
+          <http:Request>
+            <http:resp>
+              <http:Response>
+                <http:body>
+                  <cnt:ContentAsXML>
+                    <cnt:rest></cnt:rest>
+                  </cnt:ContentAsXML>
+                </http:body>
+              </http:Response>
+            </http:resp>
+            <http:requestURI></http:requestURI>
+            <http:methodName>GET</http:methodName>
+          </http:Request>
+        </cite:message>
+      </earl:TestResult>
+    </earl:result>
+    <earl:test>
+      <earl:TestCase rdf:about="org/opengis/cite/ogcapiprocesses10/jobs/Jobs#testJobCreationDefaultExecutionMode">
+        <dct:title>test Job Creation Default Execution Mode </dct:title>
+        <dct:description>Implements Requirement /req/core/job-creation-op </dct:description>
+      </earl:TestCase>
+    </earl:test>
+  </earl:Assertion>
+  <earl:Assertion rdf:about="assert-43">
+    <earl:mode rdf:resource="http://www.w3.org/ns/earl#automatic"/>
+    <earl:assertedBy rdf:resource="https://github.com/opengeospatial/teamengine"/>
+    <earl:subject rdf:resource="http://api/"/>
+    <earl:result>
+      <earl:TestResult rdf:about="result-43">
+        <dct:date rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime"
+        >2026-08-14T10:54:44.312Z</dct:date>
+        <earl:outcome rdf:resource="http://www.w3.org/ns/earl#passed"/>
+      </earl:TestResult>
+    </earl:result>
+    <earl:test>
+      <earl:TestCase rdf:about="org/opengis/cite/ogcapiprocesses10/processlist/ProcessList#testPlLimitDefinition">
+        <dct:title>test Pl Limit Definition </dct:title>
+        <dct:description>Implements Requirement /req/core/pl-limit-definition </dct:description>
+      </earl:TestCase>
+    </earl:test>
+  </earl:Assertion>
+  <earl:Assertion rdf:about="assert-31">
+    <earl:mode rdf:resource="http://www.w3.org/ns/earl#automatic"/>
+    <earl:assertedBy rdf:resource="https://github.com/opengeospatial/teamengine"/>
+    <earl:subject rdf:resource="http://api/"/>
+    <earl:result>
+      <earl:TestResult rdf:about="result-31">
+        <dct:date rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime"
+        >2026-08-14T10:54:44.475Z</dct:date>
+        <earl:outcome rdf:resource="http://www.w3.org/ns/earl#passed"/>
+      </earl:TestResult>
+    </earl:result>
+    <earl:test>
+      <earl:TestCase rdf:about="org/opengis/cite/ogcapiprocesses10/processlist/ProcessList#testPlLinks">
+        <dct:title>test Pl Links </dct:title>
+        <dct:description>Implements Requirement /req/core/pl-links </dct:description>
+      </earl:TestCase>
+    </earl:test>
+  </earl:Assertion>
+  <earl:Assertion rdf:about="assert-32">
+    <earl:mode rdf:resource="http://www.w3.org/ns/earl#automatic"/>
+    <earl:assertedBy rdf:resource="https://github.com/opengeospatial/teamengine"/>
+    <earl:subject rdf:resource="http://api/"/>
+    <earl:result>
+      <earl:TestResult rdf:about="result-32">
+        <dct:date rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime"
+        >2026-08-14T10:54:44.783Z</dct:date>
+        <earl:outcome rdf:resource="http://www.w3.org/ns/earl#passed"/>
+      </earl:TestResult>
+    </earl:result>
+    <earl:test>
+      <earl:TestCase rdf:about="org/opengis/cite/ogcapiprocesses10/processlist/ProcessList#testProcessListSuccess">
+        <dct:title>test Process List Success </dct:title>
+        <dct:description>Implements Requirement /req/core/process-list-success </dct:description>
+      </earl:TestCase>
+    </earl:test>
+  </earl:Assertion>
+  <earl:Assertion rdf:about="assert-20">
+    <earl:mode rdf:resource="http://www.w3.org/ns/earl#automatic"/>
+    <earl:assertedBy rdf:resource="https://github.com/opengeospatial/teamengine"/>
+    <earl:subject rdf:resource="http://api/"/>
+    <earl:result>
+      <earl:TestResult rdf:about="result-20">
+        <dct:date rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime"
+        >2026-08-14T10:55:10.257Z</dct:date>
+        <dct:description>java.lang.AssertionError: body.finished: Null value is not allowed. (code: 1021)
+From: body.finished.&lt;nullable&gt;
+ expected [true] but found [false]</dct:description>
+        <earl:outcome rdf:resource="http://www.w3.org/ns/earl#failed"/>
+        <cite:message>
+          <http:Request>
+            <http:resp>
+              <http:Response>
+                <http:body>
+                  <cnt:ContentAsXML>
+                    <cnt:rest>{
+  "type" : "process",
+  "processID" : "async-echo",
+  "jobID" : "9e70b509-97ce-11f1-857a-b344daa8ca60",
+  "status" : "accepted",
+  "message" : "Job accepted and ready for execution",
+  "progress" : 5,
+  "parameters" : null,
+  "created" : "2026-08-14T10:55:10.244028Z",
+  "started" : "2026-08-14T10:55:10.244059Z",
+  "finished" : null,
+  "updated" : "2026-08-14T10:55:10.244063Z",
+  "links" : [ {
+    "href" : "http://api/jobs/9e70b509-97ce-11f1-857a-b344daa8ca60/results?f=html",
+    "rel" : "http://www.opengis.net/def/rel/ogc/1.0/results",
+    "type" : "text/html",
+    "title" : "Results of job as HTML"
+  }, {
+    "href" : "http://api/jobs/9e70b509-97ce-11f1-857a-b344daa8ca60/results?f=json",
+    "rel" : "http://www.opengis.net/def/rel/ogc/1.0/results",
+    "type" : "application/json",
+    "title" : "Results of job as JSON"
+  }, {
+    "href" : "http://api/jobs/9e70b509-97ce-11f1-857a-b344daa8ca60/results",
+    "rel" : "http://www.opengis.net/def/rel/ogc/1.0/results",
+    "type" : "application/octet-stream",
+    "title" : "Results of job 9e70b509-97ce-11f1-857a-b344daa8ca60 as application/octet-stream"
+  } ]
+}</cnt:rest>      </cnt:ContentAsXML>
+                </http:body>
+              </http:Response>
+            </http:resp>
+            <http:requestURI>GET http://api/jobs/9e70b509-97ce-11f1-857a-b344daa8ca60 HTTP/1.1</http:requestURI>
+            <http:methodName>GET</http:methodName>
+          </http:Request>
+        </cite:message>
+      </earl:TestResult>
+    </earl:result>
+    <earl:test>
+      <earl:TestCase rdf:about="org/opengis/cite/ogcapiprocesses10/jobs/Jobs#testJobResultsAsyncRawValueMulti">
+        <dct:title>test Job Results Async Raw Value Multi </dct:title>
+        <dct:description>Implements Requirement /req/core/job-results-async-raw-value-multi </dct:description>
+      </earl:TestCase>
+    </earl:test>
+  </earl:Assertion>
+  <earl:Assertion rdf:about="assert-44">
+    <earl:mode rdf:resource="http://www.w3.org/ns/earl#automatic"/>
+    <earl:assertedBy rdf:resource="https://github.com/opengeospatial/teamengine"/>
+    <earl:subject rdf:resource="http://api/"/>
+    <earl:result>
+      <earl:TestResult rdf:about="result-44">
+        <dct:date rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime"
+        >2026-08-14T10:54:44.815Z</dct:date>
+        <earl:outcome rdf:resource="http://www.w3.org/ns/earl#passed"/>
+      </earl:TestResult>
+    </earl:result>
+    <earl:test>
+      <earl:TestCase rdf:about="org/opengis/cite/ogcapiprocesses10/process/Process#testProcess">
+        <dct:title>test Process </dct:title>
+        <dct:description>Implements Requirement /req/core/process </dct:description>
+      </earl:TestCase>
+    </earl:test>
+  </earl:Assertion>
+  <earl:Assertion rdf:about="assert-8">
+    <earl:mode rdf:resource="http://www.w3.org/ns/earl#automatic"/>
+    <earl:assertedBy rdf:resource="https://github.com/opengeospatial/teamengine"/>
+    <earl:subject rdf:resource="http://api/"/>
+    <earl:result>
+      <earl:TestResult rdf:about="result-8">
+        <dct:date rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime"
+        >2026-08-14T10:55:05.106Z</dct:date>
+        <dct:description>java.lang.AssertionError: No supported input found. Only plain string input is supported.</dct:description>
+        <earl:outcome rdf:resource="http://www.w3.org/ns/earl#failed"/>
+        <cite:message>
+          <http:Request>
+            <http:resp>
+              <http:Response>
+                <http:body>
+                  <cnt:ContentAsXML>
+                    <cnt:rest>{
+  "id" : "debug_log",
+  "value" : [ "received request", "sleeping for 5s", "woke up", "building result" ]
+}</cnt:rest>      </cnt:ContentAsXML>
+                </http:body>
+              </http:Response>
+            </http:resp>
+            <http:body>
+              <cnt:ContentAsXML>
+                <cnt:rest>&lt;!-- non XML body --&gt;
+{
+  "inputs" : { },
+  "outputs" : {
+    "result" : {
+      "transmissionMode" : "value"
+    },
+    "debug_log" : {
+      "transmissionMode" : "value"
+    }
+  }
+}</cnt:rest>  </cnt:ContentAsXML>
+            </http:body>
+            <http:requestURI>POST http://api//processes/async-echo/execution HTTP/1.1%POSTURL-SEPARATOR%&lt;!-- non XML body --&gt;
+{
+  "inputs" : { },
+  "outputs" : {
+    "result" : {
+      "transmissionMode" : "value"
+    },
+    "debug_log" : {
+      "transmissionMode" : "value"
+    }
+  }
+}</http:requestURI>
+            <http:methodName>POST</http:methodName>
+          </http:Request>
+        </cite:message>
+      </earl:TestResult>
+    </earl:result>
+    <earl:test>
+      <earl:TestCase rdf:about="org/opengis/cite/ogcapiprocesses10/jobs/Jobs#testJobCreationInputs">
+        <dct:title>test Job Creation Inputs </dct:title>
+        <dct:description>Implements Requirement /req/core/job-creation-inputs </dct:description>
+      </earl:TestCase>
+    </earl:test>
+  </earl:Assertion>
+  <earl:Assertion rdf:about="assert-29">
+    <earl:mode rdf:resource="http://www.w3.org/ns/earl#automatic"/>
+    <earl:assertedBy rdf:resource="https://github.com/opengeospatial/teamengine"/>
+    <earl:subject rdf:resource="http://api/"/>
+    <earl:result>
+      <earl:TestResult rdf:about="result-29">
+        <dct:date rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime"
+        >2026-08-14T10:54:43.967Z</dct:date>
+        <earl:outcome rdf:resource="http://www.w3.org/ns/earl#passed"/>
+      </earl:TestResult>
+    </earl:result>
+    <earl:test>
+      <earl:TestCase rdf:about="org/opengis/cite/ogcapiprocesses10/landingpage/LandingPage#testLandingPageRetrieval">
+        <dct:title>test Landing Page Retrieval </dct:title>
+        <dct:description>Implements Abstract Test 1: /conf/core/landingpage-op</dct:description>
+      </earl:TestCase>
+    </earl:test>
+  </earl:Assertion>
+  <earl:Assertion rdf:about="assert-17">
+    <earl:mode rdf:resource="http://www.w3.org/ns/earl#automatic"/>
+    <earl:assertedBy rdf:resource="https://github.com/opengeospatial/teamengine"/>
+    <earl:subject rdf:resource="http://api/"/>
+    <earl:result>
+      <earl:TestResult rdf:about="result-17">
+        <dct:date rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime"
+        >2026-08-14T10:55:05.134Z</dct:date>
+        <dct:description>java.lang.AssertionError: No supported input found. Only plain string input is supported.</dct:description>
+        <earl:outcome rdf:resource="http://www.w3.org/ns/earl#failed"/>
+        <cite:message>
+          <http:Request>
+            <http:resp>
+              <http:Response>
+                <http:body>
+                  <cnt:ContentAsXML>
+                    <cnt:rest>{
+  "id" : "debug_log",
+  "value" : [ "received request", "sleeping for 5s", "woke up", "building result" ]
+}</cnt:rest>      </cnt:ContentAsXML>
+                </http:body>
+              </http:Response>
+            </http:resp>
+            <http:body>
+              <cnt:ContentAsXML>
+                <cnt:rest>&lt;!-- non XML body --&gt;
+{
+  "inputs" : { },
+  "outputs" : {
+    "result" : {
+      "transmissionMode" : "value"
+    },
+    "debug_log" : {
+      "transmissionMode" : "value"
+    }
+  }
+}</cnt:rest>  </cnt:ContentAsXML>
+            </http:body>
+            <http:requestURI>POST http://api//processes/async-echo/execution HTTP/1.1%POSTURL-SEPARATOR%&lt;!-- non XML body --&gt;
+{
+  "inputs" : { },
+  "outputs" : {
+    "result" : {
+      "transmissionMode" : "value"
+    },
+    "debug_log" : {
+      "transmissionMode" : "value"
+    }
+  }
+}</http:requestURI>
+            <http:methodName>POST</http:methodName>
+          </http:Request>
+        </cite:message>
+      </earl:TestResult>
+    </earl:result>
+    <earl:test>
+      <earl:TestCase rdf:about="org/opengis/cite/ogcapiprocesses10/jobs/Jobs#testJobCreationSyncRawValueMulti">
+        <dct:title>test Job Creation Sync Raw Value Multi </dct:title>
+        <dct:description>Implements Requirement /req/core/job-creation-sync-raw-value-multi </dct:description>
+      </earl:TestCase>
+    </earl:test>
+  </earl:Assertion>
+  <earl:Assertion rdf:about="assert-50">
+    <earl:mode rdf:resource="http://www.w3.org/ns/earl#automatic"/>
+    <earl:assertedBy rdf:resource="https://github.com/opengeospatial/teamengine"/>
+    <earl:subject rdf:resource="http://api/"/>
+    <earl:result>
+      <earl:TestResult rdf:about="result-50">
+        <dct:date rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime"
+        >2026-08-14T10:55:15.533Z</dct:date>
+        <earl:outcome rdf:resource="http://www.w3.org/ns/earl#passed"/>
+      </earl:TestResult>
+    </earl:result>
+    <earl:test>
+      <earl:TestCase rdf:about="org/opengis/cite/ogcapiprocesses10/ogcprocessdescription/OGCProcessDescription#testOGCProcessDescriptionInputsDef">
+        <dct:title>test O G C Process Description Inputs Def </dct:title>
+        <dct:description>Implements Requirement /req/ogc-process-description/inputs-def</dct:description>
+      </earl:TestCase>
+    </earl:test>
+  </earl:Assertion>
+  <earl:Assertion rdf:about="assert-18">
+    <earl:mode rdf:resource="http://www.w3.org/ns/earl#automatic"/>
+    <earl:assertedBy rdf:resource="https://github.com/opengeospatial/teamengine"/>
+    <earl:subject rdf:resource="http://api/"/>
+    <earl:result>
+      <earl:TestResult rdf:about="result-18">
+        <dct:date rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime"
+        >2026-08-14T10:54:50.021Z</dct:date>
+        <dct:description>java.lang.AssertionError: No supported input found. Only plain string input is supported.</dct:description>
+        <earl:outcome rdf:resource="http://www.w3.org/ns/earl#failed"/>
+        <cite:message>
+          <http:Request>
+            <http:resp>
+              <http:Response>
+                <http:body>
+                  <cnt:ContentAsXML>
+                    <cnt:rest></cnt:rest>
+                  </cnt:ContentAsXML>
+                </http:body>
+              </http:Response>
+            </http:resp>
+            <http:body>
+              <cnt:ContentAsXML>
+                <cnt:rest>&lt;!-- non XML body --&gt;
+{
+  "inputs" : { }
+}</cnt:rest>  </cnt:ContentAsXML>
+            </http:body>
+            <http:requestURI>POST http://api//processes/async-echo/execution HTTP/1.1%POSTURL-SEPARATOR%&lt;!-- non XML body --&gt;
+{
+  "inputs" : { }
+}</http:requestURI>
+            <http:methodName>POST</http:methodName>
+          </http:Request>
+        </cite:message>
+      </earl:TestResult>
+    </earl:result>
+    <earl:test>
+      <earl:TestCase rdf:about="org/opengis/cite/ogcapiprocesses10/jobs/Jobs#testJobCreationInputInline">
+        <dct:title>test Job Creation Input Inline </dct:title>
+        <dct:description>Implements Requirement /req/core/job-creation-input-inline </dct:description>
+      </earl:TestCase>
+    </earl:test>
+  </earl:Assertion>
+  <earl:Assertion rdf:about="assert-51">
+    <earl:mode rdf:resource="http://www.w3.org/ns/earl#automatic"/>
+    <earl:assertedBy rdf:resource="https://github.com/opengeospatial/teamengine"/>
+    <earl:subject rdf:resource="http://api/"/>
+    <earl:result>
+      <earl:TestResult rdf:about="result-51">
+        <dct:date rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime"
+        >2026-08-14T10:55:15.63Z</dct:date>
+        <earl:outcome rdf:resource="http://www.w3.org/ns/earl#passed"/>
+      </earl:TestResult>
+    </earl:result>
+    <earl:test>
+      <earl:TestCase rdf:about="org/opengis/cite/ogcapiprocesses10/ogcprocessdescription/OGCProcessDescription#testOGCProcessDescriptionOutputsDef">
+        <dct:title>test O G C Process Description Outputs Def </dct:title>
+        <dct:description>Implements Requirement /req/ogc-process-description/outputs-def</dct:description>
+      </earl:TestCase>
+    </earl:test>
+  </earl:Assertion>
+  <earl:Assertion rdf:about="assert-19">
+    <earl:mode rdf:resource="http://www.w3.org/ns/earl#automatic"/>
+    <earl:assertedBy rdf:resource="https://github.com/opengeospatial/teamengine"/>
+    <earl:subject rdf:resource="http://api/"/>
+    <earl:result>
+      <earl:TestResult rdf:about="result-19">
+        <dct:date rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime"
+        >2026-08-14T10:55:10.177Z</dct:date>
+        <dct:description>java.lang.AssertionError: No supported input found. Only plain string input is supported.</dct:description>
+        <earl:outcome rdf:resource="http://www.w3.org/ns/earl#failed"/>
+        <cite:message>
+          <http:Request>
+            <http:resp>
+              <http:Response>
+                <http:body>
+                  <cnt:ContentAsXML>
+                    <cnt:rest>{
+  "code" : "InvalidParameterValue",
+  "type" : "InvalidParameterValue",
+  "description" : "invalid-job-726aca67-9450-4ecf-a966-5842df8a27c5"
+}</cnt:rest>      </cnt:ContentAsXML>
+                </http:body>
+              </http:Response>
+            </http:resp>
+            <http:requestURI>GET http://api//jobs/invalid-job-726aca67-9450-4ecf-a966-5842df8a27c5 HTTP/1.1</http:requestURI>
+            <http:methodName>GET</http:methodName>
+          </http:Request>
+        </cite:message>
+      </earl:TestResult>
+    </earl:result>
+    <earl:test>
+      <earl:TestCase rdf:about="org/opengis/cite/ogcapiprocesses10/jobs/Jobs#testJobResults">
+        <dct:title>test Job Results </dct:title>
+        <dct:description>Implements Requirement /req/core/job-results </dct:description>
+      </earl:TestCase>
+    </earl:test>
+  </earl:Assertion>
+  <earl:Assertion rdf:about="assert-52">
+    <earl:mode rdf:resource="http://www.w3.org/ns/earl#automatic"/>
+    <earl:assertedBy rdf:resource="https://github.com/opengeospatial/teamengine"/>
+    <earl:subject rdf:resource="http://api/"/>
+    <earl:result>
+      <earl:TestResult rdf:about="result-52">
+        <dct:date rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime"
+        >2026-08-14T10:55:15.47Z</dct:date>
+        <earl:outcome rdf:resource="http://www.w3.org/ns/earl#passed"/>
+      </earl:TestResult>
+    </earl:result>
+    <earl:test>
+      <earl:TestCase rdf:about="org/opengis/cite/ogcapiprocesses10/ogcprocessdescription/OGCProcessDescription#testOGCProcessDescriptionInputDef">
+        <dct:title>test O G C Process Description Input Def </dct:title>
+        <dct:description>Implements Requirement /req/ogc-process-description/input-def</dct:description>
+      </earl:TestCase>
+    </earl:test>
+  </earl:Assertion>
+  <earl:Assertion rdf:about="assert-40">
+    <earl:mode rdf:resource="http://www.w3.org/ns/earl#automatic"/>
+    <earl:assertedBy rdf:resource="https://github.com/opengeospatial/teamengine"/>
+    <earl:subject rdf:resource="http://api/"/>
+    <earl:result>
+      <earl:TestResult rdf:about="result-40">
+        <dct:date rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime"
+        >2026-08-14T10:54:43.938Z</dct:date>
+        <earl:outcome rdf:resource="http://www.w3.org/ns/earl#passed"/>
+      </earl:TestResult>
+    </earl:result>
+    <earl:test>
+      <earl:TestCase rdf:about="org/opengis/cite/ogcapiprocesses10/general/GeneralHttp#testHttp">
+        <dct:title>test Http </dct:title>
+        <dct:description>Implements A.2.1.1. HTTP, Abstract Test 1 (Requirement /req/core/http)</dct:description>
+      </earl:TestCase>
+    </earl:test>
+  </earl:Assertion>
+  <earl:Assertion rdf:about="assert-1">
+    <earl:mode rdf:resource="http://www.w3.org/ns/earl#automatic"/>
+    <earl:assertedBy rdf:resource="https://github.com/opengeospatial/teamengine"/>
+    <earl:subject rdf:resource="http://api/"/>
+    <earl:result>
+      <earl:TestResult rdf:about="result-1">
+        <dct:date rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime"
+        >2026-08-14T10:55:10.232Z</dct:date>
+        <dct:description>java.lang.AssertionError: body.finished: Null value is not allowed. (code: 1021)
+From: body.finished.&lt;nullable&gt;
+ expected [true] but found [false]</dct:description>
+        <earl:outcome rdf:resource="http://www.w3.org/ns/earl#failed"/>
+        <cite:message>
+          <http:Request>
+            <http:resp>
+              <http:Response>
+                <http:body>
+                  <cnt:ContentAsXML>
+                    <cnt:rest>{
+  "type" : "process",
+  "processID" : "async-echo",
+  "jobID" : "9e6d1afa-97ce-11f1-8aa2-b344daa8ca60",
+  "status" : "accepted",
+  "message" : "Job accepted and ready for execution",
+  "progress" : 5,
+  "parameters" : null,
+  "created" : "2026-08-14T10:55:10.220436Z",
+  "started" : "2026-08-14T10:55:10.220467Z",
+  "finished" : null,
+  "updated" : "2026-08-14T10:55:10.220475Z",
+  "links" : [ {
+    "href" : "http://api/jobs/9e6d1afa-97ce-11f1-8aa2-b344daa8ca60/results?f=html",
+    "rel" : "http://www.opengis.net/def/rel/ogc/1.0/results",
+    "type" : "text/html",
+    "title" : "Results of job as HTML"
+  }, {
+    "href" : "http://api/jobs/9e6d1afa-97ce-11f1-8aa2-b344daa8ca60/results?f=json",
+    "rel" : "http://www.opengis.net/def/rel/ogc/1.0/results",
+    "type" : "application/json",
+    "title" : "Results of job as JSON"
+  }, {
+    "href" : "http://api/jobs/9e6d1afa-97ce-11f1-8aa2-b344daa8ca60/results",
+    "rel" : "http://www.opengis.net/def/rel/ogc/1.0/results",
+    "type" : "application/octet-stream",
+    "title" : "Results of job 9e6d1afa-97ce-11f1-8aa2-b344daa8ca60 as application/octet-stream"
+  } ]
+}</cnt:rest>      </cnt:ContentAsXML>
+                </http:body>
+              </http:Response>
+            </http:resp>
+            <http:requestURI>GET http://api/jobs/9e6d1afa-97ce-11f1-8aa2-b344daa8ca60 HTTP/1.1</http:requestURI>
+            <http:methodName>GET</http:methodName>
+          </http:Request>
+        </cite:message>
+      </earl:TestResult>
+    </earl:result>
+    <earl:test>
+      <earl:TestCase rdf:about="org/opengis/cite/ogcapiprocesses10/jobs/Jobs#testJobResultsAsyncRawRef">
+        <dct:title>test Job Results Async Raw Ref </dct:title>
+        <dct:description>Implements Requirement /req/core/job-results-async-raw-ref </dct:description>
+      </earl:TestCase>
+    </earl:test>
+  </earl:Assertion>
+  <earl:Assertion rdf:about="assert-25">
+    <earl:mode rdf:resource="http://www.w3.org/ns/earl#automatic"/>
+    <earl:assertedBy rdf:resource="https://github.com/opengeospatial/teamengine"/>
+    <earl:subject rdf:resource="http://api/"/>
+    <earl:result>
+      <earl:TestResult rdf:about="result-25">
+        <dct:date rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime"
+        >2026-08-14T10:54:50.019Z</dct:date>
+        <dct:description>org.testng.SkipException: No input of type array found.</dct:description>
+        <earl:outcome rdf:resource="http://www.w3.org/ns/earl#untested"/>
+      </earl:TestResult>
+    </earl:result>
+    <earl:test>
+      <earl:TestCase rdf:about="org/opengis/cite/ogcapiprocesses10/jobs/Jobs#testJobCreationInputArray">
+        <dct:title>test Job Creation Input Array </dct:title>
+        <dct:description>Implements Requirement /req/core/job-creation-input-array </dct:description>
+      </earl:TestCase>
+    </earl:test>
+  </earl:Assertion>
+  <earl:Assertion rdf:about="assert-13">
+    <earl:mode rdf:resource="http://www.w3.org/ns/earl#automatic"/>
+    <earl:assertedBy rdf:resource="https://github.com/opengeospatial/teamengine"/>
+    <earl:subject rdf:resource="http://api/"/>
+    <earl:result>
+      <earl:TestResult rdf:about="result-13">
+        <dct:date rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime"
+        >2026-08-14T10:55:05.125Z</dct:date>
+        <dct:description>java.lang.AssertionError: No supported input found. Only plain string input is supported.</dct:description>
+        <earl:outcome rdf:resource="http://www.w3.org/ns/earl#failed"/>
+        <cite:message>
+          <http:Request>
+            <http:resp>
+              <http:Response>
+                <http:body>
+                  <cnt:ContentAsXML>
+                    <cnt:rest>{
+  "id" : "debug_log",
+  "value" : [ "received request", "sleeping for 5s", "woke up", "building result" ]
+}</cnt:rest>      </cnt:ContentAsXML>
+                </http:body>
+              </http:Response>
+            </http:resp>
+            <http:body>
+              <cnt:ContentAsXML>
+                <cnt:rest>&lt;!-- non XML body --&gt;
+{
+  "inputs" : { },
+  "outputs" : {
+    "result" : {
+      "transmissionMode" : "value"
+    },
+    "debug_log" : {
+      "transmissionMode" : "value"
+    }
+  }
+}</cnt:rest>  </cnt:ContentAsXML>
+            </http:body>
+            <http:requestURI>POST http://api//processes/async-echo/execution HTTP/1.1%POSTURL-SEPARATOR%&lt;!-- non XML body --&gt;
+{
+  "inputs" : { },
+  "outputs" : {
+    "result" : {
+      "transmissionMode" : "value"
+    },
+    "debug_log" : {
+      "transmissionMode" : "value"
+    }
+  }
+}</http:requestURI>
+            <http:methodName>POST</http:methodName>
+          </http:Request>
+        </cite:message>
+      </earl:TestResult>
+    </earl:result>
+    <earl:test>
+      <earl:TestCase rdf:about="org/opengis/cite/ogcapiprocesses10/jobs/Jobs#testJobCreationSuccessAsync">
+        <dct:title>test Job Creation Success Async </dct:title>
+        <dct:description>Implements Requirement /req/core/job-creation-success-async </dct:description>
+      </earl:TestCase>
+    </earl:test>
+  </earl:Assertion>
+  <earl:Assertion rdf:about="assert-49">
+    <earl:mode rdf:resource="http://www.w3.org/ns/earl#automatic"/>
+    <earl:assertedBy rdf:resource="https://github.com/opengeospatial/teamengine"/>
+    <earl:subject rdf:resource="http://api/"/>
+    <earl:result>
+      <earl:TestResult rdf:about="result-49">
+        <dct:date rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime"
+        >2026-08-14T10:55:15.437Z</dct:date>
+        <earl:outcome rdf:resource="http://www.w3.org/ns/earl#passed"/>
+      </earl:TestResult>
+    </earl:result>
+    <earl:test>
+      <earl:TestCase rdf:about="org/opengis/cite/ogcapiprocesses10/ogcprocessdescription/OGCProcessDescription#testOGCProcessDescriptionJSON">
+        <dct:title>test O G C Process Description J S O N </dct:title>
+        <dct:description>Implements Requirement /req/ogc-process-description/json-encoding</dct:description>
+      </earl:TestCase>
+    </earl:test>
+  </earl:Assertion>
+  <earl:Assertion rdf:about="assert-37">
+    <earl:mode rdf:resource="http://www.w3.org/ns/earl#automatic"/>
+    <earl:assertedBy rdf:resource="https://github.com/opengeospatial/teamengine"/>
+    <earl:subject rdf:resource="http://api/"/>
+    <earl:result>
+      <earl:TestResult rdf:about="result-37">
+        <dct:date rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime"
+        >2026-08-14T10:55:10.169Z</dct:date>
+        <earl:outcome rdf:resource="http://www.w3.org/ns/earl#passed"/>
+      </earl:TestResult>
+    </earl:result>
+    <earl:test>
+      <earl:TestCase rdf:about="org/opengis/cite/ogcapiprocesses10/jobs/Jobs#testJobExceptionNoSuchJob">
+        <dct:title>test Job Exception No Such Job </dct:title>
+        <dct:description>Implements Requirement /req/core/job-exception-no-such-job </dct:description>
+      </earl:TestCase>
+    </earl:test>
+  </earl:Assertion>
+  <earl:Assertion rdf:about="assert-2">
+    <earl:mode rdf:resource="http://www.w3.org/ns/earl#automatic"/>
+    <earl:assertedBy rdf:resource="https://github.com/opengeospatial/teamengine"/>
+    <earl:subject rdf:resource="http://api/"/>
+    <earl:result>
+      <earl:TestResult rdf:about="result-2">
+        <dct:date rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime"
+        >2026-08-14T10:55:05.129Z</dct:date>
+        <dct:description>java.lang.AssertionError: No supported input found. Only plain string input is supported.</dct:description>
+        <earl:outcome rdf:resource="http://www.w3.org/ns/earl#failed"/>
+        <cite:message>
+          <http:Request>
+            <http:resp>
+              <http:Response>
+                <http:body>
+                  <cnt:ContentAsXML>
+                    <cnt:rest>{
+  "id" : "debug_log",
+  "value" : [ "received request", "sleeping for 5s", "woke up", "building result" ]
+}</cnt:rest>      </cnt:ContentAsXML>
+                </http:body>
+              </http:Response>
+            </http:resp>
+            <http:body>
+              <cnt:ContentAsXML>
+                <cnt:rest>&lt;!-- non XML body --&gt;
+{
+  "inputs" : { },
+  "outputs" : {
+    "result" : {
+      "transmissionMode" : "value"
+    },
+    "debug_log" : {
+      "transmissionMode" : "value"
+    }
+  }
+}</cnt:rest>  </cnt:ContentAsXML>
+            </http:body>
+            <http:requestURI>POST http://api//processes/async-echo/execution HTTP/1.1%POSTURL-SEPARATOR%&lt;!-- non XML body --&gt;
+{
+  "inputs" : { },
+  "outputs" : {
+    "result" : {
+      "transmissionMode" : "value"
+    },
+    "debug_log" : {
+      "transmissionMode" : "value"
+    }
+  }
+}</http:requestURI>
+            <http:methodName>POST</http:methodName>
+          </http:Request>
+        </cite:message>
+      </earl:TestResult>
+    </earl:result>
+    <earl:test>
+      <earl:TestCase rdf:about="org/opengis/cite/ogcapiprocesses10/jobs/Jobs#testJobCreationSyncRawMixedMulti">
+        <dct:title>test Job Creation Sync Raw Mixed Multi </dct:title>
+        <dct:description>Implements Requirement /req/core/job-creation-sync-raw-mixed-multi </dct:description>
+      </earl:TestCase>
+    </earl:test>
+  </earl:Assertion>
+  <earl:Assertion rdf:about="assert-14">
+    <earl:mode rdf:resource="http://www.w3.org/ns/earl#automatic"/>
+    <earl:assertedBy rdf:resource="https://github.com/opengeospatial/teamengine"/>
+    <earl:subject rdf:resource="http://api/"/>
+    <earl:result>
+      <earl:TestResult rdf:about="result-14">
+        <dct:date rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime"
+        >2026-08-14T10:54:44.957Z</dct:date>
+        <dct:description>java.lang.AssertionError: No supported input found. Only plain string input is supported.</dct:description>
+        <earl:outcome rdf:resource="http://www.w3.org/ns/earl#failed"/>
+        <cite:message>
+          <http:Request>
+            <http:resp>
+              <http:Response>
+                <http:body>
+                  <cnt:ContentAsXML>
+                    <cnt:rest></cnt:rest>
+                  </cnt:ContentAsXML>
+                </http:body>
+              </http:Response>
+            </http:resp>
+            <http:requestURI></http:requestURI>
+            <http:methodName>GET</http:methodName>
+          </http:Request>
+        </cite:message>
+      </earl:TestResult>
+    </earl:result>
+    <earl:test>
+      <earl:TestCase rdf:about="org/opengis/cite/ogcapiprocesses10/jobs/Jobs#testJobCreationAutoExecutionMode">
+        <dct:title>test Job Creation Auto Execution Mode </dct:title>
+        <dct:description>Implements Requirement /req/core/job-creation-op </dct:description>
+      </earl:TestCase>
+    </earl:test>
+  </earl:Assertion>
+  <earl:Assertion rdf:about="assert-38">
+    <earl:mode rdf:resource="http://www.w3.org/ns/earl#automatic"/>
+    <earl:assertedBy rdf:resource="https://github.com/opengeospatial/teamengine"/>
+    <earl:subject rdf:resource="http://api/"/>
+    <earl:result>
+      <earl:TestResult rdf:about="result-38">
+        <dct:date rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime"
+        >2026-08-14T10:55:00.072Z</dct:date>
+        <earl:outcome rdf:resource="http://www.w3.org/ns/earl#passed"/>
+      </earl:TestResult>
+    </earl:result>
+    <earl:test>
+      <earl:TestCase rdf:about="org/opengis/cite/ogcapiprocesses10/jobs/Jobs#testJobCreationInputInlineObject">
+        <dct:title>test Job Creation Input Inline Object </dct:title>
+        <dct:description>Implements Requirement /req/core/job-creation-input-inline-object </dct:description>
+      </earl:TestCase>
+    </earl:test>
+  </earl:Assertion>
+  <earl:Assertion rdf:about="assert-26">
+    <earl:mode rdf:resource="http://www.w3.org/ns/earl#automatic"/>
+    <earl:assertedBy rdf:resource="https://github.com/opengeospatial/teamengine"/>
+    <earl:subject rdf:resource="http://api/"/>
+    <earl:result>
+      <earl:TestResult rdf:about="result-26">
+        <dct:date rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime"
+        >2026-08-14T10:54:50.023Z</dct:date>
+        <dct:description>org.testng.SkipException: No input of type bounding box found.</dct:description>
+        <earl:outcome rdf:resource="http://www.w3.org/ns/earl#untested"/>
+      </earl:TestResult>
+    </earl:result>
+    <earl:test>
+      <earl:TestCase rdf:about="org/opengis/cite/ogcapiprocesses10/jobs/Jobs#testJobCreationInputInlineBbox">
+        <dct:title>test Job Creation Input Inline Bbox </dct:title>
+        <dct:description>Implements Requirement /req/core/job-creation-input-inline-bbox </dct:description>
+      </earl:TestCase>
+    </earl:test>
+  </earl:Assertion>
+  <cite:TestRun>
+    <dct:extent rdf:datatype="http://www.w3.org/2001/XMLSchema#duration"
+    >PT31.977S</dct:extent>
+    <cite:webDirPath>ogcapi-processes-1.0/1.0/site</cite:webDirPath>
+    <cite:testsPassed rdf:datatype="http://www.w3.org/2001/XMLSchema#int"
+    >24</cite:testsPassed>
+    <dct:created>2026-08-14T10:55:15.878516115Z</dct:created>
+    <cite:requirements>
+      <rdf:Seq>
+        <rdf:li>
+          <earl:TestRequirement rdf:about="Core">
+            <dct:hasPart>
+              <earl:TestCase rdf:about="org/opengis/cite/ogcapiprocesses10/jobs/Jobs#testJobCreationOp">
+                <dct:title>test Job Creation Op </dct:title>
+                <dct:description>Implements Requirement /req/core/job-creation-op </dct:description>
+              </earl:TestCase>
+            </dct:hasPart>
+            <cite:isBasic>true</cite:isBasic>
+            <dct:title>Core</dct:title>
+            <dct:hasPart rdf:resource="org/opengis/cite/ogcapiprocesses10/jobs/Jobs#testJobCreationDefaultExecutionMode"/>
+            <dct:hasPart rdf:resource="org/opengis/cite/ogcapiprocesses10/landingpage/LandingPage#testLandingPageValidation"/>
+            <dct:hasPart rdf:resource="org/opengis/cite/ogcapiprocesses10/jobs/Jobs#testJobCreationSyncRawRef"/>
+            <dct:hasPart rdf:resource="org/opengis/cite/ogcapiprocesses10/processlist/ProcessList#testPlLimitDefinition"/>
+            <dct:hasPart rdf:resource="org/opengis/cite/ogcapiprocesses10/jobs/Jobs#testJobCreationSyncRawValueMulti"/>
+            <dct:hasPart rdf:resource="org/opengis/cite/ogcapiprocesses10/jobs/Jobs#testJobResultsAsyncRawValueMulti"/>
+            <dct:hasPart rdf:resource="org/opengis/cite/ogcapiprocesses10/jobs/Jobs#testJobResultsAsyncRawMixedMulti"/>
+            <dct:hasPart rdf:resource="org/opengis/cite/ogcapiprocesses10/jobs/Jobs#testJobResultsAsyncRawValueOne"/>
+            <dct:hasPart rdf:resource="org/opengis/cite/ogcapiprocesses10/general/GeneralHttp#testHttp"/>
+            <dct:hasPart rdf:resource="org/opengis/cite/ogcapiprocesses10/processlist/ProcessList#testProcessList"/>
+            <dct:hasPart rdf:resource="org/opengis/cite/ogcapiprocesses10/jobs/Jobs#testJobCreationInputInlineObject"/>
+            <dct:hasPart rdf:resource="org/opengis/cite/ogcapiprocesses10/jobs/Jobs#testJobCreationInputInlineBbox"/>
+            <dct:hasPart rdf:resource="org/opengis/cite/ogcapiprocesses10/jobs/Jobs#testJobResultsAsyncRawRef"/>
+            <dct:hasPart rdf:resource="org/opengis/cite/ogcapiprocesses10/jobs/Jobs#testJobCreationSyncDocument"/>
+            <dct:hasPart rdf:resource="org/opengis/cite/ogcapiprocesses10/landingpage/LandingPage#testLandingPageRetrieval"/>
+            <dct:hasPart>
+              <earl:TestCase rdf:about="org/opengis/cite/ogcapiprocesses10/processlist/ProcessList#testPlLimitResponse">
+                <dct:title>test Pl Limit Response </dct:title>
+                <dct:description>Implements Requirement /req/core/pl-limit-response </dct:description>
+              </earl:TestCase>
+            </dct:hasPart>
+            <dct:hasPart rdf:resource="org/opengis/cite/ogcapiprocesses10/jobs/Jobs#testJobCreationDefaultOutputs"/>
+            <dct:hasPart rdf:resource="org/opengis/cite/ogcapiprocesses10/jobs/Jobs#testJobCreationInputValidation"/>
+            <dct:hasPart rdf:resource="org/opengis/cite/ogcapiprocesses10/jobs/Jobs#testJobCreationAutoExecutionMode"/>
+            <dct:hasPart rdf:resource="org/opengis/cite/ogcapiprocesses10/conformance/Conformance#testValidateConformanceOperationAndResponse"/>
+            <dct:hasPart rdf:resource="org/opengis/cite/ogcapiprocesses10/jobs/Jobs#testJobCreationInputInlineMixed"/>
+            <dct:hasPart rdf:resource="org/opengis/cite/ogcapiprocesses10/processlist/ProcessList#testPlLinks"/>
+            <dct:hasPart rdf:resource="org/opengis/cite/ogcapiprocesses10/jobs/Jobs#testJobCreationInputArray"/>
+            <dct:hasPart rdf:resource="org/opengis/cite/ogcapiprocesses10/jobs/Jobs#testJobCreationSuccessAsync"/>
+            <cite:testsPassed rdf:datatype="http://www.w3.org/2001/XMLSchema#int"
+            >17</cite:testsPassed>
+            <dct:hasPart rdf:resource="org/opengis/cite/ogcapiprocesses10/process/Process#testProcess"/>
+            <dct:hasPart rdf:resource="org/opengis/cite/ogcapiprocesses10/processlist/ProcessList#testProcessListSuccess"/>
+            <dct:hasPart rdf:resource="org/opengis/cite/ogcapiprocesses10/jobs/Jobs#testJobSuccess"/>
+            <dct:hasPart rdf:resource="org/opengis/cite/ogcapiprocesses10/jobs/Jobs#testJobResultsFailed"/>
+            <dct:hasPart rdf:resource="org/opengis/cite/ogcapiprocesses10/jobs/Jobs#testJobResults"/>
+            <dct:hasPart rdf:resource="org/opengis/cite/ogcapiprocesses10/process/Process#testProcessExceptionNoSuchProcess"/>
+            <dct:hasPart rdf:resource="org/opengis/cite/ogcapiprocesses10/jobs/Jobs#testJobOp"/>
+            <dct:hasPart>
+              <earl:TestCase rdf:about="org/opengis/cite/ogcapiprocesses10/jobs/Jobs#testJobCreationRequest">
+                <dct:title>test Job Creation Request </dct:title>
+                <dct:description>Implements Requirement /req/core/job-creation-request </dct:description>
+              </earl:TestCase>
+            </dct:hasPart>
+            <cite:testsFailed rdf:datatype="http://www.w3.org/2001/XMLSchema#int"
+            >24</cite:testsFailed>
+            <dct:hasPart rdf:resource="org/opengis/cite/ogcapiprocesses10/process/Process#testProcessSuccess"/>
+            <dct:hasPart rdf:resource="org/opengis/cite/ogcapiprocesses10/jobs/Jobs#testJobCreationInputRef"/>
+            <dct:hasPart rdf:resource="org/opengis/cite/ogcapiprocesses10/jobs/Jobs#testJobCreationInputs"/>
+            <dct:hasPart rdf:resource="org/opengis/cite/ogcapiprocesses10/jobs/Jobs#testJobExceptionNoSuchJob"/>
+            <dct:hasPart rdf:resource="org/opengis/cite/ogcapiprocesses10/jobs/Jobs#testJobCreationSyncRawValueOne"/>
+            <dct:hasPart rdf:resource="org/opengis/cite/ogcapiprocesses10/jobs/Jobs#testJobCreationInputInline"/>
+            <dct:hasPart>
+              <earl:TestCase rdf:about="org/opengis/cite/ogcapiprocesses10/jobs/Jobs#testJobResultsExceptionResultsNotReady">
+                <dct:title>test Job Results Exception Results Not Ready </dct:title>
+                <dct:description>Implements Requirement /req/core/job-results-exception-results-not-ready </dct:description>
+              </earl:TestCase>
+            </dct:hasPart>
+            <dct:hasPart rdf:resource="org/opengis/cite/ogcapiprocesses10/jobs/Jobs#testJobResultsNoSuchJob"/>
+            <cite:testsSkipped rdf:datatype="http://www.w3.org/2001/XMLSchema#int"
+            >4</cite:testsSkipped>
+            <dct:hasPart rdf:resource="org/opengis/cite/ogcapiprocesses10/jobs/Jobs#testJobCreationSyncRawMixedMulti"/>
+            <dct:hasPart>
+              <earl:TestCase rdf:about="org/opengis/cite/ogcapiprocesses10/jobs/Jobs#testJobCreationInputInlineBinary">
+                <dct:title>test Job Creation Input Inline Binary </dct:title>
+                <dct:description>Implements Requirement /req/core/job-creation-input-binary </dct:description>
+              </earl:TestCase>
+            </dct:hasPart>
+            <dct:hasPart rdf:resource="org/opengis/cite/ogcapiprocesses10/jobs/Jobs#testJobResultsAsyncDocument"/>
+            <dct:hasPart rdf:resource="org/opengis/cite/ogcapiprocesses10/jobs/Jobs#testJobResultsSync"/>
+          </earl:TestRequirement>
+        </rdf:li>
+        <rdf:li>
+          <earl:TestRequirement rdf:about="OGC-Process-Description">
+            <dct:hasPart rdf:resource="org/opengis/cite/ogcapiprocesses10/ogcprocessdescription/OGCProcessDescription#testOGCProcessDescriptionInputDef"/>
+            <dct:hasPart rdf:resource="org/opengis/cite/ogcapiprocesses10/ogcprocessdescription/OGCProcessDescription#testOGCProcessDescriptionOutputsDef"/>
+            <dct:hasPart rdf:resource="org/opengis/cite/ogcapiprocesses10/ogcprocessdescription/OGCProcessDescription#testOGCProcessDescriptionOutputDef"/>
+            <cite:testsFailed rdf:datatype="http://www.w3.org/2001/XMLSchema#int"
+            >0</cite:testsFailed>
+            <dct:hasPart rdf:resource="org/opengis/cite/ogcapiprocesses10/ogcprocessdescription/OGCProcessDescription#testOGCProcessDescriptionInputsDef"/>
+            <dct:hasPart rdf:resource="org/opengis/cite/ogcapiprocesses10/ogcprocessdescription/OGCProcessDescription#testOGCProcessDescriptionInputDefinitionOfMixedType"/>
+            <cite:testsSkipped rdf:datatype="http://www.w3.org/2001/XMLSchema#int"
+            >2</cite:testsSkipped>
+            <cite:testsPassed rdf:datatype="http://www.w3.org/2001/XMLSchema#int"
+            >5</cite:testsPassed>
+            <dct:title>OGC Process Description</dct:title>
+            <dct:hasPart rdf:resource="org/opengis/cite/ogcapiprocesses10/ogcprocessdescription/OGCProcessDescription#testOGCProcessDescriptionJSON"/>
+            <dct:hasPart rdf:resource="org/opengis/cite/ogcapiprocesses10/ogcprocessdescription/OGCProcessDescription#testOGCProcessDescriptionOutputDefinitionOfMixedType"/>
+          </earl:TestRequirement>
+        </rdf:li>
+        <rdf:li>
+          <earl:TestRequirement rdf:about="Job-List">
+            <dct:title>Job List</dct:title>
+            <cite:testsPassed rdf:datatype="http://www.w3.org/2001/XMLSchema#int"
+            >2</cite:testsPassed>
+            <cite:testsFailed rdf:datatype="http://www.w3.org/2001/XMLSchema#int"
+            >0</cite:testsFailed>
+            <cite:testsSkipped rdf:datatype="http://www.w3.org/2001/XMLSchema#int"
+            >0</cite:testsSkipped>
+            <dct:hasPart rdf:resource="org/opengis/cite/ogcapiprocesses10/joblist/JobList#testJobList"/>
+            <dct:hasPart rdf:resource="org/opengis/cite/ogcapiprocesses10/joblist/JobList#testJobListSuccess"/>
+          </earl:TestRequirement>
+        </rdf:li>
+      </rdf:Seq>
+    </cite:requirements>
+    <cite:testsFailed rdf:datatype="http://www.w3.org/2001/XMLSchema#int"
+    >24</cite:testsFailed>
+    <cite:inputs>
+      <rdf:Bag>
+        <rdf:li rdf:parseType="Resource">
+          <dct:title>echoprocessid</dct:title>
+          <dct:description>async-echo</dct:description>
+        </rdf:li>
+        <rdf:li rdf:parseType="Resource">
+          <dct:title>iut</dct:title>
+          <dct:description>http://api/</dct:description>
+        </rdf:li>
+        <rdf:li rdf:parseType="Resource">
+          <dct:title>processtestlimit</dct:title>
+          <dct:description>2</dct:description>
+        </rdf:li>
+        <rdf:li rdf:parseType="Resource">
+          <dct:title>testallprocesses</dct:title>
+          <dct:description>on</dct:description>
+        </rdf:li>
+      </rdf:Bag>
+    </cite:inputs>
+    <cite:areCoreConformanceClassesPassed rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean"
+    >false</cite:areCoreConformanceClassesPassed>
+    <dct:identifier>b59f96e1-dace-4058-89f8-618835174cc7</dct:identifier>
+    <cite:testSuiteType>testng</cite:testSuiteType>
+    <dct:title>ogcapi-processes-1.0-1.3</dct:title>
+    <cite:testsSkipped rdf:datatype="http://www.w3.org/2001/XMLSchema#int"
+    >6</cite:testsSkipped>
+  </cite:TestRun>
+  <earl:Assertion rdf:about="assert-27">
+    <earl:mode rdf:resource="http://www.w3.org/ns/earl#automatic"/>
+    <earl:assertedBy rdf:resource="https://github.com/opengeospatial/teamengine"/>
+    <earl:subject rdf:resource="http://api/"/>
+    <earl:result>
+      <earl:TestResult rdf:about="result-27">
+        <dct:date rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime"
+        >2026-08-14T10:54:50.026Z</dct:date>
+        <dct:description>org.testng.SkipException: No input of type binary found.</dct:description>
+        <earl:outcome rdf:resource="http://www.w3.org/ns/earl#untested"/>
+      </earl:TestResult>
+    </earl:result>
+    <earl:test rdf:resource="org/opengis/cite/ogcapiprocesses10/jobs/Jobs#testJobCreationInputInlineBinary"/>
+  </earl:Assertion>
+  <earl:Assertion rdf:about="assert-15">
+    <earl:mode rdf:resource="http://www.w3.org/ns/earl#automatic"/>
+    <earl:assertedBy rdf:resource="https://github.com/opengeospatial/teamengine"/>
+    <earl:subject rdf:resource="http://api/"/>
+    <earl:result>
+      <earl:TestResult rdf:about="result-15">
+        <dct:date rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime"
+        >2026-08-14T10:55:05.116Z</dct:date>
+        <dct:description>java.lang.AssertionError: No supported input found. Only plain string input is supported.</dct:description>
+        <earl:outcome rdf:resource="http://www.w3.org/ns/earl#failed"/>
+        <cite:message>
+          <http:Request>
+            <http:resp>
+              <http:Response>
+                <http:body>
+                  <cnt:ContentAsXML>
+                    <cnt:rest>{
+  "id" : "debug_log",
+  "value" : [ "received request", "sleeping for 5s", "woke up", "building result" ]
+}</cnt:rest>      </cnt:ContentAsXML>
+                </http:body>
+              </http:Response>
+            </http:resp>
+            <http:body>
+              <cnt:ContentAsXML>
+                <cnt:rest>&lt;!-- non XML body --&gt;
+{
+  "inputs" : { },
+  "outputs" : {
+    "result" : {
+      "transmissionMode" : "value"
+    },
+    "debug_log" : {
+      "transmissionMode" : "value"
+    }
+  }
+}</cnt:rest>  </cnt:ContentAsXML>
+            </http:body>
+            <http:requestURI>POST http://api//processes/async-echo/execution HTTP/1.1%POSTURL-SEPARATOR%&lt;!-- non XML body --&gt;
+{
+  "inputs" : { },
+  "outputs" : {
+    "result" : {
+      "transmissionMode" : "value"
+    },
+    "debug_log" : {
+      "transmissionMode" : "value"
+    }
+  }
+}</http:requestURI>
+            <http:methodName>POST</http:methodName>
+          </http:Request>
+        </cite:message>
+      </earl:TestResult>
+    </earl:result>
+    <earl:test rdf:resource="org/opengis/cite/ogcapiprocesses10/jobs/Jobs#testJobCreationRequest"/>
+  </earl:Assertion>
+  <earl:Assertion rdf:about="assert-39">
+    <earl:mode rdf:resource="http://www.w3.org/ns/earl#automatic"/>
+    <earl:assertedBy rdf:resource="https://github.com/opengeospatial/teamengine"/>
+    <earl:subject rdf:resource="http://api/"/>
+    <earl:result>
+      <earl:TestResult rdf:about="result-39">
+        <dct:date rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime"
+        >2026-08-14T10:54:44.451Z</dct:date>
+        <earl:outcome rdf:resource="http://www.w3.org/ns/earl#passed"/>
+      </earl:TestResult>
+    </earl:result>
+    <earl:test rdf:resource="org/opengis/cite/ogcapiprocesses10/processlist/ProcessList#testPlLimitResponse"/>
+  </earl:Assertion>
+  <earl:Assertion rdf:about="assert-16">
+    <earl:mode rdf:resource="http://www.w3.org/ns/earl#automatic"/>
+    <earl:assertedBy rdf:resource="https://github.com/opengeospatial/teamengine"/>
+    <earl:subject rdf:resource="http://api/"/>
+    <earl:result>
+      <earl:TestResult rdf:about="result-16">
+        <dct:date rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime"
+        >2026-08-14T10:55:05.114Z</dct:date>
+        <dct:description>java.lang.AssertionError: No supported input found. Only plain string input is supported.</dct:description>
+        <earl:outcome rdf:resource="http://www.w3.org/ns/earl#failed"/>
+        <cite:message>
+          <http:Request>
+            <http:resp>
+              <http:Response>
+                <http:body>
+                  <cnt:ContentAsXML>
+                    <cnt:rest>{
+  "id" : "debug_log",
+  "value" : [ "received request", "sleeping for 5s", "woke up", "building result" ]
+}</cnt:rest>      </cnt:ContentAsXML>
+                </http:body>
+              </http:Response>
+            </http:resp>
+            <http:body>
+              <cnt:ContentAsXML>
+                <cnt:rest>&lt;!-- non XML body --&gt;
+{
+  "inputs" : { },
+  "outputs" : {
+    "result" : {
+      "transmissionMode" : "value"
+    },
+    "debug_log" : {
+      "transmissionMode" : "value"
+    }
+  }
+}</cnt:rest>  </cnt:ContentAsXML>
+            </http:body>
+            <http:requestURI>POST http://api//processes/async-echo/execution HTTP/1.1%POSTURL-SEPARATOR%&lt;!-- non XML body --&gt;
+{
+  "inputs" : { },
+  "outputs" : {
+    "result" : {
+      "transmissionMode" : "value"
+    },
+    "debug_log" : {
+      "transmissionMode" : "value"
+    }
+  }
+}</http:requestURI>
+            <http:methodName>POST</http:methodName>
+          </http:Request>
+        </cite:message>
+      </earl:TestResult>
+    </earl:result>
+    <earl:test rdf:resource="org/opengis/cite/ogcapiprocesses10/jobs/Jobs#testJobCreationOp"/>
+  </earl:Assertion>
+  <earl:Assertion rdf:about="assert-28">
+    <earl:mode rdf:resource="http://www.w3.org/ns/earl#automatic"/>
+    <earl:assertedBy rdf:resource="https://github.com/opengeospatial/teamengine"/>
+    <earl:subject rdf:resource="http://api/"/>
+    <earl:result>
+      <earl:TestResult rdf:about="result-28">
+        <dct:date rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime"
+        >2026-08-14T10:55:10.334Z</dct:date>
+        <dct:description>org.testng.SkipException: No input with id pause found.</dct:description>
+        <earl:outcome rdf:resource="http://www.w3.org/ns/earl#untested"/>
+      </earl:TestResult>
+    </earl:result>
+    <earl:test rdf:resource="org/opengis/cite/ogcapiprocesses10/jobs/Jobs#testJobResultsExceptionResultsNotReady"/>
+  </earl:Assertion>
+</rdf:RDF>
