@@ -42,6 +42,7 @@ skips = ["B101"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+pythonpath = ["tests/fixtures"]
 addopts = "--strict-markers --strict-config"
 
 [tool.coverage.run]

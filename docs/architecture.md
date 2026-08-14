@@ -20,8 +20,11 @@ The normal development configuration exposes only
 original point/two-radius inputs.
 
 An integration-only configuration adds a predictable `async-echo` fixture and
-TinyDB manager. That fixture verifies framework wiring only; it is not part of
-the public API or the target architecture.
+TinyDB manager. The fixture gives OGC CITE a controlled process for testing
+synchronous and asynchronous API execution without terrain-specific inputs or
+live PDOK data. TinyDB state is disposable and does not demonstrate persistent
+jobs or recovery after a restart. This setup is not part of the public API or
+the target architecture.
 
 ## Target delivery architecture
 
@@ -51,7 +54,10 @@ client ------------>| pygeoapi / API |
 Synchronous requests and workers call the same calculation core. Persistent
 job/result state is separate from disposable containers. Callback delivery
 cannot block calculation workers. The exact queue/worker implementation is an
-open architecture decision and must be recorded before implementation.
+open architecture decision and must be recorded before implementation. The
+current TinyDB integration can inform that work, but PostgreSQL is the planned
+persistent store; reuse must be decided from behaviour and tests rather than
+assuming that the temporary storage design carries over.
 
 ## Package boundary
 
