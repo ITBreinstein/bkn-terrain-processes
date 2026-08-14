@@ -59,6 +59,11 @@ The fixture exposes the plain string input/output pair used by CITE and the
 optional `pause` input used by its results-not-ready test. It performs no
 terrain calculation and does not contact PDOK.
 
+The integration-only TinyDB manager may cause pygeoapi to advertise
+asynchronous execution for all processes in this test service. CITE's async
+execution results apply to `async-echo`; they are not evidence that the terrain
+process has production-ready asynchronous execution or persistent job storage.
+
 After a valid run, copy the session directory from the container. Replace
 `s0001` with the session identifier shown by TEAM Engine:
 

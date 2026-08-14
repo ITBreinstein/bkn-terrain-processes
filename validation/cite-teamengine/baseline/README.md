@@ -30,6 +30,20 @@ The preceding setup-limited run had 24 passes, 24 failures and 6 skips. Adding
 the CITE-compatible echo contract resolved 20 failures and two skips without
 changing the product process.
 
+## Scope of the asynchronous evidence
+
+The asynchronous tests execute only `async-echo` through the integration-only
+TinyDB manager. They show that the shared pygeoapi routes and temporary job
+manager can create, monitor and return results for that controlled process.
+They do not prove asynchronous execution, persistent jobs or restart recovery
+for `bgt-land-cover-summary`.
+
+With the TinyDB manager enabled, pygeoapi currently advertises both
+`sync-execute` and `async-execute` for every process in the integration service,
+including `bgt-land-cover-summary`. Its own source metadata still declares only
+`sync-execute`. This difference is a property of the test configuration and
+must not be interpreted as a delivered product capability.
+
 ## Remaining findings
 
 1. `testJobCreationInputRef` and `testJobCreationInputValidation` execute
