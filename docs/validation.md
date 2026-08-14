@@ -11,9 +11,11 @@ complete output must be saved with release evidence. A global pygeoapi
 conformance declaration is not proof that this process implements or has
 tested a capability.
 
-The acceptance baseline is OGC API Processes v1. The exact Geonovum v1 checker
-invocation and optional classes, including Job List, must be confirmed with
-Geonovum before the process contract is frozen.
+The acceptance baseline is OGC API - Processes 1.0, which is exercised through
+CITE/TEAM Engine. Geonovum checker package `1.1.0` separately exercises its
+bundled draft Processes 2.0 rules, including Job List. The final selection of
+optional conformance classes must be confirmed with Geonovum before the process
+contract is frozen.
 
 ## OGC CITE/TEAM Engine
 
@@ -101,6 +103,20 @@ TEAM Engine remains a manual pre-merge check for now. Its REST interface could
 be automated later, but only after the test fixture and baseline are stable.
 GitHub CI will run the lighter Geonovum checker and verify its exact diagnostic
 baseline instead.
+
+## Geonovum checker
+
+The CI workflow runs `@geonovum/ogc-checker` version `1.1.0` against the normal
+API's `/openapi?f=json` document. This checker release provides only the draft
+OGC API - Processes `2.0.0` ruleset. CITE/TEAM Engine provides the separate
+Processes 1.0 test coverage.
+
+The checker runner retries explicit schema-download failures and then compares
+every stable diagnostic field with the reviewed baseline. Added and changed
+diagnostics fail as regressions. Removed diagnostics also require a reviewed
+baseline update so that a resolved issue cannot silently return. See
+[`validation/geonovum/README.md`](../validation/geonovum/README.md) for the
+commands and update policy.
 
 Live PDOK execution demonstrates interoperability, but independently reviewed
 reference cases provide repeatable calculation evidence. The public process
