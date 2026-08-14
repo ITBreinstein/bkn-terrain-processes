@@ -4,6 +4,14 @@ import logging
 
 from pygeoapi.process.base import BaseProcessor, ProcessorExecuteError
 
+from .inputs import (
+    DEFAULT_INNER_RADIUS_M,
+    DEFAULT_OUTER_RADIUS_M,
+    MAX_RADIUS_M,
+    MIN_RADIUS_M,
+    InvalidInputError,
+    parse_analysis_request,
+)
 from .terrain_analysis import get_terrain_analysis_nl
 
 LOGGER = logging.getLogger(__name__)
@@ -116,8 +124,16 @@ SUMMARY_SCHEMA = {
                     "minimum": -180,
                     "maximum": 180,
                 },
-                "inner_radius_m": {"type": "integer", "minimum": 1, "maximum": 5000},
-                "outer_radius_m": {"type": "integer", "minimum": 1, "maximum": 5000},
+                "inner_radius_m": {
+                    "type": "integer",
+                    "minimum": MIN_RADIUS_M,
+                    "maximum": MAX_RADIUS_M,
+                },
+                "outer_radius_m": {
+                    "type": "integer",
+                    "minimum": MIN_RADIUS_M,
+                    "maximum": MAX_RADIUS_M,
+                },
             },
             "additionalProperties": False,
         },
@@ -220,9 +236,9 @@ PROCESS_METADATA = {
             "description": "Radius in metres for the first complete circular area.",
             "schema": {
                 "type": "integer",
-                "minimum": 1,
-                "maximum": 5000,
-                "default": 300,
+                "minimum": MIN_RADIUS_M,
+                "maximum": MAX_RADIUS_M,
+                "default": DEFAULT_INNER_RADIUS_M,
             },
             "minOccurs": 0,
             "maxOccurs": 1,
@@ -232,9 +248,9 @@ PROCESS_METADATA = {
             "description": "Radius in metres for the second complete circular area.",
             "schema": {
                 "type": "integer",
-                "minimum": 1,
-                "maximum": 5000,
-                "default": 500,
+                "minimum": MIN_RADIUS_M,
+                "maximum": MAX_RADIUS_M,
+                "default": DEFAULT_OUTER_RADIUS_M,
             },
             "minOccurs": 0,
             "maxOccurs": 1,
@@ -270,26 +286,16 @@ class BgtLandCoverSummaryProcessor(BaseProcessor):
 
     def execute(self, data, outputs=None):
         try:
-            latitude = float(data["latitude"])
-            longitude = float(data["longitude"])
-            inner_radius_m = int(data.get("inner_radius_m", 300))
-            outer_radius_m = int(data.get("outer_radius_m", 500))
-        except (KeyError, TypeError, ValueError) as err:
-            raise ProcessorExecuteError("latitude and longitude are required numbers; radii must be integers") from err
-
-        if not 1 <= inner_radius_m <= 5000:
-            raise ProcessorExecuteError("inner_radius_m must be between 1 and 5000 metres")
-        if not 1 <= outer_radius_m <= 5000:
-            raise ProcessorExecuteError("outer_radius_m must be between 1 and 5000 metres")
-        if inner_radius_m > outer_radius_m:
-            raise ProcessorExecuteError("inner_radius_m cannot be larger than outer_radius_m")
+            request = parse_analysis_request(data)
+        except InvalidInputError as err:
+            raise ProcessorExecuteError(str(err)) from err
 
         try:
             result = get_terrain_analysis_nl(
-                latitude,
-                longitude,
-                inner_radius_m=inner_radius_m,
-                outer_radius_m=outer_radius_m,
+                request.latitude,
+                request.longitude,
+                inner_radius_m=request.inner_radius_m,
+                outer_radius_m=request.outer_radius_m,
             )
         except (ValueError, LookupError, RuntimeError) as err:
             raise ProcessorExecuteError(str(err)) from err
