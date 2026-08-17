@@ -10,9 +10,10 @@ CI runs three jobs:
 
 - `quality` checks formatting, linting, common security mistakes, tests,
   coverage, pygeoapi configuration and generated OpenAPI documents;
-- `container-smoke` builds and starts the development container and checks that
-  it publishes the expected discovery resources and BGT process, then compares
-  Geonovum checker findings with the reviewed diagnostic baseline; and
+- `API runtime and conformance` builds and starts the development container and
+  checks that it publishes the expected discovery resources and BGT process.
+  On pull requests and manually started workflows, it also compares Geonovum
+  checker findings with the reviewed diagnostic baseline; and
 - `live-point-baseline` checks one manually asserted water case and one varied
   urban case against live PDOK on pull requests. A manually started workflow
   checks all eight recorded locations.

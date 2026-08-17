@@ -11,11 +11,10 @@ complete output must be saved with release evidence. A global pygeoapi
 conformance declaration is not proof that this process implements or has
 tested a capability.
 
-The acceptance baseline is OGC API - Processes 1.0, which is exercised through
-CITE/TEAM Engine. Geonovum checker package `1.1.0` separately exercises its
-bundled draft Processes 2.0 rules, including Job List. The final selection of
-optional conformance classes must be confirmed with Geonovum before the process
-contract is frozen.
+The acceptance baseline is OGC API - Processes 1.0. It is exercised through
+CITE/TEAM Engine and the approved Processes `1.0.0` profile in Geonovum checker
+package `1.2.0`. The final selection of optional conformance classes must be
+confirmed with Geonovum before the process contract is frozen.
 
 ## OGC CITE/TEAM Engine
 
@@ -106,15 +105,20 @@ baseline instead.
 
 ## Geonovum checker
 
-The CI workflow runs `@geonovum/ogc-checker` version `1.1.0` against the normal
-API's `/openapi?f=json` document. This checker release provides only the draft
-OGC API - Processes `2.0.0` ruleset. CITE/TEAM Engine provides the separate
-Processes 1.0 test coverage.
+The CI workflow runs `@geonovum/ogc-checker` version `1.2.0` with its approved
+OGC API - Processes `1.0.0` profile against the normal API's
+`/openapi?f=json` document. This is the same standard version targeted by the
+CITE/TEAM Engine suite; the tools provide complementary static and runtime
+checks.
 
-The checker runner retries explicit schema-download failures and then compares
-every stable diagnostic field with the reviewed baseline. Added and changed
-diagnostics fail as regressions. Removed diagnostics also require a reviewed
-baseline update so that a resolved issue cannot silently return. See
+The checker runs for pull requests and manually started workflows. The runner
+retries explicit schema-download failures and then compares every stable
+diagnostic field with the reviewed baseline. Added and changed diagnostics fail
+as regressions. Removed diagnostics also require a reviewed baseline update so
+that a resolved issue cannot silently return. The deterministic quality and
+container smoke checks still run again after a merge to `main`, but the
+network-dependent checker is not repeated for an identical squash-merged tree.
+See
 [`validation/geonovum/README.md`](../validation/geonovum/README.md) for the
 commands and update policy.
 

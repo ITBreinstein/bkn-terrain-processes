@@ -1,9 +1,8 @@
 # Geonovum checker baseline
 
-The automated check uses `@geonovum/ogc-checker` version `1.1.0`. That checker
-release only provides the draft OGC API - Processes `2.0.0` ruleset; it does
-not provide a Processes `1.0.0` ruleset. OGC CITE/TEAM Engine separately tests
-the approved Processes 1.0 specification.
+The automated check uses `@geonovum/ogc-checker` version `1.2.0` with the
+approved OGC API - Processes `1.0.0` profile. OGC CITE/TEAM Engine tests the
+same standard through a separate runtime-oriented suite.
 
 Run the normal API with an explicit loopback address:
 
@@ -20,7 +19,9 @@ python3 scripts/check_geonovum_baseline.py
 
 The script makes up to five attempts after command, network or schema-resolution
 failures. If it cannot obtain a complete report, it exits with an operational
-error instead of treating incomplete results as API diagnostics.
+error instead of treating incomplete results as API diagnostics. The checker
+runs automatically on pull requests, not again for the squash-merge push to
+`main`; use a manually started workflow when a fresh main-branch run is needed.
 
 The comparison fails when a diagnostic is added, removed or changed. A removed
 diagnostic represents an improvement, but the baseline must be deliberately

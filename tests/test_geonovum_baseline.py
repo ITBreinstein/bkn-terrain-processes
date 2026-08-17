@@ -37,11 +37,11 @@ def test_normalize_report_sorts_and_records_pinned_versions():
 
     assert normalized["checker"] == {
         "package": "@geonovum/ogc-checker",
-        "version": "1.1.0",
+        "version": "1.2.0",
     }
     assert normalized["standard"] == {
         "id": "ogc-api-processes",
-        "version": "2.0.0",
+        "version": "1.0.0",
     }
     assert [item["code"] for item in normalized["diagnostics"]] == ["first", "second"]
 
@@ -106,7 +106,8 @@ def test_checker_retries_network_failure_and_returns_complete_report(monkeypatch
 
     assert len(commands) == 2
     assert waits == [2]
-    assert "@geonovum/ogc-checker@1.1.0" in commands[0]
+    assert "@geonovum/ogc-checker@1.2.0" in commands[0]
+    assert commands[0][commands[0].index("--version") + 1] == "1.0.0"
     assert [item["code"] for item in normalized["diagnostics"]] == ["/req/core/example"]
 
 

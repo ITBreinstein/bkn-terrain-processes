@@ -15,9 +15,9 @@ from pathlib import Path
 from typing import Any
 
 CHECKER_PACKAGE = "@geonovum/ogc-checker"
-CHECKER_VERSION = "1.1.0"
+CHECKER_VERSION = "1.2.0"
 STANDARD = "ogc-api-processes"
-STANDARD_VERSION = "2.0.0"
+STANDARD_VERSION = "1.0.0"
 CHECKER_TIMEOUT_SECONDS = 120
 DEFAULT_ATTEMPTS = 5
 
@@ -56,7 +56,7 @@ def diagnostic_identity(diagnostic: dict[str, Any]) -> tuple[str, tuple[str | in
 
 
 def normalize_diagnostic(diagnostic: Any) -> dict[str, Any]:
-    """Validate and retain every stable field emitted by checker v1.1.0."""
+    """Validate and retain every stable field emitted by checker v1.2.0."""
     if not isinstance(diagnostic, dict):
         raise CheckerOperationalError("Checker returned a non-object diagnostic")
 

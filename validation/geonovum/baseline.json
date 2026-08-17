@@ -2,193 +2,74 @@
   "schemaVersion": 1,
   "checker": {
     "package": "@geonovum/ogc-checker",
-    "version": "1.1.0"
+    "version": "1.2.0"
   },
   "standard": {
     "id": "ogc-api-processes",
-    "version": "2.0.0"
+    "version": "1.0.0"
   },
   "rulesets": [
-    "http://www.opengis.net/spec/ogcapi-processes-1/2.0/conf/core",
-    "http://www.opengis.net/spec/ogcapi-processes-1/2.0/conf/job-list",
-    "http://www.opengis.net/spec/ogcapi-processes-1/2.0/conf/json",
-    "http://www.opengis.net/spec/ogcapi-processes-1/2.0/conf/ogc-process-description"
+    "http://www.opengis.net/spec/ogcapi-processes-1/1.0/conf/core",
+    "http://www.opengis.net/spec/ogcapi-processes-1/1.0/conf/job-list",
+    "http://www.opengis.net/spec/ogcapi-processes-1/1.0/conf/json",
+    "http://www.opengis.net/spec/ogcapi-processes-1/1.0/conf/ogc-process-description"
   ],
   "diagnostics": [
     {
       "severity": "error",
-      "code": "/req/core/job-result-op",
-      "message": "The server SHALL support the HTTP GET operation at the path `/jobs/{jobID}/results/{outputID}`.",
-      "path": [
-        "paths"
-      ],
-      "source": "http://www.opengis.net/spec/ogcapi-processes-1/2.0/conf/core",
-      "documentationUrl": "https://docs.ogc.org/DRAFTS/18-062r3.html#req_core_job-result-op"
-    },
-    {
-      "severity": "error",
-      "code": "/req/core/job-result-op-0th",
-      "message": "The server SHALL support the HTTP GET operation at the path `/jobs/{jobID}/results/{outputID}/0`.",
-      "path": [
-        "paths"
-      ],
-      "source": "http://www.opengis.net/spec/ogcapi-processes-1/2.0/conf/core",
-      "documentationUrl": "https://docs.ogc.org/DRAFTS/18-062r3.html#req_core_job-result-op-0th"
-    },
-    {
-      "severity": "error",
-      "code": "/req/core/job-results-exception-invalid-query-parameter-value",
-      "message": "If a query parameter has an invalid value, the response SHALL have HTTP status code `400`. \"responses[400]\" property must be truthy",
-      "path": [
-        "paths",
-        "/jobs/{jobId}/results",
-        "get",
-        "responses"
-      ],
-      "source": "http://www.opengis.net/spec/ogcapi-processes-1/2.0/conf/core",
-      "documentationUrl": "https://docs.ogc.org/DRAFTS/18-062r3.html#req_core_job-results-exception_invalid-query-parameter-value"
-    },
-    {
-      "severity": "error",
-      "code": "/req/core/job-results-exception-no-such-output",
-      "message": "If the operation requests an output identifier that does not exist, the response SHALL have HTTP status code `400`. \"responses[400]\" property must be truthy",
-      "path": [
-        "paths",
-        "/jobs/{jobId}/results",
-        "get",
-        "responses"
-      ],
-      "source": "http://www.opengis.net/spec/ogcapi-processes-1/2.0/conf/core",
-      "documentationUrl": "https://docs.ogc.org/DRAFTS/18-062r3.html#req_core_job-results-exception-no-such-output"
-    },
-    {
-      "severity": "error",
-      "code": "/req/core/job-results-param-outputs",
-      "message": "The operation SHALL support a parameter `outputs`. Parameter \"outputs\" is missing.",
-      "path": [
-        "paths",
-        "/jobs/{jobId}/results",
-        "get",
-        "parameters"
-      ],
-      "source": "http://www.opengis.net/spec/ogcapi-processes-1/2.0/conf/core",
-      "documentationUrl": "https://docs.ogc.org/DRAFTS/18-062r3.html#req_core_job-results-param-outputs"
-    },
-    {
-      "severity": "error",
-      "code": "/req/core/process-execute-success-async",
-      "message": "A successful asynchronous execution SHALL be reported with HTTP status code `201`. Response schema is not compatible. Property \"id\" must be required. Property \"processingEntityType\" must be required. Required property \"id\" is missing. Schema format must be \"uri\". (schema path: \"processID\") Required property \"processingEntityType\" is missing. Property \"rel\" must be required. (schema path: \"links\")",
-      "path": [
-        "paths",
-        "/processes/bgt-land-cover-summary/execution",
-        "post",
-        "responses",
-        "201",
-        "content",
-        "application/json"
-      ],
-      "source": "http://www.opengis.net/spec/ogcapi-processes-1/2.0/conf/core",
-      "documentationUrl": "https://docs.ogc.org/DRAFTS/18-062r3.html#req_core_process-execute-success-async"
-    },
-    {
-      "severity": "error",
-      "code": "/req/core/process-list-success",
-      "message": "A successful execution of the operation SHALL be reported as a response with a HTTP status code `200`.",
-      "path": [
-        "paths",
-        "/processes",
-        "get",
-        "responses",
-        "200",
-        "content",
-        "application/json"
-      ],
-      "source": "http://www.opengis.net/spec/ogcapi-processes-1/2.0/conf/core",
-      "documentationUrl": "https://docs.ogc.org/DRAFTS/18-062r3.html#req_core_process-list-success"
-    },
-    {
-      "severity": "error",
       "code": "/req/job-list/datetime-definition",
-      "message": "The operation SHALL support a parameter `datetime`.",
-      "path": [
-        "paths",
-        "/jobs",
-        "get"
-      ],
-      "source": "http://www.opengis.net/spec/ogcapi-processes-1/2.0/conf/job-list",
-      "documentationUrl": "https://docs.ogc.org/DRAFTS/18-062r3.html#req_job-list_datetime-definition"
+      "message": "The operation SHALL support a parameter `datetime`. Parameter \"datetime\" is missing.",
+      "path": ["paths", "/jobs", "get"],
+      "source": "http://www.opengis.net/spec/ogcapi-processes-1/1.0/conf/job-list",
+      "documentationUrl": "https://docs.ogc.org/is/18-062r2/18-062r2.html#req_job-list_datetime-definition"
     },
     {
       "severity": "error",
       "code": "/req/job-list/duration-definition#maxDuration",
-      "message": "The operation SHALL support a parameter `maxDuration`.",
-      "path": [
-        "paths",
-        "/jobs",
-        "get"
-      ],
-      "source": "http://www.opengis.net/spec/ogcapi-processes-1/2.0/conf/job-list",
-      "documentationUrl": "https://docs.ogc.org/DRAFTS/18-062r3.html#req_job-list_duration-definition"
+      "message": "The operation SHALL support a parameter `maxDuration`. Parameter \"maxDuration\" is missing.",
+      "path": ["paths", "/jobs", "get"],
+      "source": "http://www.opengis.net/spec/ogcapi-processes-1/1.0/conf/job-list",
+      "documentationUrl": "https://docs.ogc.org/is/18-062r2/18-062r2.html#req_job-list_duration-definition"
     },
     {
       "severity": "error",
       "code": "/req/job-list/duration-definition#minDuration",
-      "message": "The operation SHALL support a parameter `minDuration`.",
-      "path": [
-        "paths",
-        "/jobs",
-        "get"
-      ],
-      "source": "http://www.opengis.net/spec/ogcapi-processes-1/2.0/conf/job-list",
-      "documentationUrl": "https://docs.ogc.org/DRAFTS/18-062r3.html#req_job-list_duration-definition"
+      "message": "The operation SHALL support a parameter `minDuration`. Parameter \"minDuration\" is missing.",
+      "path": ["paths", "/jobs", "get"],
+      "source": "http://www.opengis.net/spec/ogcapi-processes-1/1.0/conf/job-list",
+      "documentationUrl": "https://docs.ogc.org/is/18-062r2/18-062r2.html#req_job-list_duration-definition"
     },
     {
       "severity": "error",
       "code": "/req/job-list/limit-definition",
-      "message": "The operation SHALL support a parameter `limit`.",
-      "path": [
-        "paths",
-        "/jobs",
-        "get"
-      ],
-      "source": "http://www.opengis.net/spec/ogcapi-processes-1/2.0/conf/job-list",
-      "documentationUrl": "https://docs.ogc.org/DRAFTS/18-062r3.html#req_job-list_limit-definition"
+      "message": "The operation SHALL support a parameter `limit`. Parameter \"limit\" is missing.",
+      "path": ["paths", "/jobs", "get"],
+      "source": "http://www.opengis.net/spec/ogcapi-processes-1/1.0/conf/job-list",
+      "documentationUrl": "https://docs.ogc.org/is/18-062r2/18-062r2.html#req_job-list_limit-definition"
     },
     {
       "severity": "error",
       "code": "/req/job-list/processID-definition",
-      "message": "The operation SHALL support a parameter `processID`.",
-      "path": [
-        "paths",
-        "/jobs",
-        "get"
-      ],
-      "source": "http://www.opengis.net/spec/ogcapi-processes-1/2.0/conf/job-list",
-      "documentationUrl": "https://docs.ogc.org/DRAFTS/18-062r3.html#req_job-list_processID-definition"
+      "message": "The operation SHALL support a parameter `processID`. Parameter \"processID\" is missing.",
+      "path": ["paths", "/jobs", "get"],
+      "source": "http://www.opengis.net/spec/ogcapi-processes-1/1.0/conf/job-list",
+      "documentationUrl": "https://docs.ogc.org/is/18-062r2/18-062r2.html#req_job-list_processID-definition"
     },
     {
       "severity": "error",
       "code": "/req/job-list/status-definition",
-      "message": "The operation SHALL support a parameter `status`.",
-      "path": [
-        "paths",
-        "/jobs",
-        "get"
-      ],
-      "source": "http://www.opengis.net/spec/ogcapi-processes-1/2.0/conf/job-list",
-      "documentationUrl": "https://docs.ogc.org/DRAFTS/18-062r3.html#req_job-list_status-definition"
+      "message": "The operation SHALL support a parameter `status`. Parameter \"status\" is missing.",
+      "path": ["paths", "/jobs", "get"],
+      "source": "http://www.opengis.net/spec/ogcapi-processes-1/1.0/conf/job-list",
+      "documentationUrl": "https://docs.ogc.org/is/18-062r2/18-062r2.html#req_job-list_status-definition"
     },
     {
       "severity": "error",
       "code": "/req/job-list/type-definition",
-      "message": "The operation SHALL support a parameter `type`.",
-      "path": [
-        "paths",
-        "/jobs",
-        "get"
-      ],
-      "source": "http://www.opengis.net/spec/ogcapi-processes-1/2.0/conf/job-list",
-      "documentationUrl": "https://docs.ogc.org/DRAFTS/18-062r3.html#req_job-list_type-definition"
+      "message": "The operation SHALL support a parameter `type`. Parameter \"type\" is missing.",
+      "path": ["paths", "/jobs", "get"],
+      "source": "http://www.opengis.net/spec/ogcapi-processes-1/1.0/conf/job-list",
+      "documentationUrl": "https://docs.ogc.org/is/18-062r2/18-062r2.html#req_job-list_type-definition"
     }
   ]
 }
