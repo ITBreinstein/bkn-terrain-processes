@@ -82,6 +82,10 @@ jobs:
         with:
           node-version: "20"
 
+      - name: Install npm version with peer-resolution fix
+        if: github.event_name != 'push'
+        run: npm install --global npm@11.6.0
+
       - name: Validate Compose configuration
         run: docker compose config --quiet
 
@@ -106,6 +110,15 @@ jobs:
           name: geonovum-checker-output
           path: /tmp/geonovum-checker.json
           if-no-files-found: ignore
+
+      - name: Upload npm debug logs after checker failure
+        if: failure() && github.event_name != 'push'
+        uses: actions/upload-artifact@v4
+        with:
+          name: npm-debug-logs
+          path: /home/runner/.npm/_logs/*.log
+          if-no-files-found: ignore
+          retention-days: 14
 
       - name: Show API logs after failure
         if: failure()
