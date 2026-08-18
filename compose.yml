@@ -10,6 +10,7 @@ services:
     environment:
       PYGEOAPI_SERVER_URL: ${PYGEOAPI_SERVER_URL:-http://localhost:5001}
       PYTHONPATH: /pygeoapi
+      WSGI_APP: bkn_terrain_processes.app:APP
     volumes:
       - ./config/pygeoapi.development.yml:/pygeoapi/local.config.yml:ro
       - ./src/bkn_terrain_processes:/pygeoapi/bkn_terrain_processes:ro

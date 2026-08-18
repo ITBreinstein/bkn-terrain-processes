@@ -17,7 +17,32 @@ def _generated_document():
                 }
             },
             "/processes/bgt-land-cover-summary": {"get": {"responses": {"200": {"description": "ok"}}}},
-            "/processes/bgt-land-cover-summary/execution": {"post": {"responses": {"200": {"description": "ok"}}}},
+            "/processes/bgt-land-cover-summary/execution": {
+                "post": {
+                    "parameters": [
+                        {
+                            "name": "Prefer",
+                            "in": "header",
+                            "schema": {"type": "string", "enum": ["respond-sync"]},
+                        }
+                    ],
+                    "responses": {
+                        "200": {
+                            "description": "ok",
+                            "content": {
+                                "application/json": {
+                                    "schema": {
+                                        "type": "object",
+                                        "required": ["process"],
+                                        "properties": {"process": {"type": "object"}},
+                                    }
+                                }
+                            },
+                        },
+                        "201": {"description": "async"},
+                    },
+                }
+            },
         }
     }
 
@@ -54,3 +79,31 @@ def test_patch_does_not_add_404_to_execution_operation():
 
     execution = document["paths"]["/processes/bgt-land-cover-summary/execution"]
     assert "get" not in execution
+
+
+def test_patch_describes_synchronous_success_and_validation_responses():
+    document = patch_openapi_document(_generated_document(), 10, 50)
+
+    responses = document["paths"]["/processes/bgt-land-cover-summary/execution"]["post"]["responses"]
+    assert "201" not in responses
+    assert responses["400"]["content"]["application/json"]["schema"] == {"$ref": f"{SCHEMA_BASE}/exception.yaml"}
+
+    success_schema = responses["200"]["content"]["application/json"]["schema"]
+    raw_schema, document_schema = success_schema["oneOf"]
+    assert raw_schema["required"] == ["process"]
+    assert document_schema == {
+        "type": "object",
+        "required": ["summary"],
+        "properties": {
+            "summary": {
+                "type": "object",
+                "required": ["value"],
+                "properties": {"value": raw_schema},
+                "additionalProperties": False,
+            }
+        },
+        "additionalProperties": False,
+    }
+
+    prefer_parameter = document["paths"]["/processes/bgt-land-cover-summary/execution"]["post"]["parameters"][0]
+    assert prefer_parameter["schema"]["enum"] == ["respond-async"]

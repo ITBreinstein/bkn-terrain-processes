@@ -6,12 +6,14 @@ OpenAPI document; it does not execute the terrain process. OGC CITE/TEAM Engine
 tests generic runtime behaviour separately through the integration-only echo
 fixture, and product HTTP tests are required for `bgt-land-cover-summary`.
 
-The current baseline contains seven diagnostics, all from the optional Job
-List ruleset bundled into the selected checker profile. The normal service does
-not currently declare Job List. The baseline is therefore a regression record,
-not a claim that the service has seven defects in its declared classes or that
-the other selected classes are fully implemented at runtime. The recorded
-rulesets also do not include the separate OpenAPI 3.0 conformance class.
+The current baseline contains eight diagnostics. Seven come from the optional
+Job List ruleset bundled into the selected checker profile. The eighth asks for
+an asynchronous `201` response even though the current product process declares
+only synchronous execution. The OpenAPI deliberately omits that unimplemented
+response; the async branch must resolve this diagnostic by adding both the
+runtime behaviour and its description. The baseline is a regression record,
+not a conformance claim. The recorded rulesets also do not include the separate
+OpenAPI 3.0 conformance class.
 
 Run the normal API with an explicit loopback address:
 

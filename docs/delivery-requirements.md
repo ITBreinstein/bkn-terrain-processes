@@ -46,8 +46,9 @@ automatically acceptance evidence.
 ## Execution and job management
 
 - [x] The current point calculation can be invoked synchronously. This checks
-      the calculation path, not yet the OGC raw/document response contract.
-- [ ] Return the single `summary` value itself for default/raw synchronous
+      the calculation path and the current inline coordinate/radius HTTP
+      contract; GeoJSON and referenced inputs remain outstanding Core work.
+- [x] Return the single `summary` value itself for default/raw synchronous
       execution and the OGC 1.0 results map for document execution.
 - [ ] Keep process metadata, `/conformance`, OpenAPI status/response schemas and
       running behaviour consistent; do not advertise async or Callback before
@@ -67,7 +68,8 @@ automatically acceptance evidence.
 - [ ] Support Dismiss through `DELETE /jobs/{jobId}` for running and completed
       jobs.
 - [ ] Retain completed results for 14 days and clean them automatically.
-- [ ] Confirm with Geonovum whether Job List belongs to the acceptance profile.
+- [ ] Implement Job List and the filters required by the selected Geonovum
+      checker profile as part of the final job-management delivery.
 
 ## Callbacks and security
 

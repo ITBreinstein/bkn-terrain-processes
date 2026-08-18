@@ -17,6 +17,12 @@ server:
         url: https://tile.openstreetmap.org/{z}/{x}/{y}.png
         attribution: '&copy; OpenStreetMap contributors'
     ogc_schemas_location: /schemas.opengis.net
+    manager:
+        name: bkn_terrain_processes.manager.OgcSynchronousManager
+        # Required strings in pygeoapi's manager configuration schema; the
+        # synchronous manager does not use either value for storage.
+        connection: unused
+        output_dir: /tmp
 
 logging:
     level: INFO

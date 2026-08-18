@@ -1,6 +1,7 @@
 """Expose the BGT terrain calculation through pygeoapi."""
 
 import logging
+from collections.abc import Mapping
 
 from pygeoapi.process.base import BaseProcessor, ProcessorExecuteError
 
@@ -285,6 +286,31 @@ class BgtLandCoverSummaryProcessor(BaseProcessor):
         self.supports_outputs = True
 
     def execute(self, data, outputs=None):
+        if outputs is not None:
+            if not isinstance(outputs, Mapping):
+                raise ProcessorExecuteError("outputs must be an object")
+            if not outputs:
+                raise ProcessorExecuteError("outputs must request at least one output")
+            unsupported_outputs = sorted(set(outputs) - {"summary"})
+            if unsupported_outputs:
+                raise ProcessorExecuteError(f"unsupported output: {unsupported_outputs[0]}")
+            if "summary" in outputs:
+                summary_request = outputs["summary"]
+                if not isinstance(summary_request, Mapping):
+                    raise ProcessorExecuteError("summary output options must be an object")
+                if summary_request.get("transmissionMode", "value") != "value":
+                    raise ProcessorExecuteError("summary supports only value transmission")
+                output_format = summary_request.get("format", {})
+                if not isinstance(output_format, Mapping):
+                    raise ProcessorExecuteError("summary output format must be an object")
+                if output_format.get("mediaType", "application/json") != "application/json":
+                    raise ProcessorExecuteError("summary supports only application/json")
+                unsupported_format_members = sorted(set(output_format) - {"mediaType"})
+                if unsupported_format_members:
+                    raise ProcessorExecuteError(
+                        f"unsupported summary output format member: {unsupported_format_members[0]}"
+                    )
+
         try:
             request = parse_analysis_request(data)
         except InvalidInputError as err:
