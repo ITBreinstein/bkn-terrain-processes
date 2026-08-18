@@ -82,6 +82,10 @@ jobs:
         with:
           node-version: "20"
 
+      - name: Install npm version with peer-resolution fix
+        if: github.event_name != 'push'
+        run: npm install --global npm@11.6.0
+
       - name: Validate Compose configuration
         run: docker compose config --quiet
 
