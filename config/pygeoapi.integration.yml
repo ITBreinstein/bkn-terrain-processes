@@ -49,10 +49,6 @@ metadata:
         role: pointOfContact
 
 resources:
-    bgt-land-cover-summary:
-        type: process
-        processor:
-            name: bkn_terrain_processes.process.BgtLandCoverSummaryProcessor
     async-echo:
         type: process
         processor:

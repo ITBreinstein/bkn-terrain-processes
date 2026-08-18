@@ -46,7 +46,7 @@ def test_execute_returns_named_pygeoapi_output(monkeypatch):
     assert output == {"id": "summary", "value": expected}
 
 
-def test_execute_honours_output_selection(monkeypatch):
+def test_execute_rejects_unknown_output(monkeypatch):
     monkeypatch.setattr(
         process,
         "get_terrain_analysis_nl",
@@ -54,12 +54,15 @@ def test_execute_honours_output_selection(monkeypatch):
     )
     processor = BgtLandCoverSummaryProcessor(PROCESSOR_DEFINITION)
 
-    _, output = processor.execute(
-        {"latitude": 52.6324, "longitude": 4.7534},
-        outputs={"different-output": {}},
-    )
-
-    assert output == {}
+    try:
+        processor.execute(
+            {"latitude": 52.6324, "longitude": 4.7534},
+            outputs={"different-output": {}},
+        )
+    except ProcessorExecuteError as error:
+        assert "unsupported output: different-output" in str(error)
+    else:
+        raise AssertionError("ProcessorExecuteError was not raised")
 
 
 def test_execute_rejects_invalid_radius_order():

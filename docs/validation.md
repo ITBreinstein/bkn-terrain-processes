@@ -12,7 +12,7 @@ API Processes compliance:
 | Geonovum checker | Static OGC rules applied to the generated `/openapi?f=json` document | It cannot observe input coercion, actual response bodies or terrain results. |
 | CITE/TEAM Engine | Runtime tests of the integration service; execution cases use `async-echo` | It does not execute `bgt-land-cover-summary` or prove its calculation/job behaviour. |
 | Live point baseline | The calculation function communicates with PDOK and preserves selected point outputs | It bypasses HTTP and six expectations are historical rather than independently calculated. |
-| Product HTTP tests | Exact requests, statuses, headers and bodies of the real terrain process | This layer is still being built and must grow with the public contract. |
+| Product HTTP tests | Exact requests, statuses, headers and bodies of the real terrain process, with PDOK replaced by controlled results | The current suite covers the synchronous coordinate/radius contract; it must grow with geometry, jobs and callbacks. |
 
 The validator version, selected conformance classes, configuration, date and
 complete output must be saved with release evidence. A global pygeoapi
