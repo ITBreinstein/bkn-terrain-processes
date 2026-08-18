@@ -10,6 +10,8 @@ automatically acceptance evidence.
 - [x] Stable process identifier: `bgt-land-cover-summary`.
 - [ ] Publish versioned JSON Schemas, examples, units, CRS, limits and error
       responses matching live behaviour and OpenAPI.
+- [ ] Reject input components that do not satisfy those schemas; do not coerce
+      numeric strings or truncate decimal values for integer fields.
 - [ ] Accept RFC 7946 GeoJSON Point, Polygon and MultiPolygon through
       `analysis_geometry`, in CRS84 longitude-latitude order.
 - [ ] Require `outer_radius_m` for Point and prohibit it for Polygon and
@@ -43,7 +45,13 @@ automatically acceptance evidence.
 
 ## Execution and job management
 
-- [x] Synchronous execution works for the current point baseline.
+- [x] The current point calculation can be invoked synchronously. This checks
+      the calculation path, not yet the OGC raw/document response contract.
+- [ ] Return the single `summary` value itself for default/raw synchronous
+      execution and the OGC 1.0 results map for document execution.
+- [ ] Keep process metadata, `/conformance`, OpenAPI status/response schemas and
+      running behaviour consistent; do not advertise async or Callback before
+      those capabilities work end to end.
 - [ ] Measure and publish the synchronous runtime/complexity threshold.
 - [ ] Instruct clients above that threshold to resubmit with
       `Prefer: respond-async`.
@@ -85,9 +93,12 @@ automatically acceptance evidence.
       unsupported types, excessive complexity and oversized references.
 - [ ] Run formatting, linting, security checks and unit tests on pull requests
       and `main`.
-- [ ] Exercise the containerised service through HTTP before release.
-- [ ] Save zero-error evidence from the agreed OGC CITE/TEAM Engine v1 suite.
-- [ ] Save zero-error evidence from the agreed Geonovum v1 checker profile.
+- [ ] Exercise `bgt-land-cover-summary` through HTTP and verify exact input
+      validation, statuses, headers, raw/document bodies and error documents.
+- [ ] Save zero-error evidence from the agreed OGC CITE/TEAM Engine v1 suite,
+      recording that its controlled echo execution is generic server evidence.
+- [ ] Save zero-error evidence from the agreed Geonovum v1 checker profile,
+      recording which declared and optional conformance classes it applies.
 - [ ] Test discovery, schemas, sync, async, jobs, results and callbacks with
       independent clients at both plugfests.
 

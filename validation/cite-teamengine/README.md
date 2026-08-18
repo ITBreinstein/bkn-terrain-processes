@@ -4,6 +4,13 @@ This directory records the accepted OGC API - Processes 1.0 TEAM Engine
 baseline. It is evidence of the observed implementation state, not permission
 to ignore failures. The delivery target remains zero errors.
 
+The recorded execution tests use the integration-only `async-echo` process,
+because the CITE suite expects its controlled input/output contract. Selecting
+all processes also checks discovery and descriptions, but does not execute the
+domain-specific terrain calculation. CITE evidence must therefore be combined
+with black-box HTTP tests of `bgt-land-cover-summary`; it does not replace
+them.
+
 Keep the current baseline in `baseline/`. Updating the same directory lets Git
 retain older baselines without accumulating a generated result tree for every
 pull request.

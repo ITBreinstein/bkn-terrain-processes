@@ -1,8 +1,17 @@
 # Geonovum checker baseline
 
 The automated check uses `@geonovum/ogc-checker` version `1.2.0` with the
-approved OGC API - Processes `1.0.0` profile. OGC CITE/TEAM Engine tests the
-same standard through a separate runtime-oriented suite.
+OGC API - Processes `1.0.0` profile. It statically inspects the generated
+OpenAPI document; it does not execute the terrain process. OGC CITE/TEAM Engine
+tests generic runtime behaviour separately through the integration-only echo
+fixture, and product HTTP tests are required for `bgt-land-cover-summary`.
+
+The current baseline contains seven diagnostics, all from the optional Job
+List ruleset bundled into the selected checker profile. The normal service does
+not currently declare Job List. The baseline is therefore a regression record,
+not a claim that the service has seven defects in its declared classes or that
+the other selected classes are fully implemented at runtime. The recorded
+rulesets also do not include the separate OpenAPI 3.0 conformance class.
 
 Run the normal API with an explicit loopback address:
 

@@ -47,10 +47,12 @@ must not be interpreted as a delivered product capability.
 ## Remaining findings
 
 1. `testJobCreationInputRef` and `testJobCreationInputValidation` execute
-   successfully and return the expected message, but CITE reports that the
-   response body matches more than one `oneOf` schema branch. Investigate the
-   generated OpenAPI execution-response alternatives and the CITE v1 schema
-   validator before assigning the defect to either implementation.
+   successfully, but the observed body uses pygeoapi's
+   `{"id":"message","value":"teststring"}` wrapper. For a synchronous raw
+   single-output response, OGC API Processes 1.0 requires the output value
+   itself. Treat this as execution-contract evidence to resolve; do not dismiss
+   it solely as `oneOf` validator ambiguity. Recheck the generated OpenAPI
+   alternatives after correcting the runtime response.
 2. `testJobCreationSuccessAsync` receives a running job-status document whose
    `finished` property is `null`. CITE's v1 schema does not permit that value.
    Investigate pygeoapi's runtime status representation and documented schema.

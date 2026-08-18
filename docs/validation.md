@@ -1,20 +1,29 @@
 # Validation
 
-Validation has three layers:
+Validation has complementary layers. No single linter or validator proves OGC
+API Processes compliance:
 
-1. unit and schema tests for deterministic calculation and contract behaviour;
-2. HTTP/container integration tests for the running service and job lifecycle;
-3. OGC CITE/TEAM Engine and Geonovum checker runs against the deployed API.
+| Check | What it verifies | Important limit |
+| --- | --- | --- |
+| Ruff and Bandit | Selected source formatting, quality and security patterns | They do not execute the API or assess OGC semantics. |
+| Pytest | Our functions, processor boundary and controlled failures | Most tests import Python directly rather than calling the running HTTP service. |
+| pygeoapi config/OpenAPI validation | Configuration, processor imports, document generation and basic OpenAPI structure | A structurally valid document may still disagree with runtime behaviour. |
+| Discovery smoke test | A clean container starts and serves the expected discovery resources | It deliberately does not execute the terrain process. |
+| Geonovum checker | Static OGC rules applied to the generated `/openapi?f=json` document | It cannot observe input coercion, actual response bodies or terrain results. |
+| CITE/TEAM Engine | Runtime tests of the integration service; execution cases use `async-echo` | It does not execute `bgt-land-cover-summary` or prove its calculation/job behaviour. |
+| Live point baseline | The calculation function communicates with PDOK and preserves selected point outputs | It bypasses HTTP and six expectations are historical rather than independently calculated. |
+| Product HTTP tests | Exact requests, statuses, headers and bodies of the real terrain process | This layer is still being built and must grow with the public contract. |
 
 The validator version, selected conformance classes, configuration, date and
 complete output must be saved with release evidence. A global pygeoapi
 conformance declaration is not proof that this process implements or has
 tested a capability.
 
-The acceptance baseline is OGC API - Processes 1.0. It is exercised through
-CITE/TEAM Engine and the approved Processes `1.0.0` profile in Geonovum checker
-package `1.2.0`. The final selection of optional conformance classes must be
-confirmed with Geonovum before the process contract is frozen.
+The normative baseline is OGC API - Processes 1.0. CITE/TEAM Engine, the
+Processes `1.0.0` profile in Geonovum checker package `1.2.0`, and product HTTP
+tests provide different parts of the evidence. The final selection of optional
+conformance classes must be confirmed with Geonovum before the process
+contract is frozen.
 
 ## OGC CITE/TEAM Engine
 
@@ -64,6 +73,9 @@ The integration-only TinyDB manager may cause pygeoapi to advertise
 asynchronous execution for all processes in this test service. CITE's async
 execution results apply to `async-echo`; they are not evidence that the terrain
 process has production-ready asynchronous execution or persistent job storage.
+Selecting “test all processes” broadens discovery/process-description checks;
+it does not make CITE invent domain inputs for terrain execution. The terrain
+process therefore needs its own black-box HTTP contract and lifecycle tests.
 
 After a valid run, copy the session directory from the container. Replace
 `s0001` with the session identifier shown by TEAM Engine:
@@ -105,11 +117,19 @@ baseline instead.
 
 ## Geonovum checker
 
-The CI workflow runs `@geonovum/ogc-checker` version `1.2.0` with its approved
-OGC API - Processes `1.0.0` profile against the normal API's
-`/openapi?f=json` document. This is the same standard version targeted by the
-CITE/TEAM Engine suite; the tools provide complementary static and runtime
-checks.
+The CI workflow runs `@geonovum/ogc-checker` version `1.2.0` with its OGC API -
+Processes `1.0.0` profile against the normal API's `/openapi?f=json` document.
+The current profile applies Core, Job List, JSON and OGC Process Description
+rules. Its seven baseline diagnostics are all missing optional Job List query
+parameters; the normal service does not currently declare Job List. The
+recorded rulesets do not include the separate OpenAPI 3.0 conformance class,
+even though the service currently declares it.
+
+The Geonovum checker is a static OpenAPI check. A zero-diagnostic result for a
+selected ruleset would still not prove that the running processor rejects the
+right input or returns the documented body. CITE provides runtime server
+evidence through the echo fixture, while product HTTP tests must close the
+terrain-specific gap.
 
 The checker runs for pull requests and manually started workflows. The runner
 retries explicit schema-download failures and then compares every stable

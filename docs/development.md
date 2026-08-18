@@ -13,7 +13,9 @@ CI runs three jobs:
 - `API runtime and conformance` builds and starts the development container and
   checks that it publishes the expected discovery resources and BGT process.
   On pull requests and manually started workflows, it also compares Geonovum
-  checker findings with the reviewed diagnostic baseline; and
+  checker findings with the reviewed diagnostic baseline. Despite the job
+  name, the smoke step does not execute the process and the checker only
+  inspects generated OpenAPI; and
 - `live-point-baseline` checks one manually asserted water case and one varied
   urban case against live PDOK on pull requests. A manually started workflow
   checks all eight recorded locations.
@@ -21,6 +23,10 @@ CI runs three jobs:
 Running the same checks locally is optional but recommended. It gives faster
 feedback before a push; GitHub remains the shared result used when reviewing a
 pull request.
+
+These checks are not collectively a conformance certificate. See
+[`validation.md`](validation.md) for the exact boundary of each tool and the
+manual CITE/TEAM Engine workflow.
 
 ## Prerequisites
 
