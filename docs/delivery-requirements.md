@@ -14,10 +14,13 @@ automatically acceptance evidence.
       numeric strings or truncate decimal values for integer fields.
 - [ ] Accept RFC 7946 GeoJSON Point, Polygon and MultiPolygon through
       `analysis_geometry`, in CRS84 longitude-latitude order.
-- [ ] Require `outer_radius_m` for Point and prohibit it for Polygon and
-      MultiPolygon.
-- [ ] Allow `inner_radius_m` for Point, not greater than `outer_radius_m`;
+- [ ] Also accept a raw Point through separate numeric `latitude` and
+      `longitude` inputs as a documented convenience form; require exactly one
+      of this pair or `analysis_geometry` in each request.
+- [ ] Require `outer_radius_m` for a GeoJSON Point or raw coordinate pair and
       prohibit it for Polygon and MultiPolygon.
+- [ ] Allow `inner_radius_m` for a GeoJSON Point or raw coordinate pair, not
+      greater than `outer_radius_m`; prohibit it for Polygon and MultiPolygon.
 - [ ] Support the optional published `method_version` value.
 - [ ] Accept geometry inline and by HTTPS reference with bounded download,
       redirect and timeout behaviour and protection against private/internal
@@ -25,6 +28,12 @@ automatically acceptance evidence.
 - [ ] Transform valid geometries to RD New (EPSG:28992) for metric operations.
 - [ ] Enforce published radius, area, bounding-box, part, vertex and download
       limits.
+- [ ] Reject malformed coordinate nesting, unsupported geometry types or CRS
+      declarations, non-finite/out-of-range coordinates, empty and zero-area
+      geometry, invalid rings/holes, self-intersections, and overlapping
+      Polygon/MultiPolygon components with documented machine-readable errors.
+- [ ] Distinguish structurally valid geometry outside the supported Dutch
+      service area from malformed geometry and from unavailable PDOK coverage.
 
 ## Results and source behaviour
 
@@ -91,8 +100,11 @@ automatically acceptance evidence.
       documented desktop-GIS workflow and review them before committing.
 - [ ] Test classification, buffers, polygons, clipping, overlaps, unknowns,
       complete response schemas and advertised limits.
-- [ ] Test self-intersections, empty geometries, invalid coordinates,
-      unsupported types, excessive complexity and oversized references.
+- [ ] Test bow-tie/self-intersecting and self-touching rings, holes outside or
+      crossing their shell, overlapping holes, overlapping MultiPolygon
+      members, zero-area and empty geometry, malformed coordinate nesting,
+      invalid coordinates, unsupported types/CRS declarations, excessive
+      area/bounds/parts/vertices and oversized references.
 - [ ] Run formatting, linting, security checks and unit tests on pull requests
       and `main`.
 - [ ] Exercise `bgt-land-cover-summary` through HTTP and verify exact input
