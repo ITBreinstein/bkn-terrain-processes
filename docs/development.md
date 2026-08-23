@@ -10,8 +10,11 @@ CI runs three jobs:
 
 - `quality` checks formatting, linting, common security mistakes, tests,
   coverage, pygeoapi configuration and generated OpenAPI documents;
-- `API runtime and conformance` builds and starts the development container and
-  checks that it publishes the expected discovery resources and BGT process.
+- `API runtime and conformance` builds and starts the self-contained release
+  container and checks that it publishes the expected discovery resources and
+  BGT process.
+  It also verifies that the container has no mounts, runs as a non-root user,
+  uses a read-only filesystem and applies the documented privilege controls.
   On pull requests and manually started workflows, it also compares Geonovum
   checker findings with the reviewed diagnostic baseline. Despite the job
   name, the smoke step does not execute the process and the checker only
@@ -121,12 +124,11 @@ coverage.
 
 ## Validate configuration and OpenAPI
 
-Validate the normal development configuration and generate its OpenAPI
-document:
+Validate the public configuration and generate its OpenAPI document:
 
 ```bash
-uv run pygeoapi config validate --config config/pygeoapi.development.yml
-uv run pygeoapi openapi generate --format yaml --output-file pygeoapi-openapi.yml config/pygeoapi.development.yml
+uv run pygeoapi config validate --config config/pygeoapi.yml
+uv run pygeoapi openapi generate --format yaml --output-file pygeoapi-openapi.yml config/pygeoapi.yml
 uv run pygeoapi openapi validate pygeoapi-openapi.yml
 ```
 
@@ -204,6 +206,28 @@ docker compose -f compose.yml -f compose.integration.yml up --build --detach
 This configuration uses disposable TinyDB storage and exposes `async-echo`.
 It must not be deployed publicly and does not demonstrate persistent jobs or
 callbacks.
+
+## Build and check the release image
+
+Build and start the API without source or configuration mounts:
+
+```bash
+docker compose --file compose.release.yml config --quiet
+docker compose --file compose.release.yml up --build --detach
+python3 scripts/smoke_discovery.py --base-url http://localhost:5001 --wait-seconds 60
+python3 scripts/check_release_container.py
+```
+
+Stop it with:
+
+```bash
+docker compose --file compose.release.yml down --volumes --remove-orphans
+```
+
+The release check is separate from the discovery smoke test: one verifies
+container isolation, while the other verifies that the HTTP service starts and
+publishes the expected process. See [Release image](release-image.md) for the
+boundary between a portable artifact and a production deployment.
 
 ## Branch and review policy
 

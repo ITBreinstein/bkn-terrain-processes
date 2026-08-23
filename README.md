@@ -25,6 +25,7 @@ Its complete development history is retained intentionally.
 | Synchronous OGC API Processes execution | Implemented |
 | Raw and document response forms | Implemented |
 | Automated source, schema and HTTP contract tests | Implemented |
+| Self-contained, non-root release container | Implemented |
 | GeoJSON Point, Polygon or MultiPolygon input | Not implemented |
 | Referenced input files | Not implemented |
 | Asynchronous terrain jobs and persistent results | Not implemented |
@@ -55,12 +56,12 @@ Its complete development history is retained intentionally.
 Python 3.12 and [uv](https://docs.astral.sh/uv/) are additionally required to
 run the checks directly on the host.
 
-## Start the API locally
+## Start the self-contained API
 
 ```bash
 cp .env.example .env
-docker compose up --build --detach
-docker compose ps
+docker compose --file compose.release.yml up --build --detach
+docker compose --file compose.release.yml ps
 ```
 
 The API is available at <http://localhost:5001> by default.
@@ -88,6 +89,15 @@ metres. The response includes percentages for both circular areas, source and
 collection counts, timing information and the classification method used.
 Because the process queries live PDOK data, its exact result can change as the
 source registration changes.
+
+The release stack uses the application and configuration copied into the
+image. It runs without host mounts as a non-root user with a read-only root
+filesystem. See [Release image](docs/release-image.md) for its guarantees and
+the production concerns that remain outside this repository.
+
+Developers can instead start the bind-mounted configuration with
+`docker compose up --build --detach`; source changes then become available
+after restarting the API container.
 
 ## Run the checks
 
@@ -131,13 +141,15 @@ process.
   heights can be combined by the current overlap-removal logic.
 - Six of the eight live point baselines are historical regression values, not
   independently calculated ground truth.
-- The Compose setup is a development environment with bind-mounted source; it
-  is not a self-contained production image.
+- The release image is self-contained but is not a managed production service:
+  TLS termination, authentication, hosting, monitoring and support remain
+  deployment responsibilities.
 
 ## Documentation
 
 - [Architecture](docs/architecture.md)
 - [Development workflow](docs/development.md)
+- [Release image](docs/release-image.md)
 - [Validation and evidence boundaries](docs/validation.md)
 - [Security policy](SECURITY.md)
 - [Contributing](CONTRIBUTING.md)

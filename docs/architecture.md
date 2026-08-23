@@ -79,10 +79,25 @@ The fixture demonstrates selected pygeoapi routes, not terrain-process
 capabilities. Its job state is disposable, its results are unrelated to BGT,
 and it must not be deployed as the public API.
 
-## Development container
+## Container profiles
 
-The Compose service builds on `geopython/pygeoapi:0.23.4`. Configuration and
-Breinstein source are mounted read-only from the working tree. This makes local
-iteration straightforward but means the image is not a self-contained release
-artifact. An internet-facing deployment would need a separately reviewed
-image and operational design.
+The image builds on `geopython/pygeoapi:0.23.4`, pinned by digest. Breinstein
+source, the release configuration, OpenAPI compatibility correction and
+licence notices are copied into the image. Its Python dependencies come from
+that immutable pygeoapi runtime and satisfy the versions declared by this
+project.
+
+`compose.release.yml` runs that image without host mounts. It uses an
+unprivileged user, a read-only root filesystem, ephemeral `/tmp` storage,
+drops all Linux capabilities and prevents privilege escalation. Generated
+OpenAPI and AsyncAPI files are written to `/tmp` during container startup.
+
+The normal `compose.yml` adds read-only source and development-configuration
+mounts to the same image. This preserves a quick local-edit workflow without
+making the release container depend on the working tree. The integration
+overlay additionally mounts only its test configuration and `async-echo`
+fixture.
+
+These container controls make the artifact portable and provide useful
+defence in depth; they do not supply TLS, authentication, orchestration,
+monitoring or operational ownership.

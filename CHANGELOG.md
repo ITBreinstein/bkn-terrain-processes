@@ -11,6 +11,13 @@ complete development record.
 - Document implemented capabilities, known limitations and validation
   boundaries explicitly.
 
+### Added
+
+- Add a self-contained release image with no source mounts.
+- Run the release container as a non-root user with a read-only filesystem and
+  reduced Linux privileges.
+- Validate release configuration, startup and isolation properties in CI.
+
 ## 0.2.0
 
 ### Added

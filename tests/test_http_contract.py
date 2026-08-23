@@ -27,7 +27,7 @@ VALID_INPUTS = {
 @pytest.fixture(scope="module")
 def http_client(tmp_path_factory):
     repository = Path(__file__).resolve().parents[1]
-    with (repository / "config/pygeoapi.development.yml").open(encoding="utf-8") as config_file:
+    with (repository / "config/pygeoapi.yml").open(encoding="utf-8") as config_file:
         config = yaml.safe_load(config_file)
 
     config["server"]["url"] = "http://example.test"
