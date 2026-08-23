@@ -50,7 +50,7 @@ metadata:
     provider:
         name: Breinstein Informatiemanagement B.V.
     contact:
-        name: BKN Terrain Processes delivery team
+        name: Breinstein open-source maintainers
         role: pointOfContact
 
 resources:

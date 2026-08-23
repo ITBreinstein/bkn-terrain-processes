@@ -1,116 +1,88 @@
 # Architecture
 
-## Current development baseline
+## Current system
 
 ```text
 client
   |
   v
-pygeoapi development container
+pygeoapi 0.23.4 / Flask
+  |
+  +-- request guard and synchronous result adapter
   |
   v
-bkn_terrain_processes calculation
+BgtLandCoverSummaryProcessor
+  |
+  v
+terrain calculation
   |
   v
 PDOK BGT OGC API Features
 ```
 
-The normal development configuration exposes only
-`bgt-land-cover-summary`. It currently executes synchronously and accepts the
-original point/two-radius inputs.
+The normal configuration exposes one process: `bgt-land-cover-summary`. It
+accepts latitude, longitude and two radii, executes in the request thread and
+returns a JSON summary. The calculation converts the centre to EPSG:28992 for
+metric buffers and retrieves five BGT feature collections from PDOK.
 
-The processor returns one named output internally. The local
-`OgcSynchronousManager` is the HTTP-boundary adapter for the pinned pygeoapi
-0.23.4 release: it returns the summary itself for a raw request and a
-`summary`-keyed qualified-value map for a document request. It also removes the
-framework's unconditional Callback declaration from the public synchronous
-service. This is an explicit compatibility seam, not calculation logic. A
-future PostgreSQL/asynchronous manager must preserve the same response contract
-when results are retrieved. Its initial asynchronous execution response instead
-uses `201` status information. It may declare Callback only after that product
-lifecycle is tested.
+PDOK pages are followed through their opaque `rel=next` links. All collection
+requests use the same retrieval timestamp. Feature geometries are clipped to
+the two circles, assigned to application-defined categories and de-duplicated
+before their area percentages are calculated.
 
-## Staged capability activation
+## pygeoapi compatibility boundary
 
-The pinned pygeoapi release contains generic async, job and subscriber code,
-but its presence does not mean that the product process implements those
-capabilities. The public contract is controlled by process metadata, the
-configured manager, the WSGI request guard, the generated-OpenAPI correction
-and product HTTP tests together. Change these layers as one reviewed feature;
-never infer support merely from a pygeoapi route being available.
+Pygeoapi supplies discovery, routing, process descriptions and the base
+execution machinery. Breinstein code remains in the installable
+`bkn_terrain_processes` package rather than being copied into pygeoapi's own
+namespace.
 
-The current sync-only state is enforced deliberately:
+Three narrow adapters make the public contract explicit for the pinned
+pygeoapi 0.23.4 release:
 
-- `PROCESS_METADATA.jobControlOptions` contains only `sync-execute`;
-- `OgcSynchronousManager` ignores an async preference, rejects subscribers and
-  removes pygeoapi's unconditional Callback conformance declaration;
-- the WSGI request guard rejects every `subscriber` member;
-- the OpenAPI correction removes the generated `201` response; and
-- the product HTTP tests assert all four restrictions.
+1. `app.py` rejects malformed execution documents and subscriber requests
+   before framework internals can turn them into an HTML server error.
+2. `manager.py` runs synchronously, converts the processor's internal named
+   output to the OGC raw or document representation and removes the Callback
+   conformance declaration that the service has not implemented.
+3. `patch_pygeoapi_openapi.py` corrects known generated-document gaps after
+   pygeoapi creates its OpenAPI file at container startup. It describes
+   existing process-list limiting and 404 behaviour, documents the synchronous
+   result forms and removes the unimplemented asynchronous `201` response.
 
-Persistent async may be activated before Callback. When async execution is
-implemented, the PostgreSQL manager must reuse `format_process_result`, add
-`async-execute` to the process description, restore an accurate `201` response,
-and return `Location` and `Preference-Applied: respond-async` only after durable
-job creation succeeds. The stored job result must use the same raw/document
-contract as synchronous execution. Update the product HTTP tests and reviewed
-Geonovum baseline in the same change.
+These adapters are version-specific. They need review if pygeoapi is upgraded;
+a generated OpenAPI document is not assumed to describe runtime behaviour
+correctly merely because the framework produced it.
 
-Callback is a separate activation step. Keep subscriber rejection and the
-Callback conformance URI absent until the durable callback queue, bounded
-retries and timeouts, outcome recording, and outbound-URL safeguards have been
-tested end to end. Enabling an async manager alone must not advertise Callback.
+## Capability boundary
 
-Job List is another explicit step: implement all filters required by the
-selected checker profile, describe them in OpenAPI, add runtime tests, and only
-then remove the corresponding baseline diagnostics. The outstanding work is
-also tracked in [delivery requirements](delivery-requirements.md).
+The terrain process deliberately declares only `sync-execute`.
 
-An integration-only configuration adds a predictable `async-echo` fixture and
-TinyDB manager. The fixture gives OGC CITE a controlled process for testing
-synchronous and asynchronous API execution without terrain-specific inputs or
-live PDOK data. TinyDB state is disposable and does not demonstrate persistent
-jobs or recovery after a restart. This setup is not part of the public API or
-the target architecture.
+- `Prefer: respond-async` does not create a job and no
+  `Preference-Applied: respond-async` header is returned.
+- Every `subscriber` member is rejected.
+- No asynchronous `201` response is advertised for this process.
+- There is no durable job/result store, job dismissal or restart recovery.
 
-## Target delivery architecture
+The calculation has an optional in-process progress hook. Nothing in the
+normal HTTP service connects that hook to an OGC job resource or subscriber;
+it must not be mistaken for public asynchronous support.
 
-```text
-                    +----------------+
-client ------------>| pygeoapi / API |
-                    +-------+--------+
-                            |
-               +------------+-------------+
-               |                          |
-        synchronous core          bounded job queue
-                                           |
-                                           v
-                                    worker processes
-                                           |
-                     +---------------------+------------------+
-                     |                                        |
-                 PDOK BGT                              callback delivery
-                     |
-                     v
-              calculation core
-                     |
-                     v
-           PostgreSQL job/result state
-```
+## Integration-only fixture
 
-Synchronous requests and workers call the same calculation core. Persistent
-job/result state is separate from disposable containers. Callback delivery
-cannot block calculation workers. The exact queue/worker implementation is an
-open architecture decision and must be recorded before implementation. The
-current TinyDB integration can inform that work, but PostgreSQL is the planned
-persistent store; reuse must be decided from behaviour and tests rather than
-assuming that the temporary storage design carries over.
+`compose.integration.yml` replaces the synchronous manager with pygeoapi's
+disposable TinyDB manager and adds `async-echo` from `tests/fixtures`. This
+controlled process exists only because OGC CITE needs a predictable execution
+contract for several generic runtime tests.
 
-## Package boundary
+The fixture demonstrates selected pygeoapi routes, not terrain-process
+capabilities. Its job state is disposable, its results are unrelated to BGT,
+and it must not be deployed as the public API.
 
-Breinstein code lives in the installable `bkn_terrain_processes` package. It
-must not be copied into or imported under pygeoapi's own `pygeoapi.process`
-namespace. Pygeoapi supplies the standard HTTP framework; the calculation and
-its contract remain independently testable. Version-specific compatibility is
-implemented through pygeoapi's plugin boundary and the narrow generated
-OpenAPI correction, rather than by maintaining a private copy of pygeoapi.
+## Development container
+
+The Compose service builds on `geopython/pygeoapi:0.23.4`. Configuration and
+Breinstein source are mounted read-only from the working tree. This makes local
+iteration straightforward but means the image is not a self-contained release
+artifact. An internet-facing deployment would need a separately reviewed
+image and operational design.

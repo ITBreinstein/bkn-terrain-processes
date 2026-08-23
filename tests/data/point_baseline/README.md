@@ -60,5 +60,5 @@ successful exit code.
 Coordinates are stored in explicit `latitude` and `longitude` fields. GeoJSON
 examples must reverse these into `[longitude, latitude]` order.
 
-These cases can also supply example coordinates for the demo service. They do
-not replace the promised independently verified QGIS reference package.
+These cases also supply useful example coordinates. They are regression
+evidence, not independent validation of the classification or percentages.

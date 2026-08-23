@@ -1,8 +1,8 @@
 # OGC CITE/TEAM Engine evidence
 
 This directory records the accepted OGC API - Processes 1.0 TEAM Engine
-baseline. It is evidence of the observed implementation state, not permission
-to ignore failures. The delivery target remains zero errors.
+baseline. It is evidence of the observed implementation state, not a
+conformance certificate. Known failures are retained for transparency.
 
 The recorded execution tests use the integration-only `async-echo` process,
 because the CITE suite expects its controlled input/output contract. Selecting

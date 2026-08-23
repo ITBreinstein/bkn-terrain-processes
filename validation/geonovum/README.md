@@ -10,9 +10,8 @@ The current baseline contains eight diagnostics. Seven come from the optional
 Job List ruleset bundled into the selected checker profile. The eighth asks for
 an asynchronous `201` response even though the current product process declares
 only synchronous execution. The OpenAPI deliberately omits that unimplemented
-response; the async branch must resolve this diagnostic by adding both the
-runtime behaviour and its description. The baseline is a regression record,
-not a conformance claim. The recorded rulesets also do not include the separate
+response. The baseline is a regression record, not a conformance claim or a
+roadmap commitment. The recorded rulesets also do not include the separate
 OpenAPI 3.0 conformance class.
 
 Run the normal API with an explicit loopback address:
@@ -44,5 +43,4 @@ python3 scripts/check_geonovum_baseline.py --update-baseline
 ```
 
 Never use `--update-baseline` in CI. Review every baseline change and explain
-the added, resolved or changed diagnostic in the pull request. The delivery
-target remains an empty diagnostic list.
+the added, resolved or changed diagnostic in the pull request.

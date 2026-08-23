@@ -78,7 +78,7 @@ Run the checks used by the CI `quality` job:
 uv run ruff format --check src tests scripts
 uv run ruff check src tests scripts
 uv run bandit -r src scripts -c pyproject.toml
-uv run pytest --cov=bkn_terrain_processes --cov-report=term-missing --cov-fail-under=30
+uv run pytest --cov=bkn_terrain_processes --cov-report=term-missing --cov-fail-under=70
 ```
 
 The formatting check reports files that need formatting without changing them.
@@ -88,9 +88,9 @@ To apply the formatter, run:
 uv run ruff format src tests scripts
 ```
 
-The 30% coverage threshold protects the existing baseline from decreasing. It
-is not the final test-coverage target. Feature branches should add tests for
-the behaviour they introduce.
+The 70% threshold protects the tested baseline from decreasing. Coverage is a
+warning signal rather than a quality score: feature branches should still add
+tests for the behaviour and failure modes they introduce.
 
 ## Check live PDOK results
 
@@ -212,6 +212,6 @@ Use short-lived `feat/`, `fix/`, `test/`, `docs/`, `build/`, `chore/` or
 working on it. Open a pull request into `main` to start CI, describe how the
 change was verified and ask for review where practical.
 
-Keep `main` runnable. The accepted public process schema, classification
-method, callback security and deployment architecture require review by their
-workstream owners.
+Keep `main` runnable. Changes to the public process schema, classification
+method, validation baseline or deployment architecture require explicit review
+because they alter the behaviour or evidence presented to users.
