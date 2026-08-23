@@ -3,7 +3,8 @@
 This is the first useful OGC API - Processes 1.0 CITE baseline for the
 integration configuration. The CITE-compatible echo fixture was present, so
 its results distinguish remaining API/schema findings from fixture setup
-failures. The delivery target remains zero errors.
+failures. It remains a historical, incomplete result rather than a conformance
+claim.
 
 ## Run metadata
 

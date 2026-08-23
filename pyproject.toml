@@ -1,7 +1,7 @@
 [project]
 name = "bkn-terrain-processes"
 version = "0.2.0"
-description = "BKN-oriented terrain summaries exposed through OGC API Processes"
+description = "Synchronous BGT land-cover summaries exposed through OGC API Processes"
 readme = "README.md"
 license = { file = "LICENSE" }
 authors = [{ name = "Breinstein Informatiemanagement B.V." }]

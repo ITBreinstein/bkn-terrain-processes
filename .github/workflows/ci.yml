@@ -65,7 +65,7 @@ jobs:
             /tmp/integration-openapi.yml
 
       - name: Test with coverage
-        run: uv run pytest --cov=bkn_terrain_processes --cov-report=term-missing --cov-fail-under=30
+        run: uv run pytest --cov=bkn_terrain_processes --cov-report=term-missing --cov-fail-under=70
 
   api-validation:
     name: API runtime and conformance
