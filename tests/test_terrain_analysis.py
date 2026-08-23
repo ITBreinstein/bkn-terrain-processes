@@ -115,6 +115,28 @@ def test_progress_is_not_reported_without_a_callback(covered_pdok):
     assert run_analysis()["process"]["algorithm_version"]
 
 
+def test_covering_high_vegetation_keeps_the_calculated_public_result(covered_pdok):
+    result = run_analysis()
+
+    expected_area_summary = {
+        "bkn_indicators": {
+            "low_vegetation_proxy_pct": 0,
+            "medium_vegetation_proxy_pct": 0,
+            "high_vegetation_proxy_pct": 100.0,
+            "water_surface_pct": 0,
+            "unpaved_surface_proxy_pct": 100.0,
+        },
+        "supporting_land_cover": {
+            "unknown_vegetation_pct": 0,
+            "road_pct": 0,
+            "built_pct": 0,
+            "bgt_explicitly_unpaved_pct": 0,
+        },
+    }
+    assert result["within_inner_radius"] == expected_area_summary
+    assert result["within_outer_radius"] == expected_area_summary
+
+
 def test_progress_advances_monotonically_to_a_terminal_phase(covered_pdok):
     reported = []
 
