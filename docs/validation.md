@@ -118,11 +118,12 @@ and verifies its exact diagnostic baseline instead.
 The CI workflow runs `@geonovum/ogc-checker` version `1.2.0` with its OGC API -
 Processes `1.0.0` profile against the normal API's `/openapi?f=json` document.
 The current profile applies Core, Job List, JSON and OGC Process Description
-rules. The stored baseline contains eight diagnostics: seven for Job List
-query parameters and one for the intentionally absent asynchronous `201`
-response. The normal service does not implement jobs. The recorded rulesets do
-not include the separate OpenAPI 3.0 conformance class, even though the service
-currently declares it.
+rules. The stored baseline contains four diagnostics: three for the deliberately
+absent job and job-result paths and one for the intentionally absent
+asynchronous `201` response. The normal service does not implement jobs, so its
+public OpenAPI suppresses pygeoapi's generic job routes instead of presenting
+them as product capabilities. The recorded rulesets do not include the separate
+OpenAPI 3.0 conformance class, even though the service currently declares it.
 
 The Geonovum checker is a static OpenAPI check. A zero-diagnostic result for a
 selected ruleset would still not prove that the running processor rejects the

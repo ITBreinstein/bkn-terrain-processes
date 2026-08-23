@@ -17,6 +17,26 @@
   "diagnostics": [
     {
       "severity": "error",
+      "code": "/req/core/job",
+      "message": "The server SHALL support the HTTP GET operation at the path `/jobs/{jobID}`.",
+      "path": [
+        "paths"
+      ],
+      "source": "http://www.opengis.net/spec/ogcapi-processes-1/1.0/conf/core",
+      "documentationUrl": "https://docs.ogc.org/is/18-062r2/18-062r2.html#req_core_job"
+    },
+    {
+      "severity": "error",
+      "code": "/req/core/job-results",
+      "message": "The server SHALL support the HTTP GET operation at the path `/jobs/{jobID}/results`.",
+      "path": [
+        "paths"
+      ],
+      "source": "http://www.opengis.net/spec/ogcapi-processes-1/1.0/conf/core",
+      "documentationUrl": "https://docs.ogc.org/is/18-062r2/18-062r2.html#req_core_job-results"
+    },
+    {
+      "severity": "error",
       "code": "/req/core/process-execute-success-async",
       "message": "A successful asynchronous execution SHALL be reported with HTTP status code `201`. \"responses[201]\" property must be truthy",
       "path": [
@@ -30,59 +50,13 @@
     },
     {
       "severity": "error",
-      "code": "/req/job-list/datetime-definition",
-      "message": "The operation SHALL support a parameter `datetime`. Parameter \"datetime\" is missing.",
-      "path": ["paths", "/jobs", "get"],
+      "code": "/req/job-list/job-list-op",
+      "message": "The server SHALL support the HTTP GET operation at the path `/jobs`.",
+      "path": [
+        "paths"
+      ],
       "source": "http://www.opengis.net/spec/ogcapi-processes-1/1.0/conf/job-list",
-      "documentationUrl": "https://docs.ogc.org/is/18-062r2/18-062r2.html#req_job-list_datetime-definition"
-    },
-    {
-      "severity": "error",
-      "code": "/req/job-list/duration-definition#maxDuration",
-      "message": "The operation SHALL support a parameter `maxDuration`. Parameter \"maxDuration\" is missing.",
-      "path": ["paths", "/jobs", "get"],
-      "source": "http://www.opengis.net/spec/ogcapi-processes-1/1.0/conf/job-list",
-      "documentationUrl": "https://docs.ogc.org/is/18-062r2/18-062r2.html#req_job-list_duration-definition"
-    },
-    {
-      "severity": "error",
-      "code": "/req/job-list/duration-definition#minDuration",
-      "message": "The operation SHALL support a parameter `minDuration`. Parameter \"minDuration\" is missing.",
-      "path": ["paths", "/jobs", "get"],
-      "source": "http://www.opengis.net/spec/ogcapi-processes-1/1.0/conf/job-list",
-      "documentationUrl": "https://docs.ogc.org/is/18-062r2/18-062r2.html#req_job-list_duration-definition"
-    },
-    {
-      "severity": "error",
-      "code": "/req/job-list/limit-definition",
-      "message": "The operation SHALL support a parameter `limit`. Parameter \"limit\" is missing.",
-      "path": ["paths", "/jobs", "get"],
-      "source": "http://www.opengis.net/spec/ogcapi-processes-1/1.0/conf/job-list",
-      "documentationUrl": "https://docs.ogc.org/is/18-062r2/18-062r2.html#req_job-list_limit-definition"
-    },
-    {
-      "severity": "error",
-      "code": "/req/job-list/processID-definition",
-      "message": "The operation SHALL support a parameter `processID`. Parameter \"processID\" is missing.",
-      "path": ["paths", "/jobs", "get"],
-      "source": "http://www.opengis.net/spec/ogcapi-processes-1/1.0/conf/job-list",
-      "documentationUrl": "https://docs.ogc.org/is/18-062r2/18-062r2.html#req_job-list_processID-definition"
-    },
-    {
-      "severity": "error",
-      "code": "/req/job-list/status-definition",
-      "message": "The operation SHALL support a parameter `status`. Parameter \"status\" is missing.",
-      "path": ["paths", "/jobs", "get"],
-      "source": "http://www.opengis.net/spec/ogcapi-processes-1/1.0/conf/job-list",
-      "documentationUrl": "https://docs.ogc.org/is/18-062r2/18-062r2.html#req_job-list_status-definition"
-    },
-    {
-      "severity": "error",
-      "code": "/req/job-list/type-definition",
-      "message": "The operation SHALL support a parameter `type`. Parameter \"type\" is missing.",
-      "path": ["paths", "/jobs", "get"],
-      "source": "http://www.opengis.net/spec/ogcapi-processes-1/1.0/conf/job-list",
-      "documentationUrl": "https://docs.ogc.org/is/18-062r2/18-062r2.html#req_job-list_type-definition"
+      "documentationUrl": "https://docs.ogc.org/is/18-062r2/18-062r2.html#req_job-list_job-list-op"
     }
   ]
 }

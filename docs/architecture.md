@@ -48,7 +48,9 @@ pygeoapi 0.23.4 release:
 3. `patch_pygeoapi_openapi.py` corrects known generated-document gaps after
    pygeoapi creates its OpenAPI file at container startup. It describes
    existing process-list limiting and 404 behaviour, documents the synchronous
-   result forms and removes the unimplemented asynchronous `201` response.
+   request/result forms, removes unimplemented asynchronous options and
+   suppresses generic Collections, Jobs and unused tag documentation that is
+   not part of the public product API.
 
 These adapters are version-specific. They need review if pygeoapi is upgraded;
 a generated OpenAPI document is not assumed to describe runtime behaviour
