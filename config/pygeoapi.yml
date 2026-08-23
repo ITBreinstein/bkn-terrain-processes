@@ -1,7 +1,7 @@
 server:
     bind:
         host: 0.0.0.0
-        port: 80
+        port: 8080
     url: ${PYGEOAPI_SERVER_URL:-http://localhost:5001}
     mimetype: application/json; charset=UTF-8
     encoding: utf-8
@@ -29,9 +29,9 @@ logging:
 
 metadata:
     identification:
-        title: BKN-oriented BGT Land-cover Summary API
+        title: BGT Land-cover Summary API
         description: >-
-            Development service for calculating BKN-oriented land-cover
+            Synchronous prototype for calculating BKN-oriented land-cover
             proxies from PDOK BGT data. Results are not an official
             Basiskwaliteit Natuur assessment.
         keywords:

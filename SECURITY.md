@@ -9,11 +9,13 @@ ask for a private channel for the open-source maintainers.
 Include the affected version or commit, a concise reproduction and the likely
 impact. Do not include secrets or personal data.
 
-This repository provides a local prototype, not a production service. Its
-normal public process accepts numeric values and makes outbound requests only
-to configured PDOK collection URLs. The integration-only configuration and
-TinyDB job manager are test fixtures and must not be exposed as a public
-service.
+This repository provides a self-contained prototype image, not a managed
+production service. The release Compose configuration runs as a non-root user,
+uses a read-only root filesystem, drops Linux capabilities and prevents
+privilege escalation. Its public process accepts numeric values and makes
+outbound requests only to configured PDOK collection URLs. The integration-only
+configuration and TinyDB job manager are test fixtures and must not be exposed
+as a public service.
 
 Before any internet-facing deployment, the image and dependencies, resource
 limits, network policy, logging, secrets, update policy and operational

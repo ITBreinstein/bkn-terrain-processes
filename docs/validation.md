@@ -8,7 +8,8 @@ API Processes compliance:
 | Ruff and Bandit | Selected source formatting, quality and security patterns | They do not execute the API or assess OGC semantics. |
 | Pytest | Our functions, processor boundary and controlled failures | Most tests import Python directly rather than calling the running HTTP service. |
 | pygeoapi config/OpenAPI validation | Configuration, processor imports, document generation and basic OpenAPI structure | A structurally valid document may still disagree with runtime behaviour. |
-| Discovery smoke test | A clean container starts and serves the expected discovery resources | It deliberately does not execute the terrain process. |
+| Discovery smoke test | The self-contained release container starts and serves the expected discovery resources | It deliberately does not execute the terrain process. |
+| Release-container check | The running release container has no mounts and applies the documented user, filesystem and privilege controls | It does not assess application security or provide operational monitoring. |
 | Geonovum checker | Static OGC rules applied to the generated `/openapi?f=json` document | It cannot observe input coercion, actual response bodies or terrain results. |
 | CITE/TEAM Engine | Runtime tests of the integration service; execution cases use `async-echo` | It does not execute `bgt-land-cover-summary` or prove its calculation/job behaviour. |
 | Live point baseline | The calculation function communicates with PDOK and preserves selected point outputs | It bypasses HTTP and six expectations are historical rather than independently calculated. |
@@ -35,7 +36,7 @@ Start the API with its integration-only configuration. `http://api` is the
 address by which another container on the Compose network can reach it:
 
 ```bash
-PYGEOAPI_SERVER_URL=http://api \
+PYGEOAPI_SERVER_URL=http://api:8080 \
 docker compose \
   -f compose.yml \
   -f compose.integration.yml \
@@ -56,7 +57,7 @@ docker run --detach \
 Open <http://localhost:8081/teamengine/> and sign in with username `ogctest`
 and password `ogctest`. Create an OGC API - Processes 1.0 session with:
 
-- landing page: `http://api/`;
+- landing page: `http://api:8080/`;
 - echo process identifier: `async-echo`;
 - test all processes: selected.
 

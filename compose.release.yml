@@ -3,15 +3,18 @@ services:
     build:
       context: .
       dockerfile: docker/Dockerfile
-    image: bkn-terrain-processes-dev:0.2.0
-    pull_policy: build
+    image: bkn-terrain-processes:0.2.0
     ports:
       - "${API_PORT:-5001}:8080"
     environment:
       PYGEOAPI_SERVER_URL: ${PYGEOAPI_SERVER_URL:-http://localhost:5001}
-    volumes:
-      - ./config/pygeoapi.yml:/pygeoapi/local.config.yml:ro
-      - ./src/bkn_terrain_processes:/pygeoapi/bkn_terrain_processes:ro
+    read_only: true
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,size=64m
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
     healthcheck:
       test:
         - CMD
