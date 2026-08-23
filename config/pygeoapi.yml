@@ -50,7 +50,9 @@ metadata:
     provider:
         name: Breinstein Informatiemanagement B.V.
     contact:
-        name: Breinstein open-source maintainers
+        # Required by pygeoapi's configuration schema. The incomplete contact
+        # object is omitted from the published OpenAPI document.
+        name: Breinstein Informatiemanagement B.V.
         role: pointOfContact
 
 resources:

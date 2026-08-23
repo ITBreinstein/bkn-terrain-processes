@@ -6,13 +6,13 @@ OpenAPI document; it does not execute the terrain process. OGC CITE/TEAM Engine
 tests generic runtime behaviour separately through the integration-only echo
 fixture, and product HTTP tests are required for `bgt-land-cover-summary`.
 
-The current baseline contains eight diagnostics. Seven come from the optional
-Job List ruleset bundled into the selected checker profile. The eighth asks for
-an asynchronous `201` response even though the current product process declares
-only synchronous execution. The OpenAPI deliberately omits that unimplemented
-response. The baseline is a regression record, not a conformance claim or a
-roadmap commitment. The recorded rulesets also do not include the separate
-OpenAPI 3.0 conformance class.
+The current baseline contains four diagnostics. Three report that the Job List
+and job-result paths are absent; the fourth asks for an asynchronous `201`
+response. The public OpenAPI deliberately suppresses pygeoapi's generic job
+routes because the terrain process declares only synchronous execution and
+never creates jobs. The baseline is a regression record, not a conformance
+claim or a roadmap commitment. The recorded rulesets also do not include the
+separate OpenAPI 3.0 conformance class.
 
 Run the normal API with an explicit loopback address:
 

@@ -8,17 +8,55 @@ from scripts.patch_pygeoapi_openapi import (
 
 def _generated_document():
     return {
+        "info": {
+            "title": "BGT Land-cover Summary API",
+            "version": "0.23.4",
+            "contact": {"name": None},
+        },
+        "tags": [
+            {"name": "server"},
+            {"name": "coverages"},
+            {"name": "features"},
+            {"name": "jobs"},
+            {"name": "processes"},
+        ],
         "paths": {
-            "/conformance": {"get": {"responses": {"200": {"$ref": "wrong-landing-page"}}}},
+            "/": {
+                "get": {
+                    "tags": ["server"],
+                    "responses": {
+                        "200": {
+                            "description": "generic",
+                            "content": {"application/json": {"example": {"title": "Buildings in Bonn"}}},
+                        }
+                    },
+                }
+            },
+            "/collections": {"get": {"tags": ["server"], "responses": {"200": {}}}},
+            "/conformance": {
+                "get": {
+                    "tags": ["server"],
+                    "responses": {"200": {"$ref": "wrong-landing-page"}},
+                }
+            },
+            "/jobs": {"get": {"tags": ["jobs"], "responses": {"200": {}}}},
+            "/jobs/{jobId}": {"get": {"tags": ["jobs"], "responses": {"404": {}}}},
             "/processes": {
                 "get": {
+                    "tags": ["server"],
                     "parameters": [{"$ref": "#/components/parameters/f"}],
                     "responses": {"200": {"$ref": "processes-1.0-list"}},
                 }
             },
-            "/processes/bgt-land-cover-summary": {"get": {"responses": {"200": {"description": "ok"}}}},
+            "/processes/bgt-land-cover-summary": {
+                "get": {
+                    "tags": ["bgt-land-cover-summary"],
+                    "responses": {"200": {"description": "ok"}},
+                }
+            },
             "/processes/bgt-land-cover-summary/execution": {
                 "post": {
+                    "tags": ["bgt-land-cover-summary"],
                     "parameters": [
                         {
                             "name": "Prefer",
@@ -26,6 +64,16 @@ def _generated_document():
                             "schema": {"type": "string", "enum": ["respond-sync"]},
                         }
                     ],
+                    "requestBody": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {"subscriber": {"type": "object"}},
+                                }
+                            }
+                        }
+                    },
                     "responses": {
                         "200": {
                             "description": "ok",
@@ -43,7 +91,7 @@ def _generated_document():
                     },
                 }
             },
-        }
+        },
     }
 
 
@@ -105,5 +153,50 @@ def test_patch_describes_synchronous_success_and_validation_responses():
         "additionalProperties": False,
     }
 
-    prefer_parameter = document["paths"]["/processes/bgt-land-cover-summary/execution"]["post"]["parameters"][0]
-    assert prefer_parameter["schema"]["enum"] == ["respond-async"]
+    execution = document["paths"]["/processes/bgt-land-cover-summary/execution"]["post"]
+    assert execution["parameters"] == []
+
+    request = execution["requestBody"]["content"]["application/json"]
+    assert request["example"]["inputs"]["latitude"] == 52.6324
+    request_schema = request["schema"]
+    assert request_schema["required"] == ["inputs"]
+    assert set(request_schema["properties"]) == {"inputs", "outputs", "response"}
+    assert request_schema["properties"]["inputs"]["required"] == ["latitude", "longitude"]
+    assert request_schema["properties"]["response"]["enum"] == ["raw", "document"]
+    assert "subscriber" not in request_schema["properties"]
+
+
+def test_patch_publishes_only_relevant_product_documentation():
+    document = patch_openapi_document(_generated_document(), 10, 50)
+
+    assert document["info"]["version"] == "0.2.0"
+    assert "contact" not in document["info"]
+    assert "/collections" not in document["paths"]
+    assert not any(path == "/jobs" or path.startswith("/jobs/") for path in document["paths"])
+    assert document["tags"] == [{"name": "Service information"}]
+
+    service_operations = [
+        operation
+        for path_item in document["paths"].values()
+        for operation in path_item.values()
+        if isinstance(operation, dict) and "Service information" in operation.get("tags", [])
+    ]
+    assert service_operations
+    assert all("server" not in operation.get("tags", []) for operation in service_operations)
+
+    landing_example = document["paths"]["/"]["get"]["responses"]["200"]["content"]["application/json"]["example"]
+    assert landing_example["title"] == "BGT Land-cover Summary API"
+    assert "Bonn" not in str(landing_example)
+
+
+def test_patch_keeps_generic_job_documentation_for_integration_configuration():
+    document = _generated_document()
+    document["paths"].pop("/processes/bgt-land-cover-summary/execution")
+    document["paths"]["/processes/async-echo"] = document["paths"].pop("/processes/bgt-land-cover-summary")
+
+    patched = patch_openapi_document(document, 10, 50)
+
+    assert "/collections" in patched["paths"]
+    assert "/jobs" in patched["paths"]
+    assert patched["info"]["version"] == "0.23.4"
+    assert {tag["name"] for tag in patched["tags"]} >= {"server", "jobs"}

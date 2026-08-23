@@ -10,6 +10,8 @@ complete development record.
 - Reframe the repository as an independent synchronous prototype.
 - Document implemented capabilities, known limitations and validation
   boundaries explicitly.
+- Limit generated OpenAPI and Redoc documentation to the public synchronous
+  process and service-information resources.
 
 ### Added
 

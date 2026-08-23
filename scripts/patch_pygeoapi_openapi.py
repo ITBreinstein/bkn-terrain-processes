@@ -1,10 +1,12 @@
 #!/usr/bin/env python3
-"""Correct known pygeoapi 0.23.4 OpenAPI gaps for Processes discovery.
+"""Align pygeoapi 0.23.4's generated OpenAPI with the public product API.
 
 pygeoapi already implements process-list limiting and unknown-process 404
 responses. This module makes those behaviours, the conformance and process-list
 response bodies, and the public process's synchronous execution responses
-explicit in the generated OpenAPI document.
+explicit in the generated OpenAPI document. It also removes generic framework
+operations and presentation metadata that this synchronous product does not
+offer.
 
 The references are pinned to the official OGC API Processes 1.0 schemas. This
 compatibility pass must be removed when the selected pygeoapi release generates
@@ -20,7 +22,13 @@ from typing import Any
 
 import yaml
 
+from bkn_terrain_processes import __version__
+from bkn_terrain_processes.process_contract import PROCESS_METADATA
+
 SCHEMA_BASE = "https://schemas.opengis.net/ogcapi/processes/part1/1.0/openapi/schemas"
+PUBLIC_PROCESS_PATH = "/processes/bgt-land-cover-summary"
+PUBLIC_EXECUTION_PATH = "/processes/bgt-land-cover-summary/execution"
+SERVICE_TAG = "Service information"
 
 
 def _json_response(description: str, schema_path: str) -> dict[str, Any]:
@@ -30,6 +38,156 @@ def _json_response(description: str, schema_path: str) -> dict[str, Any]:
         "description": description,
         "content": {"application/json": {"schema": {"$ref": f"{SCHEMA_BASE}/{schema_path}"}}},
     }
+
+
+def _landing_page_response() -> dict[str, Any]:
+    """Describe this service instead of pygeoapi's generic Bonn example."""
+    return {
+        "description": "Information about the BGT Land-cover Summary API.",
+        "content": {
+            "application/json": {
+                "schema": {
+                    "type": "object",
+                    "required": ["title", "description", "links"],
+                    "properties": {
+                        "title": {"type": "string"},
+                        "description": {"type": "string"},
+                        "links": {
+                            "type": "array",
+                            "items": {
+                                "type": "object",
+                                "required": ["href", "rel", "type"],
+                                "properties": {
+                                    "href": {"type": "string", "format": "uri"},
+                                    "rel": {"type": "string"},
+                                    "type": {"type": "string"},
+                                    "title": {"type": "string"},
+                                    "hreflang": {"type": "string"},
+                                },
+                                "additionalProperties": True,
+                            },
+                        },
+                    },
+                    "additionalProperties": False,
+                },
+                "example": {
+                    "title": "BGT Land-cover Summary API",
+                    "description": (
+                        "Synchronous prototype for calculating BKN-oriented land-cover proxies from PDOK BGT data."
+                    ),
+                    "links": [
+                        {
+                            "href": "http://localhost:5001/processes/bgt-land-cover-summary",
+                            "rel": "http://www.opengis.net/def/rel/ogc/1.0/process-desc",
+                            "type": "application/json",
+                            "title": "BGT land-cover summary process",
+                        }
+                    ],
+                },
+            }
+        },
+    }
+
+
+def _execution_request_schema() -> dict[str, Any]:
+    """Describe only the execution members accepted by the public process."""
+    input_definitions = PROCESS_METADATA["inputs"]
+    input_properties = {name: deepcopy(definition["schema"]) for name, definition in input_definitions.items()}
+    required_inputs = [name for name, definition in input_definitions.items() if definition.get("minOccurs", 0) > 0]
+
+    return {
+        "type": "object",
+        "required": ["inputs"],
+        "properties": {
+            "inputs": {
+                "type": "object",
+                "required": required_inputs,
+                "properties": input_properties,
+                "additionalProperties": False,
+            },
+            "outputs": {
+                "type": "object",
+                "minProperties": 1,
+                "properties": {
+                    "summary": {
+                        "type": "object",
+                        "properties": {
+                            "transmissionMode": {
+                                "type": "string",
+                                "enum": ["value"],
+                                "default": "value",
+                            },
+                            "format": {
+                                "type": "object",
+                                "properties": {
+                                    "mediaType": {
+                                        "type": "string",
+                                        "enum": ["application/json"],
+                                        "default": "application/json",
+                                    }
+                                },
+                                "additionalProperties": False,
+                            },
+                        },
+                        "additionalProperties": False,
+                    }
+                },
+                "additionalProperties": False,
+            },
+            "response": {
+                "type": "string",
+                "enum": ["raw", "document"],
+                "default": "raw",
+            },
+        },
+        "additionalProperties": False,
+    }
+
+
+def _rename_service_tag(document: dict[str, Any]) -> None:
+    """Give pygeoapi's generic server group a user-facing name."""
+    for tag in document.get("tags", []):
+        if tag.get("name") == "server":
+            tag["name"] = SERVICE_TAG
+
+    for path_item in document.get("paths", {}).values():
+        for operation in path_item.values():
+            if not isinstance(operation, dict):
+                continue
+            operation_tags = operation.get("tags", [])
+            operation["tags"] = [SERVICE_TAG if tag == "server" else tag for tag in operation_tags]
+
+
+def _remove_unused_tags(document: dict[str, Any]) -> None:
+    """Remove top-level tags that no remaining operation uses."""
+    used_tags = {
+        tag
+        for path_item in document.get("paths", {}).values()
+        for operation in path_item.values()
+        if isinstance(operation, dict)
+        for tag in operation.get("tags", [])
+    }
+    document["tags"] = [tag for tag in document.get("tags", []) if tag.get("name") in used_tags]
+
+
+def _patch_public_presentation(document: dict[str, Any]) -> None:
+    """Limit the public document to this synchronous product API."""
+    info = document.setdefault("info", {})
+    info["version"] = __version__
+    info.pop("contact", None)
+
+    paths = document["paths"]
+    paths.pop("/collections", None)
+    for path in list(paths):
+        if path == "/jobs" or path.startswith("/jobs/"):
+            paths.pop(path)
+
+    landing_page = paths.get("/", {}).get("get")
+    if landing_page is not None:
+        landing_page.setdefault("responses", {})["200"] = _landing_page_response()
+
+    _rename_service_tag(document)
+    _remove_unused_tags(document)
 
 
 def patch_openapi_document(document: dict[str, Any], default_limit: int, maximum_limit: int) -> dict[str, Any]:
@@ -74,15 +232,21 @@ def patch_openapi_document(document: dict[str, Any], default_limit: int, maximum
         if len(parts) == 2 and parts[0] == "processes":
             path_item["get"]["responses"]["404"] = not_found
 
-    for path, path_item in paths.items():
-        if path != "/processes/bgt-land-cover-summary/execution":
-            continue
-
-        execution = path_item.get("post")
-        if execution is None:
-            continue
-
-        _remove_nonstandard_sync_preference(execution)
+    execution = paths.get(PUBLIC_EXECUTION_PATH, {}).get("post")
+    if execution is not None:
+        execution["parameters"] = [
+            parameter for parameter in execution.get("parameters", []) if parameter.get("name") != "Prefer"
+        ]
+        execution["requestBody"] = {
+            "description": "Synchronous BGT land-cover summary request.",
+            "required": True,
+            "content": {
+                "application/json": {
+                    "schema": _execution_request_schema(),
+                    "example": deepcopy(PROCESS_METADATA["example"]),
+                }
+            },
+        }
 
         responses = execution["responses"]
         # The public process is synchronous on this branch. Advertising an
@@ -116,21 +280,10 @@ def patch_openapi_document(document: dict[str, Any], default_limit: int, maximum
                 ]
             }
 
+    if PUBLIC_PROCESS_PATH in paths:
+        _patch_public_presentation(document)
+
     return document
-
-
-def _remove_nonstandard_sync_preference(operation: dict[str, Any]) -> None:
-    """Replace pygeoapi's non-standard ``respond-sync`` preference token."""
-
-    for parameter in operation.get("parameters", []):
-        if parameter.get("name") != "Prefer":
-            continue
-        advertised_preferences = parameter.get("schema", {}).get("enum", [])
-        if "respond-sync" in advertised_preferences:
-            advertised_preferences.remove("respond-sync")
-            if "respond-async" not in advertised_preferences:
-                advertised_preferences.append("respond-async")
-        return
 
 
 def patch_openapi_file(openapi_path: Path, config_path: Path | None = None) -> None:
