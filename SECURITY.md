@@ -2,9 +2,7 @@
 
 Do not report a suspected vulnerability in a public issue. Use GitHub's
 **Security** tab and private vulnerability-reporting option when it is
-available for this repository. Otherwise, contact Breinstein through the
-[company contact page](https://www.breinstein.nl/contact-opdrachtgevers/) and
-ask for a private channel for the open-source maintainers.
+available for this repository.
 
 Include the affected version or commit, a concise reproduction and the likely
 impact. Do not include secrets or personal data.
