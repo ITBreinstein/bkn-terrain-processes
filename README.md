@@ -11,12 +11,12 @@ data review or ecological expertise.
 ## Project status
 
 This repository began as technical exploration for Breinstein's proposal for
-Geonovum nLDT Testbed 2026 Phase 2, Adoption Topic 1. Breinstein was assigned a
-different testbed topic, so this project is not a Geonovum deliverable and has
-not been certified or endorsed by Geonovum.
+Geonovum nLDT Testbed 2026 Phase 2, Adoption Topic 1. In the end, Breinstein 
+was assigned a different testbed topic. This project is not a Geonovum 
+deliverable and does not form part of the nLDT Testbed 2026 Phase 2. 
 
 Breinstein publishes it as an independent prototype and technical reference.
-Its complete development history is retained intentionally.
+Its development history is retained in the git commithistory
 
 | Capability | Status |
 | --- | --- |

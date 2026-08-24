@@ -1,70 +1,66 @@
-# CITE/TEAM Engine baseline — 2026-08-14
+# CITE/TEAM Engine baseline — 2026-08-24
 
-This is the first useful OGC API - Processes 1.0 CITE baseline for the
-integration configuration. The CITE-compatible echo fixture was present, so
-its results distinguish remaining API/schema findings from fixture setup
-failures. It remains a historical, incomplete result rather than a conformance
-claim.
+This directory records the latest OGC API - Processes 1.0 CITE run against
+the integration configuration. The run uses a controlled echo process to test
+the OGC API and temporary job-manager behaviour. It is useful validation
+evidence, but it is not a conformance claim for the terrain process.
 
 ## Run metadata
 
-- API source commit: `b26f1050c92d6bac851011f65c1b4a837d1a6191`
+- API source commit: `aaa97cb966123e3f548216b933f1494a55ed1c51`
 - Suite: `ogcapi-processes-1.0-1.3`
 - TEAM Engine image: `ogccite/ets-ogcapi-processes10`
 - Image digest: `sha256:8879e2d608e654d1f68aa94a2fd3b9bb1376f400737a2732ed32915a8e5211e8`
-- Landing page: `http://api/`
+- Landing page: `http://api:8080/`
 - Echo process: `async-echo`
 - Test all processes: selected
-- Process-description limit: `2` (ignored because all processes were selected)
-- Execution time: `2026-08-14T11:20:17Z` to `2026-08-14T11:20:20Z`
+- Process-description limit: `3` (ignored because all exposed processes were selected)
+- Execution time: `2026-08-24T06:50:54Z` to `2026-08-24T06:51:00Z`
 
 ## Results
 
 | Test group | Passed | Failed | Skipped |
 | --- | ---: | ---: | ---: |
-| Core | 39 | 4 | 2 |
+| Core | 40 | 3 | 2 |
 | OGC Process Description | 5 | 0 | 2 |
 | Job List | 2 | 0 | 0 |
-| **Total** | **46** | **4** | **4** |
+| **Total** | **47** | **3** | **4** |
 
-The preceding setup-limited run had 24 passes, 24 failures and 6 skips. Adding
-the CITE-compatible echo contract resolved 20 failures and two skips without
-changing the product process.
+Compared with the 2026-08-14 run, one failure became a pass:
+`testJobCreationSuccessAsync` no longer rejected the returned job-status
+document. The total therefore changed from 46 passes and 4 failures to 47
+passes and 3 failures. This run alone does not establish why that result
+changed.
 
-## Scope of the asynchronous evidence
+## Scope of the evidence
 
-The asynchronous tests execute only `async-echo` through the integration-only
-TinyDB manager. They show that the shared pygeoapi routes and temporary job
-manager can create, monitor and return results for that controlled process.
-They do not prove asynchronous execution, persistent jobs or restart recovery
-for `bgt-land-cover-summary`.
+The integration configuration exposes only `async-echo`, backed by pygeoapi's
+temporary TinyDB job manager. Consequently, all execution, process-description
+and job-management results in this run concern that controlled fixture and the
+shared pygeoapi routes. The setting to test all processes therefore still tests
+only `async-echo`.
 
-With the TinyDB manager enabled, pygeoapi currently advertises both
-`sync-execute` and `async-execute` for every process in the integration service,
-including `bgt-land-cover-summary`. Its own source metadata still declares only
-`sync-execute`. This difference is a property of the test configuration and
-must not be interpreted as a delivered product capability.
+The run does not discover or execute `bgt-land-cover-summary`. It does not prove
+asynchronous execution, persistent jobs, restart recovery or CITE conformance
+for the terrain process. Behaviour of the terrain process is covered by its own
+unit, integration and live-data checks.
 
 ## Remaining findings
 
-1. `testJobCreationInputRef` and `testJobCreationInputValidation` execute
-   successfully, but the observed body uses pygeoapi's
-   `{"id":"message","value":"teststring"}` wrapper. For a synchronous raw
-   single-output response, OGC API Processes 1.0 requires the output value
-   itself. Treat this as execution-contract evidence to resolve; do not dismiss
-   it solely as `oneOf` validator ambiguity. Recheck the generated OpenAPI
-   alternatives after correcting the runtime response.
-2. `testJobCreationSuccessAsync` receives a running job-status document whose
-   `finished` property is `null`. CITE's v1 schema does not permit that value.
-   Investigate pygeoapi's runtime status representation and documented schema.
-3. `testJobResultsExceptionResultsNotReady` receives no exception document of
-   type `result-not-ready` when it requests results while the five-second echo
-   job is still running. The runtime response does not meet the tested v1
-   requirement.
+1. `testJobCreationInputRef` and `testJobCreationInputValidation` both receive
+   `{"id":"message","value":"teststring"}`. CITE reports that this body
+   matches more than one `oneOf` alternative and therefore rejects it as
+   ambiguous. The runtime response and generated response schemas need to be
+   reviewed together before deciding whether the response or the documented
+   alternatives should change.
+2. `testJobResultsExceptionResultsNotReady` requests results while an echo job
+   is still running, but receives no exception document of type
+   `result-not-ready`. The tested OGC API - Processes 1.0 requirement expects
+   that exception.
 
 The four skipped tests are conditional. Two cover array and bounding-box input
 forms not offered by the echo fixture; two cover mixed-type process inputs and
-outputs not offered by either tested process.
+outputs not offered by the fixture.
 
 ## Evidence
 
